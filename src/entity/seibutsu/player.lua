@@ -21,6 +21,7 @@ end
 
 function Player:toKuma()
     self.form = KUMA
+    self.hp = 2
 
     self.maxSpeed = MAX_SPEED_KUMA
     self.acceleration = ACCELERATION_KUMA
@@ -177,6 +178,7 @@ function Player:handleAttack()
     }
 
     if self.form == NEKO then
+        t.onHit = self:getNekoOnHitCallback()
         t.damage = 7
         t.speed = BULLET_SPEED_NEKO
         t.img = img.bulletNeko
@@ -195,6 +197,22 @@ end
 function Player:setAttackCooldown(cd)
     self.canAttack = false
     Timer.after(cd, function() self.canAttack = true end)
+end
+
+function Player:getNekoOnHitCallback()
+    return function(x, y)
+        for i=1,26 do
+            Bullet({
+                x = x,
+                y = y,
+                speed = BULLET_SPEED_USAGI,
+                direction = i / 13,
+                friendly = true,
+                img = img.bulletSmall,
+                imgColorFilter = {255, 255, 255, 255},
+            })
+        end
+    end
 end
 
 function Player:nekoKnockback()

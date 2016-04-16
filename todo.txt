@@ -6,14 +6,15 @@
             [X] fire bullets
             [X] towards cursor
         [X] can die
+        [ ] cooldown on transform
     [ ] kuma
         [ ] attack
-        [ ] armor
+        [X] armor
         [ ] sprite
     [ ] neko
-        [ ] attack
+        [X] attack
             [X] rocket
-            [ ] explosion
+            [X] explosion
         [ ] sprite
     [ ] usagi
         [X] attack
@@ -23,13 +24,25 @@
         [X] move towards player
         [X] fires at player
         [X] don't fire until onscreen -- FOR FREE :D
+        [ ] sprite
+    [ ] boss enemy
+        [ ] only dies to kuma
+        [ ] moves to position
+        [ ] fires in direction
+        [ ] sprite
     [ ] enemy waves
         [X] spawn enemies every X
+    [ ] system
+        [ ] score
+        [ ] restart game
 
 [ ] SUKI
     [ ] player
-        [ ] fix diagonal movements
         [ ] focus
+            [ ] slow movement
+            [ ] show
+        [ ] fix diagonal movements
+    [ ] powerups?
     [ ] UI
     [ ] music
         [ ] S.E.C.R.E.T. OST (hint: *meow*)

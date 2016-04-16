@@ -17,7 +17,7 @@ function Friendly:handleBulletCollision()
     for i,item in ipairs(items) do
         self.parent:takeDamage(item.entity.damage)
 
-        item.entity:remove()
+        item.entity:hitTarget()
     end
 end
 

@@ -22,8 +22,15 @@ function Bullet:initialize(t)
 
     if t.target then
         self:shootTowardsTarget(t)
-    elseif not self:isInstanceOf(UsagiBullet) then
+    elseif t.direction then
+        self:shootTowardsDirection(t)
+    else
+        print('no target or direction for bullet')
         self:remove()
+    end
+
+    if t.onHit then
+        self.onHit = t.onHit
     end
 end
 
@@ -35,6 +42,12 @@ function Bullet:shootTowardsTarget(t)
     dx, dy = Vector.rotate(math.pi * t.angle, dx, dy)
 
     self:setSpeed(dx, dy)
+end
+
+function Bullet:shootTowardsDirection(t)
+    local x, y = self:getCenter()
+
+    self:setSpeed(Vector.rotate(math.pi * t.direction, t.speed, 0))
 end
 
 function Bullet:update(dt)
@@ -55,6 +68,15 @@ end
 function Bullet:move(relX, relY)
    self:setPosRel(relX, relY)
    return relX, relX, {}, 0
+end
+
+function Bullet:hitTarget()
+    if self.onHit then
+        local x, y = self:getCenter()
+        self.onHit(x, y)
+    end
+
+    self:remove()
 end
 
 return Bullet

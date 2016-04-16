@@ -67,6 +67,7 @@ Ui    = require 'scene.ui'
 
 local images = {
     bulletNeko = {'assets/bullet_neko.png', 8, 8},
+    bulletSmall = {'assets/bullet_small.png', 4, 4},
     bulletPlayer = {'assets/bullet_player.png', 5, 5},
     crosshair = {'assets/crosshair.png', 14, 14},
     pixel = {'assets/pixel.png', 1, 1},

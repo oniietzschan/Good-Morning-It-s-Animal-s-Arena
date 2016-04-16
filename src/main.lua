@@ -110,12 +110,12 @@ end
 function initGraphics()
     love.mouse.setVisible(false)
 
-    love.graphics.setBackgroundColor(0, 0, 0)
-    love.graphics.setDefaultFilter('nearest', 'nearest')
-    love.graphics.setLineStyle('rough')
+    lg.setBackgroundColor(0, 0, 0)
+    lg.setDefaultFilter('nearest', 'nearest')
+    lg.setLineStyle('rough')
 
-    canvas       = love.graphics.newCanvas(CAMERA_WIDTH, CAMERA_HEIGHT)
-    canvas_debug = love.graphics.newCanvas(CAMERA_WIDTH, CAMERA_HEIGHT)
+    canvas       = lg.newCanvas(CAMERA_WIDTH, CAMERA_HEIGHT)
+    canvas_debug = lg.newCanvas(CAMERA_WIDTH, CAMERA_HEIGHT)
 
     img = {}
     for name,t in pairs(images) do
@@ -166,7 +166,7 @@ function setScale(val)
 end
 
 function love.draw()
-    love.graphics.setCanvas(canvas)
+    lg.setCanvas(canvas)
 
     for _,scene in pairs(scenes) do
         if scene:isDisplay() then
@@ -174,7 +174,7 @@ function love.draw()
         end
     end
 
-    love.graphics.setCanvas()
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.draw(canvas, 0, 0, 0, _scale, _scale);
+    lg.setCanvas()
+    lg.setColor(255, 255, 255)
+    lg.draw(canvas, 0, 0, 0, _scale, _scale);
 end

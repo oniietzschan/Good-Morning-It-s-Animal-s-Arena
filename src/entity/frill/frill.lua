@@ -23,7 +23,7 @@ function Frill:isVisible()
 end
 
 function Frill:draw()
-    love.graphics.draw(
+    lg.draw(
         self.img.image,
         self.quad,
         self.x + self.offsetX,

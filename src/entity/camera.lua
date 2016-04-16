@@ -88,7 +88,7 @@ function Camera:getPos()
 end
 
 function Camera:drawEntities(layer, camX, camY)
-    love.graphics.setColor(255, 255, 255, 255)
+    lg.setColor(255, 255, 255, 255)
     for _, ent in pairs(layer.entities) do
         if ent:isVisible(camX, camY, CAMERA_WIDTH, CAMERA_HEIGHT) then
             ent:draw()

@@ -28,19 +28,19 @@ end
 
 function Ui:initFonts()
     font = {}
-    font["mono16"] = love.graphics.newImageFont(
+    font["mono16"] = lg.newImageFont(
         'assets/fonts/jasoco_mono16.png',
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 :-!.,\"?>_"
     )
     font["mono16"]:setLineHeight(1)
 
-    font["dialog"] = love.graphics.newImageFont(
+    font["dialog"] = lg.newImageFont(
         'assets/fonts/jasoco_dialog.png',
         " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`_*#=[]'{}"
     )
     font["dialog"]:setLineHeight(.6)
 
-    font["tiny"] = love.graphics.newImageFont(
+    font["tiny"] = lg.newImageFont(
         'assets/fonts/jasoco_tiny.png',
         " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-,!:()[]{}<>"
     )
@@ -131,12 +131,12 @@ function Ui:drawDialog()
         return
     end
 
-    love.graphics.setColor(255, 255, 255, self.dialog_alpha_bg)
-    love.graphics.rectangle('fill', self.dialog_x, self.dialog_y, self.dialog_w, self.dialog_h)
+    lg.setColor(255, 255, 255, self.dialog_alpha_bg)
+    lg.rectangle('fill', self.dialog_x, self.dialog_y, self.dialog_w, self.dialog_h)
 
-    love.graphics.setFont(self.dialog_font)
-    love.graphics.setColor(0, 0, 0, self.dialog_alpha_text)
-    love.graphics.printf(
+    lg.setFont(self.dialog_font)
+    lg.setColor(0, 0, 0, self.dialog_alpha_text)
+    lg.printf(
         self:getDialogDisplayString(), self.dialog_x + self.dialog_pad, self.dialog_y + self.dialog_pad, self.dialog_w - self.dialog_pad*2
     )
 end
@@ -166,57 +166,57 @@ function Ui:getLineCount(msg)
 end
 
 function Ui:drawDialogDebug()
-    love.graphics.setFont(font["tiny"])
-    love.graphics.setColor(255, 255, 255, 255)
+    lg.setFont(font["tiny"])
+    lg.setColor(255, 255, 255, 255)
     local real_width, lines = self.dialog_font:getWrap(msg, w)
     local suf = ''
     if (self:isDialogFullyAdvanced()) then suf = ' READY' end
-    love.graphics.print("WRAP: " .. lines .. suf, 2, 18)
+    lg.print("WRAP: " .. lines .. suf, 2, 18)
 end
 
 function Ui:drawFps()
     local fps_msg = "FPS: " .. tostring(love.timer.getFPS())
-    love.graphics.setFont(font["tiny"])
-    love.graphics.setColor(COLOR_BLACK)
-    love.graphics.print(fps_msg, 3, 3)
-    love.graphics.setColor(COLOR_WHITE)
-    love.graphics.print(fps_msg, 2, 2)
+    lg.setFont(font["tiny"])
+    lg.setColor(COLOR_BLACK)
+    lg.print(fps_msg, 3, 3)
+    lg.setColor(COLOR_WHITE)
+    lg.print(fps_msg, 2, 2)
 end
 
 function Ui:drawPlayerStatus()
-    love.graphics.setFont(font["mono16"])
-    love.graphics.setLineWidth(1)
+    lg.setFont(font["mono16"])
+    lg.setLineWidth(1)
 
-    -- love.graphics.draw(img.heart.image, img.heart.quads[1], self.ui_x, self.ui_y)
+    -- lg.draw(img.heart.image, img.heart.quads[1], self.ui_x, self.ui_y)
 
     local hp = 0
     if player ~= nil then
         hp = player.hp
     end
-    self:drawText(hp, self.ui_x + 16, self.ui_y + 1, COLOR_DARK_GREY)
-    self:drawText(hp, self.ui_x + 15, self.ui_y, COLOR_WHITE)
+    self:drawText(hp, self.ui_x + 1, self.ui_y + 1, COLOR_DARK_GREY)
+    self:drawText(hp, self.ui_x, self.ui_y, COLOR_WHITE)
 end
 
 function Ui:drawText(text, x, y, color)
-    love.graphics.setColor(color)
-    love.graphics.print(text, x, y)
+    lg.setColor(color)
+    lg.print(text, x, y)
 end
 
 -- UNUSED SO FAR
 function Ui:drawBar(text, cur, max, x, y, inner_color)
     -- Bar
-    love.graphics.setColor(COLOR_BLACK) -- Black Background
-    love.graphics.rectangle('fill', x, y, self._ui_bar_w, self._ui_bar_h)
-    love.graphics.setColor(inner_color) -- Red Filled Area
-    love.graphics.rectangle('fill', x, y, math.floor(self._ui_bar_w * (cur / max)), self._ui_bar_h)
-    love.graphics.setColor(COLOR_WHITE) -- White Outline
-    love.graphics.rectangle('line', x + 0.5, y + 0.5, self._ui_bar_w, self._ui_bar_h - 1)
+    lg.setColor(COLOR_BLACK) -- Black Background
+    lg.rectangle('fill', x, y, self._ui_bar_w, self._ui_bar_h)
+    lg.setColor(inner_color) -- Red Filled Area
+    lg.rectangle('fill', x, y, math.floor(self._ui_bar_w * (cur / max)), self._ui_bar_h)
+    lg.setColor(COLOR_WHITE) -- White Outline
+    lg.rectangle('line', x + 0.5, y + 0.5, self._ui_bar_w, self._ui_bar_h - 1)
 
     -- Text
-    love.graphics.setColor(COLOR_BLACK)
-    love.graphics.print(text .. cur, x + 3, y + 3)
-    love.graphics.setColor(COLOR_WHITE)
-    love.graphics.print(text .. cur, x + 2, y + 2)
+    lg.setColor(COLOR_BLACK)
+    lg.print(text .. cur, x + 3, y + 3)
+    lg.setColor(COLOR_WHITE)
+    lg.print(text .. cur, x + 2, y + 2)
 end
 
 return Ui

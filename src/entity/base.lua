@@ -184,8 +184,8 @@ function Base:draw()
         scale_x = -1
     end
 
-    love.graphics.setColor(unpack(self.img_color_filter))
-    love.graphics.draw(
+    lg.setColor(unpack(self.img_color_filter))
+    lg.draw(
         self.img.image,
         self.anim_curr_quad,
         math.floor(x + offset_x + 0.5),
@@ -194,7 +194,7 @@ function Base:draw()
         scale_x,
         1
     )
-    love.graphics.setColor(255,255,255,255)
+    lg.setColor(255,255,255,255)
 end
 
 function Base:hasComponent(cmpt_class)

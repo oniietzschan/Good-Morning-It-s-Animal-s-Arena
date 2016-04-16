@@ -1,7 +1,7 @@
 local Player = class('Player', Seibutsu)
 
 function Player:initialize(t)
-    self.hp = 99
+    self.hp = 9
     self.walk_speed_max = PLAYER_WALK_SPEED
     self.walk_acceleration = PLAYER_WALK_ACCELERATION
 

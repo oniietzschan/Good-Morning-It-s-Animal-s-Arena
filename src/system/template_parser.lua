@@ -1,7 +1,7 @@
 local TemplateParser = {}
 
 function TemplateParser:mirror(template)
-    local mirrored = util.deepcopy(template)
+    local mirrored = Util.deepcopy(template)
     for i = 1, #mirrored do
         mirrored[i] = mirrored[i]:reverse()
     end

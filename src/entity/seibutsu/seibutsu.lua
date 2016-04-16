@@ -2,7 +2,7 @@ local Seibutsu = class('Seibutsu', Base)
 
 function Seibutsu:initialize(t)
     t.components = t.components or {}
-    util.tableConcat(t.components, {
+    Util.tableConcat(t.components, {
         Living,
         Motion,
     })

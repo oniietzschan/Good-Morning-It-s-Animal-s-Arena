@@ -16,15 +16,17 @@ CAMERA_MAX_Y = 0
 -- log10(1/96) / 0.3 = log10(x)
 -- 10 ** (log10(1/96) / 0.3) = x
 -- 0.000000246847 = x
-local player_walk_speed = 96
+local player_max_speed = 96
 local time_to_stop = 0.225
 local dampen_cutoff_speed = 1
 
-PLAYER_WALK_SPEED = player_walk_speed
-PLAYER_WALK_ACCELERATION = PLAYER_WALK_SPEED * 8
-PLAYER_RUN_SPEED = 176
-PLAYER_RUN_ACCELERATION = PLAYER_RUN_SPEED * 8
-WALK_DAMPEN_FACTOR = math.pow(10, (math.log10(dampen_cutoff_speed / player_walk_speed) / time_to_stop))
+PLAYER_MAX_SPEED = player_max_speed
+PLAYER_ACCELERATION = PLAYER_MAX_SPEED * 8
+WALK_DAMPEN_FACTOR = math.pow(10, (math.log10(dampen_cutoff_speed / player_max_speed) / time_to_stop))
+
+-- Forms
+USAGI = 'usagi'
+KUMA = 'kuma'
 
 -- Colors
 COLOR_BLACK = {0, 0, 0}

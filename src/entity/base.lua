@@ -19,7 +19,7 @@ function Base:initialize(t)
     self.img_quad_w = t.img_quad_w or 16
     self.img_quad_h = t.img_quad_h or 16
     self.img_mirror = false
-    self.img_color_filter = {255, 255, 255, 255}
+    self.imgColorFilter = t.imgColorFilter or {255, 255, 255, 255}
 
     self.frills = {}
 
@@ -184,7 +184,7 @@ function Base:draw()
         scale_x = -1
     end
 
-    lg.setColor(unpack(self.img_color_filter))
+    lg.setColor(unpack(self.imgColorFilter))
     lg.draw(
         self.img.image,
         self.anim_curr_quad,

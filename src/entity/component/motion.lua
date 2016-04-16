@@ -17,10 +17,10 @@ function Motion:update(dt)
     local actualX, actualY, cols, len = self.parent:move(relX, relY)
 
     if len >= 1 then
-        if not util.floatsEqual(actualX, relX) and util.sameSign(relX, self.parent.speedX) then
+        if not Util.floatsEqual(actualX, relX) and Util.sameSign(relX, self.parent.speedX) then
             self.parent.speedX = 0
         end
-        if not util.floatsEqual(actualY, relY) and util.sameSign(relY, self.parent.speedY) then
+        if not Util.floatsEqual(actualY, relY) and Util.sameSign(relY, self.parent.speedY) then
             self.parent.speedY = 0
         end
     end

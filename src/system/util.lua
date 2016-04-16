@@ -1,5 +1,9 @@
 local Util = {}
 
+Util.clamp = function(value, min, max)
+    return math.min(max, math.max(value, min))
+end
+
 Util.choose = function(cond, a, b)
     if cond then
         return a
@@ -77,7 +81,7 @@ Util.roll = function(chance, a, b)
 end
 
 -- Use Example:
---     util.rngSelect({
+--     Util.rngSelect({
 --         {o = 120, v = 'Sixty Percent Chance'},
 --         {o = 10, v = 'Five Percent Chance'},
 --         {o = 70, v = 'Thirty-Five Percent Chance'},

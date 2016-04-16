@@ -1,0 +1,7 @@
+[ ] DAISUKI
+    [ ] player
+        [X] move up and down.
+        [ ] forms
+            [X] change color
+
+[ ] SUKI

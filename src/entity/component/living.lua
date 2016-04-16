@@ -11,11 +11,11 @@ function Living:update(dt)
     if self.invuln_timer > 0 then
         self.invuln_timer = self.invuln_timer - dt
 
-        self.parent.img_color_filter = {255, 255, 255, 128} -- dim sprite during invulnerability
+        self.parent.imgColorFilter = {255, 255, 255, 128} -- dim sprite during invulnerability
 
         if self.invuln_timer <= 0 then
             self.invuln_timer = 0
-            self.parent.img_color_filter = {255, 255, 255, 255}
+            self.parent.imgColorFilter = {255, 255, 255, 255}
         end
     end
 end

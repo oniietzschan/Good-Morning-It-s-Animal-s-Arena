@@ -55,6 +55,10 @@ function AiEnemy:shootVolleyAtPlayer()
 
     -- fire after a bit
     Timer.after(0.5, function()
+        if self.parent.hp <= 0 then
+            return
+        end
+
         for i = -1, 1 do
             Bullet({
                 x = x,

@@ -136,4 +136,8 @@ function Game:getPlayerPos()
     return self.playerX, self.playerY
 end
 
+function Game:isPlayerAlive()
+    return player ~= nil
+end
+
 return Game

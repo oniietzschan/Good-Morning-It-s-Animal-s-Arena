@@ -7,15 +7,19 @@
             [X] crosshair
             [X] fire bullets
             [X] towards cursor
-        [ ] can die
+        [X] can die
     [ ] enemy
         [X] can die
         [X] move towards player
         [X] fires at player
+        [X] don't fire until onscreen -- FOR FREE :D
     [ ] enemy waves
-        [ ] spawn enemies every X
+        [X] spawn enemies every X
 
 [ ] SUKI
     [ ] player
         [ ] fix diagonal movements
         [ ] focus
+    [ ] UI
+    [ ] input
+        [ ] gamepad support

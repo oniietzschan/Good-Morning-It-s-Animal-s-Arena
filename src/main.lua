@@ -38,6 +38,7 @@ Base = require 'entity.base'
 
 Component  = require 'entity.component.component'
 AiEnemy    = require 'entity.component.ai_enemy'
+Friendly   = require 'entity.component.friendly'
 Living     = require 'entity.component.living'
 Motion     = require 'entity.component.motion'
 Unfriendly = require 'entity.component.unfriendly'

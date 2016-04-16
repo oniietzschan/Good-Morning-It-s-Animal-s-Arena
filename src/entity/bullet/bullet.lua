@@ -2,10 +2,12 @@ local Bullet = class('Bullet', Base)
 
 function Bullet:initialize(t)
     self.damage = t.damage or 1
-    self.friendly = false or t.friendly
+    self.friendly = t.friendly or false
 
     t.w = t.w or 5
     t.h = t.h or 5
+
+    t.imgColorFilter = t.imgColorFilter or {255, 192, 128, 255}
 
     t.components = t.components or {}
     Util.tableConcat(t.components, {
@@ -18,6 +20,8 @@ function Bullet:initialize(t)
 
     if t.target then
         self:shootTowardsTarget(t)
+    elseif not self:isInstanceOf(UsagiBullet) then
+        self:remove()
     end
 end
 
@@ -39,7 +43,7 @@ function Bullet:update(dt)
     self:removeIfOffscreen()
 end
 
-local DIST = 100
+local DIST = 10
 
 function Bullet:removeIfOffscreen()
     local x, y = self:getRect()

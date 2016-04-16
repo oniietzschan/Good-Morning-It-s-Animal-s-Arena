@@ -7,6 +7,7 @@ function UsagiBullet:initialize(t)
     t.h = 5
 
     t.img = img.bulletPlayer
+    t.imgColorFilter = {255, 255, 255, 255}
 
     Bullet.initialize(self, t)
 

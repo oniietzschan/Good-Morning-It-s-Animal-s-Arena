@@ -1,7 +1,11 @@
 local Player = class('Player', Seibutsu)
 
 function Player:initialize(t)
-    self.hp = 9
+    self.hp = 1
+
+    t.components = {
+        Friendly,
+    }
 
     t.w = PLAYER_W
     t.h = PLAYER_H
@@ -63,13 +67,13 @@ function Player:remove()
 end
 
 function Player:update(dt)
+    self:handleOutOfBounds()
+
     self:handleChangeForm(dt)
     self:handleWalking(dt)
     self:handleAttack(dt)
 
     Seibutsu.update(self, dt)
-
-    self:handleOutOfBounds()
 end
 
 function Player:handleChangeForm()

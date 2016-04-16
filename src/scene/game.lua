@@ -22,7 +22,9 @@ function Game:initCamera()
 
     self.camera:newLayer('background')
     self.camera:newLayer('entity')
-    self.camera:newLayer('foreground')
+    self.camera:newLayer('player')
+    self.camera:newLayer('bulletPlayer')
+    self.camera:newLayer('bulletEnemy')
     -- self.camera:newLayer('debug', 1, 1, function(camX, camY) self:drawDebug(camX, camY) end)
 
     self.drawDebug = false

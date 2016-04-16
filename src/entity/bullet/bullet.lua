@@ -4,6 +4,8 @@ function Bullet:initialize(t)
     self.damage = t.damage or 1
     self.friendly = t.friendly or false
 
+    t.layer = self.friendly and 'bulletPlayer' or 'bulletEnemy'
+
     t.w = t.w or 5
     t.h = t.h or 5
 

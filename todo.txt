@@ -1,8 +1,6 @@
 [ ] DAISUKI
     [ ] player
         [X] move up and down.
-        [ ] forms
-            [X] change speed
         [X] shoot
             [X] crosshair
             [X] fire bullets

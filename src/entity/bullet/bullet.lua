@@ -4,6 +4,9 @@ function Bullet:initialize(t)
     t.w = t.w or 5
     t.h = t.h or 5
 
+    self.damage = t.damage or 1
+    self.friendly = false or t.friendly
+
     t.components = t.components or {}
     Util.tableConcat(t.components, {
         Motion,
@@ -17,20 +20,20 @@ function Bullet:initialize(t)
 end
 
 function Bullet:shootTowardsMouse()
-    local x, y, w, h = self:getRect()
-    local mX, mY = Util:mousePos()
-    local relX = mX - x - w / 2
-    local relY = mY - y - h / 2
-    self:shootTowards(BULLET_PLAYER_SPEED, relX, relY)
+    local x, y = self:getCenter()
+    local mx, my = Util:mousePos()
+    self:setSpeed(Util.vectorBetween(x, y, mx, my, BULLET_PLAYER_SPEED))
 end
 
-function Bullet:shootTowards(speed, x, y)
-    local speedX, speedY = Vector.normalize(x, y)
-    speedX = speedX * speed
-    speedY = speedY * speed
-    self.speedX = speedX
-    self.speedY = speedY
+function Bullet:getCenter()
+    local x, y, w, h = self:getRect()
 
+    return x + w / 2, y + h / 2
+end
+
+function Bullet:setSpeed(dx, dy)
+    self.speedX = dx
+    self.speedY = dy
 end
 
 function Bullet:update(dt)
@@ -46,6 +49,11 @@ function Bullet:removeIfOffscreen()
     if x < GAME_MIN_X - DIST or x > GAME_MAX_X + DIST or y < GAME_MIN_Y - DIST or y > GAME_MAX_Y + DIST then
         self:remove()
     end
+end
+
+function Bullet:move(relX, relY)
+   self:setPosRel(relX, relY)
+   return relX, relX, {}, 0
 end
 
 return Bullet

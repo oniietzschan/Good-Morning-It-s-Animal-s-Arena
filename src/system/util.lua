@@ -137,4 +137,11 @@ Util.tableConcat = function(t1,t2)
     return t1
 end
 
+Util.vectorBetween = function(x1, y1, x2, y2, speed)
+    local relx, rely = x2 - x1, y2 - y1
+    local dx, dy = Vector.normalize(relx, rely)
+
+    return dx * speed, dy * speed
+end
+
 return Util

@@ -8,7 +8,7 @@
             [X] fire bullets
             [X] towards cursor
     [ ] enemy
-        [ ] can die
+        [X] can die
         [ ] move towards player
         [ ] fires at player
 

@@ -36,9 +36,10 @@ Image = require 'entity.image'
 
 Base = require 'entity.base'
 
-Component = require 'entity.component.component'
-Living    = require 'entity.component.living'
-Motion    = require 'entity.component.motion'
+Component  = require 'entity.component.component'
+Living     = require 'entity.component.living'
+Motion     = require 'entity.component.motion'
+Unfriendly = require 'entity.component.Unfriendly'
 
 Bullet = require 'entity.bullet.bullet'
 
@@ -47,6 +48,7 @@ Frill     = require 'entity.frill.frill'
 Particles = require 'entity.frill.particles'
 
 Seibutsu = require 'entity.seibutsu.seibutsu'
+Enemy    = require 'entity.seibutsu.enemy'
 Player   = require 'entity.seibutsu.player'
 
 Tile  = require 'entity.tiles.tile'

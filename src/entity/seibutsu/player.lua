@@ -10,6 +10,8 @@ function Player:initialize(t)
 
     Seibutsu.initialize(self, t)
 
+    self.canAttack = true
+
     self:toUsagi()
 end
 
@@ -145,15 +147,26 @@ function Player:dampenYSpeed(dt)
 end
 
 function Player:handleAttack()
+    if self.canAttack == false then
+        return
+    end
+
     local x, y, w, h = self:getRect()
     if self.form == USAGI then
-        if input:pressed(ATTACK) then
+        if input:down(ATTACK) then
             Bullet({
                 x = x + w / 2 - 2,
                 y = y + h / 2 - 2,
+                friendly = true,
             })
+            self:setAttackCooldown(ATTACK_COOLDOWN_USAGI)
         end
     end
+end
+
+function Player:setAttackCooldown(cd)
+    self.canAttack = false
+    Timer.after(cd, function() self.canAttack = true end)
 end
 
 function Player:handleOutOfBounds()

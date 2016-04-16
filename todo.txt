@@ -3,11 +3,23 @@
         [X] move up and down.
         [ ] forms
             [X] change speed
-        [ ] shoot
+        [X] shoot
             [X] crosshair
             [X] fire bullets
             [X] towards cursor
         [X] can die
+    [ ] kuma
+        [ ] attack
+        [ ] armor
+        [ ] sprite
+    [ ] neko
+        [ ] attack
+            [X] rocket
+            [ ] explosion
+        [ ] sprite
+    [ ] usagi
+        [X] attack
+        [ ] sprite
     [ ] enemy
         [X] can die
         [X] move towards player
@@ -29,10 +41,10 @@
 
 
 USAGI-KUN
-    attack  ||
+    attack  |||
     range   |||||
     speed   |||||
-    defense |
+    defense ||
 KUMA-SAN
     attack  |||||
     range   |

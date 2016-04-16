@@ -14,7 +14,7 @@ function Bullet:initialize(t)
         Motion,
     })
 
-    t.img = img.bulletPlayer
+    t.img = t.img or img.bulletPlayer
 
     Base.initialize(self, t)
 

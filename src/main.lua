@@ -44,7 +44,6 @@ Motion     = require 'entity.component.motion'
 Unfriendly = require 'entity.component.unfriendly'
 
 Bullet = require 'entity.bullet.bullet'
-UsagiBullet = require 'entity.bullet.usagi_bullet'
 
 BaseFrill = require 'entity.frill.base_frill'
 Frill     = require 'entity.frill.frill'
@@ -67,6 +66,7 @@ Game  = require 'scene.game'
 Ui    = require 'scene.ui'
 
 local images = {
+    bulletNeko = {'assets/bullet_neko.png', 8, 8},
     bulletPlayer = {'assets/bullet_player.png', 5, 5},
     crosshair = {'assets/crosshair.png', 14, 14},
     pixel = {'assets/pixel.png', 1, 1},

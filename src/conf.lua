@@ -1,7 +1,5 @@
 io.stdout:setvbuf("no") -- console output to Sublime
 
-math.randomseed(os.time())
-
 function love.conf(t)
     _scale = 3
     _game_width = 640

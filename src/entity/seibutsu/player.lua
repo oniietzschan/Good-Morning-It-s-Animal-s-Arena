@@ -29,7 +29,7 @@ function Player:toKuma()
 end
 
 function Player:toNeko()
-    self.form = KUMA
+    self.form = NEKO
 
     self.maxSpeed = MAX_SPEED_NEKO
     self.acceleration = ACCELERATION_NEKO
@@ -118,36 +118,34 @@ function Player:handleWalking(dt)
     local x, y = Vector.normalize(x, y)
 
     self:walk(x, y, dt)
-
-    if x == 0 then
-        self:dampenXSpeed(dt)
-    end
-    if y == 0 then
-        self:dampenYSpeed(dt)
-    end
 end
 
 function Player:walk(x, y, dt)
-    -- self.img_mirror = left
-
     local deltaSpeedX = x * dt * self.acceleration
     local deltaSpeedY = y * dt * self.acceleration
 
+    -- Todo: it's possible to move sliiiightly faster than maxSpeed with this method.
+    if (deltaSpeedX > 0 and self.speedX > self.maxSpeed) or (deltaSpeedX < 0 and self.speedX < self.maxSpeed * -1) then
+        deltaSpeedX = 0
+    end
+    if (deltaSpeedY > 0 and self.speedY > self.maxSpeed) or (deltaSpeedY < 0 and self.speedY < self.maxSpeed * -1) then
+        deltaSpeedY = 0
+    end
+
+    if (deltaSpeedX > 0 and self.speedX < 0) or (deltaSpeedX < 0 and self.speedX > 0) or (x == 0) or (math.abs(self.speedX) > self.maxSpeed) then
+        self:dampenSpeedX(dt)
+    end
+    if (deltaSpeedY >= 0 and self.speedY < 0) or (deltaSpeedY < 0 and self.speedY > 0) or (y == 0) or (math.abs(self.speedY) > self.maxSpeed) then
+        self:dampenSpeedY(dt)
+    end
+
+    -- Todo: speed limit should be normalized too, so that diagonal walking isn't faster
     self.speedX = self.speedX + deltaSpeedX
     self.speedY = self.speedY + deltaSpeedY
-
-    -- -- If switching directions, then damping can help us reverse
-    -- self:dampenSpeed(dt)
-
-    self.speedX = Util.clamp(self.speedX, self.maxSpeed * -1, self.maxSpeed)
-    self.speedY = Util.clamp(self.speedY, self.maxSpeed * -1, self.maxSpeed)
-    if math.abs(self.speedX) > self.maxSpeed then
-        local sign = Util.choose(self.speedX > 0, 1, -1)
-        self.speedX = self.maxSpeed * sign
-    end
 end
 
-function Player:dampenXSpeed(dt)
+function Player:dampenSpeedX(dt)
+
     self.speedX = self.speedX * math.pow(WALK_DAMPEN_FACTOR, dt)
 
     if math.abs(self.speedX) < 1 then
@@ -155,7 +153,7 @@ function Player:dampenXSpeed(dt)
     end
 end
 
-function Player:dampenYSpeed(dt)
+function Player:dampenSpeedY(dt)
     self.speedY = self.speedY * math.pow(WALK_DAMPEN_FACTOR, dt)
 
     if math.abs(self.speedY) < 1 then
@@ -164,32 +162,45 @@ function Player:dampenYSpeed(dt)
 end
 
 function Player:handleAttack()
-    if self.canAttack == false then
+    if self.canAttack == false or not input:down(ATTACK) then
         return
     end
 
     local x, y, w, h = self:getRect()
     local mx, my = Util:mousePos()
-    local test = {}
-    if self.form == USAGI then
-        if input:down(ATTACK) then
-            Bullet({
-                x = x + w / 2 - 2,
-                y = y + h / 2 - 2,
-                target = {x = mx, y = my},
-                speed = BULLET_PLAYER_SPEED,
-                friendly = true,
-                img = img.bulletPlayer,
-                imgColorFilter = {255, 255, 255, 255},
-            })
-            self:setAttackCooldown(ATTACK_COOLDOWN_USAGI)
-        end
+    local t = {
+        x = x + w / 2 - 2,
+        y = y + h / 2 - 2,
+        target = {x = mx, y = my},
+        friendly = true,
+        imgColorFilter = {255, 255, 255, 255},
+    }
+
+    if self.form == NEKO then
+        t.damage = 7
+        t.speed = BULLET_SPEED_NEKO
+        t.img = img.bulletNeko
+        Bullet(t)
+        self:setAttackCooldown(ATTACK_COOLDOWN_NEKO)
+        self:nekoKnockback()
+
+    elseif self.form == USAGI then
+        t.speed = BULLET_SPEED_USAGI
+        t.img = img.bulletPlayer
+        Bullet(t)
+        self:setAttackCooldown(ATTACK_COOLDOWN_USAGI)
     end
 end
 
 function Player:setAttackCooldown(cd)
     self.canAttack = false
     Timer.after(cd, function() self.canAttack = true end)
+end
+
+function Player:nekoKnockback()
+    local x, y = self:getRect()
+    local mx, my = Util:mousePos()
+    self:setSpeed(Util.vectorBetween(x, y, mx, my, NEKO_KNOCKBACK_SPEED * -1))
 end
 
 function Player:handleOutOfBounds()

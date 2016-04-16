@@ -1,24 +1,26 @@
 local Bullet = class('Bullet', Base)
 
 function Bullet:initialize(t)
-    self.damage = t.damage or 1
-    self.friendly = t.friendly or false
-
+    t.img = t.img or img.bulletPlayer
     t.layer = self.friendly and 'bulletPlayer' or 'bulletEnemy'
-
-    t.w = t.w or 5
-    t.h = t.h or 5
-
     t.imgColorFilter = t.imgColorFilter or {255, 192, 128, 255}
+
+    t.w = t.w or t.img:getWidth()
+    t.h = t.h or t.img:getHeight()
+    t.x = t.x - t.w / 2
+    t.y = t.y - t.h / 2
 
     t.components = t.components or {}
     Util.tableConcat(t.components, {
         Motion,
     })
 
-    t.img = t.img or img.bulletPlayer
-
     Base.initialize(self, t)
+
+    self.damage = t.damage or 1
+    self.onHit = t.onHit or nil
+    self.friendly = t.friendly or false
+    self.pierce = t.pierce or false
 
     if t.target then
         self:shootTowardsTarget(t)
@@ -29,8 +31,10 @@ function Bullet:initialize(t)
         self:remove()
     end
 
-    if t.onHit then
-        self.onHit = t.onHit
+    if t.duration then
+        self.durationTimer = Timer.after(t.duration, function ()
+            self:remove()
+        end)
     end
 end
 
@@ -76,7 +80,17 @@ function Bullet:hitTarget()
         self.onHit(x, y)
     end
 
-    self:remove()
+    if not self.pierce then
+        self:remove()
+    end
+end
+
+function Bullet:remove()
+    if self.durationTimer then
+        Timer.cancel(self.durationTimer)
+    end
+
+    Base.remove(self)
 end
 
 return Bullet

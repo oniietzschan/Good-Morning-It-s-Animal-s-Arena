@@ -28,8 +28,8 @@ function StartingRoom:generate()
         class = Player,
     })
 
-    -- self:test()
     self:startSpawns()
+    -- self:test()
 end
 
 function StartingRoom:startSpawns()

@@ -16,6 +16,8 @@ function Player:initialize(t)
 
     self.canAttack = true
 
+    -- self:toKuma()
+    -- self:toNeko()
     self:toUsagi()
 end
 
@@ -31,6 +33,7 @@ end
 
 function Player:toNeko()
     self.form = NEKO
+    self.hp = 1
 
     self.maxSpeed = MAX_SPEED_NEKO
     self.acceleration = ACCELERATION_NEKO
@@ -41,6 +44,7 @@ end
 
 function Player:toUsagi()
     self.form = USAGI
+    self.hp = 1
 
     self.maxSpeed = MAX_SPEED_USAGI
     self.acceleration = ACCELERATION_USAGI
@@ -167,19 +171,52 @@ function Player:handleAttack()
         return
     end
 
-    local x, y, w, h = self:getRect()
+    local x, y = self:getCenter()
     local mx, my = Util:mousePos()
     local t = {
-        x = x + w / 2 - 2,
-        y = y + h / 2 - 2,
+        x = x,
+        y = y,
         target = {x = mx, y = my},
         friendly = true,
         imgColorFilter = {255, 255, 255, 255},
     }
 
-    if self.form == NEKO then
+    if self.form == KUMA then
+        for i=1,2 do
+            local t = Util.deepcopy(t)
+
+            -- worst code every jfc
+            local offsetx, offsety = 0, 0
+            local targetOffsetX, targetOffsetY = Util.vectorBetween(x, y, mx, my, KUMA_ATTACK_RANGE)
+
+            do
+                local x, y = Vector.perpendicular(targetOffsetX, targetOffsetY)
+                if i == 1 then
+                    offsetx = targetOffsetX + x * KUMA_ATTACK_SPREAD_FACTOR
+                    offsety = targetOffsetY + y * KUMA_ATTACK_SPREAD_FACTOR
+                else
+                    offsetx = targetOffsetX - x * KUMA_ATTACK_SPREAD_FACTOR
+                    offsety = targetOffsetY - y * KUMA_ATTACK_SPREAD_FACTOR
+                end
+            end
+
+            t.x = t.x + offsetx
+            t.y = t.y + offsety
+            t.pierce = true
+            t.damage = BULLET_DAMAGE_KUMA
+            t.target = {x = x + targetOffsetX, y = y + targetOffsetY}
+            -- t.angle = i - 0.5
+            t.speed = BULLET_SPEED_KUMA
+            t.duration = KUMA_ATTACK_DURATION
+            t.img = img.kumaAttack
+
+            Bullet(t)
+        end
+        self:setAttackCooldown(ATTACK_COOLDOWN_KUMA)
+
+    elseif self.form == NEKO then
         t.onHit = self:getNekoOnHitCallback()
-        t.damage = 7
+        t.damage = BULLET_DAMAGE_NEKO
         t.speed = BULLET_SPEED_NEKO
         t.img = img.bulletNeko
         Bullet(t)
@@ -187,6 +224,7 @@ function Player:handleAttack()
         self:nekoKnockback()
 
     elseif self.form == USAGI then
+        t.damage = BULLET_DAMAGE_USAGI
         t.speed = BULLET_SPEED_USAGI
         t.img = img.bulletPlayer
         Bullet(t)
@@ -207,6 +245,7 @@ function Player:getNekoOnHitCallback()
                 y = y,
                 speed = BULLET_SPEED_USAGI,
                 direction = i / 13,
+                duration = 0.5,
                 friendly = true,
                 img = img.bulletSmall,
                 imgColorFilter = {255, 255, 255, 255},

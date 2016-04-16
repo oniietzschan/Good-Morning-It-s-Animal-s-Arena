@@ -6,9 +6,8 @@
             [X] fire bullets
             [X] towards cursor
         [X] can die
-        [ ] cooldown on transform
     [ ] kuma
-        [ ] attack
+        [X] attack
         [X] armor
         [ ] sprite
     [ ] neko
@@ -25,11 +24,6 @@
         [X] fires at player
         [X] don't fire until onscreen -- FOR FREE :D
         [ ] sprite
-    [ ] boss enemy
-        [ ] only dies to kuma
-        [ ] moves to position
-        [ ] fires in direction
-        [ ] sprite
     [ ] enemy waves
         [X] spawn enemies every X
     [ ] system
@@ -38,10 +32,16 @@
 
 [ ] SUKI
     [ ] player
+        [ ] cooldown on transform
         [ ] focus
             [ ] slow movement
             [ ] show
         [ ] fix diagonal movements
+    [ ] boss enemy
+        [ ] only dies to kuma
+        [ ] moves to position
+        [ ] fires in direction
+        [ ] sprite
     [ ] powerups?
     [ ] UI
     [ ] music

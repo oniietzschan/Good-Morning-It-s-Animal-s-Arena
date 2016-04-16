@@ -7,10 +7,14 @@ CAMERA_MAX_X = 0
 CAMERA_MAX_Y = 0
 
 -- Game
+PLAYER_W = 16
+PLAYER_H = 16
 GAME_MIN_X = 0
 GAME_MIN_Y = 0
-GAME_MAX_X = 640
-GAME_MAX_Y = 360
+GAME_MAX_X = 640 - PLAYER_W
+GAME_MAX_Y = 360 - PLAYER_H
+
+BULLET_PLAYER_SPEED = 350
 
 -- Forms
 KUMA = 'kuma'
@@ -34,6 +38,9 @@ local time_to_stop = 0.225
 local dampen_cutoff_speed = 1
 
 WALK_DAMPEN_FACTOR = math.pow(10, (math.log10(dampen_cutoff_speed / MAX_SPEED_USAGI) / time_to_stop))
+
+-- Input
+ATTACK = 'attack'
 
 -- Colors
 COLOR_BLACK = {0, 0, 0}

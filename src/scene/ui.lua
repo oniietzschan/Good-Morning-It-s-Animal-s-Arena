@@ -205,9 +205,7 @@ end
 
 function Ui:drawCrosshair()
     lg.setColor(COLOR_QT)
-    local x, y = lm:getPosition()
-    x = x / _scale
-    y = y / _scale
+    local x, y = Util:mousePos()
     lg.draw(img.crosshair.image, x - 6, y - 6)
 end
 

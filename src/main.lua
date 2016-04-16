@@ -23,6 +23,7 @@ class = require 'lib.middleclass'
 Serpent = require 'lib.serpent'
 require "socket"
 Timer = require "lib.hump.timer"
+Vector = require "lib.hump.vector-light"
 _ = require 'lib.moses'
 
 require 'system.constants'
@@ -33,11 +34,13 @@ Util = util
 
 Image = require 'entity.image'
 
-Base   = require 'entity.base'
+Base = require 'entity.base'
 
-Component         = require 'entity.component.component'
-Living            = require 'entity.component.living'
-Motion            = require 'entity.component.motion'
+Component = require 'entity.component.component'
+Living    = require 'entity.component.living'
+Motion    = require 'entity.component.motion'
+
+Bullet = require 'entity.bullet.bullet'
 
 BaseFrill = require 'entity.frill.base_frill'
 Frill     = require 'entity.frill.frill'
@@ -46,10 +49,10 @@ Particles = require 'entity.frill.particles'
 Seibutsu = require 'entity.seibutsu.seibutsu'
 Player   = require 'entity.seibutsu.player'
 
-Tile           = require 'entity.tiles.tile'
-Grass          = require 'entity.tiles.grass'
+Tile  = require 'entity.tiles.tile'
+Grass = require 'entity.tiles.grass'
 
-MapFactory     = require 'map.map_factory'
+MapFactory = require 'map.map_factory'
 
 Room         = require 'map.room.room'
 StartingRoom = require 'map.room.starting_room'
@@ -59,6 +62,7 @@ Game  = require 'scene.game'
 Ui    = require 'scene.ui'
 
 local images = {
+    bulletPlayer = {'assets/bullet_player.png', 5, 5},
     crosshair = {'assets/crosshair.png', 14, 14},
     pixel = {'assets/pixel.png', 1, 1},
     square = {'assets/square.png', 16, 16},
@@ -76,14 +80,15 @@ function initInput()
     input = boipushy()
 
     local default_binds = {
-        up = {'up', 'dpup'},
-        down = {'down', 'dpdown'},
-        left = {'left', 'dpleft'},
-        right = {'right', 'dpright'},
+        up = {'w', 'up', 'dpup'},
+        down = {'s', 'down', 'dpdown'},
+        left = {'a', 'left', 'dpleft'},
+        right = {'d', 'right', 'dpright'},
         confirm = {'z', 'fdown', 'space', 'enter'},
         cancel = {'x', 'fright'},
-        square = {'a', 'fleft'},
-        triangle = {'s', 'fup'},
+        square = {'q', 'fleft'},
+        triangle = {'e', 'fup'},
+        [ATTACK] = {'mouse1'},
         focus = {'lshift', 'rshift', 'fleft'},
         quit = {'escape', 'back', 'start'},
         f1  = {'1', 'f1'},

@@ -72,6 +72,14 @@ Util.keys = function(t)
     return keys
 end
 
+Util.mousePos = function()
+    local x, y = lm:getPosition()
+    x = x / _scale
+    y = y / _scale
+
+    return x, y
+end
+
 Util.roll = function(chance, a, b)
     if (rng() * 100) < chance then
         return a

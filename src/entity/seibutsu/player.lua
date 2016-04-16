@@ -3,6 +3,9 @@ local Player = class('Player', Seibutsu)
 function Player:initialize(t)
     self.hp = 9
 
+    t.w = PLAYER_W
+    t.h = PLAYER_H
+
     t.img = img.square
 
     Seibutsu.initialize(self, t)
@@ -60,6 +63,7 @@ end
 function Player:update(dt)
     self:handleChangeForm(dt)
     self:handleWalking(dt)
+    self:handleAttack(dt)
 
     Seibutsu.update(self, dt)
 
@@ -91,6 +95,8 @@ function Player:handleWalking(dt)
     if input:down('down') then
         y = y + 1
     end
+
+    local x, y = Vector.normalize(x, y)
 
     self:walk(x, y, dt)
 
@@ -135,6 +141,18 @@ function Player:dampenYSpeed(dt)
 
     if math.abs(self.speedY) < 1 then
         self.speedY = 0
+    end
+end
+
+function Player:handleAttack()
+    local x, y, w, h = self:getRect()
+    if self.form == USAGI then
+        if input:pressed(ATTACK) then
+            Bullet({
+                x = x + w / 2 - 2,
+                y = y + h / 2 - 2,
+            })
+        end
     end
 end
 

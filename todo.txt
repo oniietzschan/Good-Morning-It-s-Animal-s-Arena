@@ -5,7 +5,14 @@
             [X] change speed
         [ ] shoot
             [X] crosshair
-            [ ] fire bullets
-            [ ] towards cursor
+            [X] fire bullets
+            [X] towards cursor
+    [ ] enemy
+        [ ] can die
+        [ ] move towards player
+        [ ] fires at player
 
 [ ] SUKI
+    [ ] player
+        [ ] fix diagonal movements
+        [ ] focus

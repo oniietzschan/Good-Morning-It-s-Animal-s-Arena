@@ -93,9 +93,11 @@ end
 
 function Game:cache()
     if player then
-        self.playerX, self.playerY = player:getRect()
-        self.playerX = self.playerX + PLAYER_W / 2
-        self.playerY = self.playerY + PLAYER_H / 2
+        local x, y = player:getRect()
+        self.playerPos = {
+            x = x + PLAYER_W / 2,
+            y = y + PLAYER_H / 2,
+        }
     end
 end
 
@@ -133,7 +135,7 @@ function Game:removeEntity(ent)
 end
 
 function Game:getPlayerPos()
-    return self.playerX, self.playerY
+    return self.playerPos
 end
 
 function Game:isPlayerAlive()

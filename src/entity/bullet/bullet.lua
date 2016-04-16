@@ -27,15 +27,13 @@ end
 
 function Bullet:shootTowardsTarget(t)
     local x, y = self:getCenter()
-    local mx, my = t.target:getCenter()
-    local dx, dy = Util.vectorBetween(x, y, mx, my, t.speed)
+    local dx, dy = Util.vectorBetween(x, y, t.target.x, t.target.y, t.speed)
 
     t.angle = t.angle or 0
     dx, dy = Vector.rotate(math.pi * t.angle, dx, dy)
 
     self:setSpeed(dx, dy)
 end
-
 
 function Bullet:update(dt)
     Base.update(self, dt)

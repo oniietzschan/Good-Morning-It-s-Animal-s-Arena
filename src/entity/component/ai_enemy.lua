@@ -23,8 +23,8 @@ end
 
 function AiEnemy:towardsPlayer()
     local x, y = self.parent:getCenter()
-    local px, py = game:getPlayerPos()
-    self.parent:setSpeed(Util.vectorBetween(x, y, px, py, self.parent.speed))
+    local player = game:getPlayerPos()
+    self.parent:setSpeed(Util.vectorBetween(x, y, player.x, player.y, self.parent.speed))
 
     self:nextActionIn(0.15 + rng() * 0.2)
 end
@@ -36,7 +36,7 @@ function AiEnemy:shootAtPlayer()
         x = x,
         y = y,
         speed = ENEMY_NORMAL_BULLET_SPEED,
-        target = player,
+        target = game:getPlayerPos(),
     })
 
     -- slow down!!
@@ -64,7 +64,7 @@ function AiEnemy:shootVolleyAtPlayer()
                 x = x,
                 y = y,
                 speed = ENEMY_NORMAL_BULLET_SPEED,
-                target = player,
+                target = game:getPlayerPos(),
                 angle = i * 0.1 - 0.01 + rng() * 0.02,
             })
         end

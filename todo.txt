@@ -21,5 +21,25 @@
         [ ] fix diagonal movements
         [ ] focus
     [ ] UI
+    [ ] music
+        [ ] S.E.C.R.E.T. OST (hint: *meow*)
     [ ] input
         [ ] gamepad support
+
+
+
+USAGI-KUN
+    attack  ||
+    range   |||||
+    speed   |||||
+    defense |
+KUMA-SAN
+    attack  |||||
+    range   |
+    speed   |
+    defense |||||
+NEKO-DONO
+    attack  |||||
+    range   |||
+    speed   |||
+    defense |

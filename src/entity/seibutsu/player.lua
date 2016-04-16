@@ -19,15 +19,6 @@ function Player:initialize(t)
     self:toUsagi()
 end
 
-function Player:toUsagi()
-    self.form = USAGI
-
-    self.maxSpeed = MAX_SPEED_USAGI
-    self.acceleration = ACCELERATION_USAGI
-
-    self.imgColorFilter = {127, 127, 255, 255}
-end
-
 function Player:toKuma()
     self.form = KUMA
 
@@ -35,6 +26,25 @@ function Player:toKuma()
     self.acceleration = ACCELERATION_KUMA
 
     self.imgColorFilter = {255, 127, 127, 255}
+end
+
+function Player:toNeko()
+    self.form = KUMA
+
+    self.maxSpeed = MAX_SPEED_NEKO
+    self.acceleration = ACCELERATION_NEKO
+
+    self.imgColorFilter = {127, 255, 127, 255}
+end
+
+
+function Player:toUsagi()
+    self.form = USAGI
+
+    self.maxSpeed = MAX_SPEED_USAGI
+    self.acceleration = ACCELERATION_USAGI
+
+    self.imgColorFilter = {127, 127, 255, 255}
 end
 
 -- function Player:initializeSpriteSheet()
@@ -77,11 +87,14 @@ function Player:update(dt)
 end
 
 function Player:handleChangeForm()
-    if input:down('square') then
-        self:toUsagi()
-    end
-    if input:down('triangle') then
+    if input:down(KUMA) then
         self:toKuma()
+    end
+    if input:down(NEKO) then
+        self:toNeko()
+    end
+    if input:down(USAGI) then
+        self:toUsagi()
     end
 end
 
@@ -156,12 +169,18 @@ function Player:handleAttack()
     end
 
     local x, y, w, h = self:getRect()
+    local mx, my = Util:mousePos()
+    local test = {}
     if self.form == USAGI then
         if input:down(ATTACK) then
-            UsagiBullet({
+            Bullet({
                 x = x + w / 2 - 2,
                 y = y + h / 2 - 2,
+                target = {x = mx, y = my},
+                speed = BULLET_PLAYER_SPEED,
                 friendly = true,
+                img = img.bulletPlayer,
+                imgColorFilter = {255, 255, 255, 255},
             })
             self:setAttackCooldown(ATTACK_COOLDOWN_USAGI)
         end

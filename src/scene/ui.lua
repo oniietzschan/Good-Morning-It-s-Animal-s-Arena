@@ -194,6 +194,9 @@ function Ui:drawPlayerStatus()
     if player ~= nil then
         hp = player.hp
     end
+    if hp <= 1 then
+        return
+    end
     self:drawText(hp, self.ui_x + 1, self.ui_y + 1, COLOR_DARK_GREY)
     self:drawText(hp, self.ui_x, self.ui_y, COLOR_WHITE)
 end

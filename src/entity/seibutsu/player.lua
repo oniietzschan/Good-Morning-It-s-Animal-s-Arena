@@ -154,7 +154,7 @@ function Player:handleAttack()
     local x, y, w, h = self:getRect()
     if self.form == USAGI then
         if input:down(ATTACK) then
-            Bullet({
+            UsagiBullet({
                 x = x + w / 2 - 2,
                 y = y + h / 2 - 2,
                 friendly = true,

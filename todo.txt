@@ -7,10 +7,13 @@
             [X] crosshair
             [X] fire bullets
             [X] towards cursor
+        [ ] can die
     [ ] enemy
         [X] can die
-        [ ] move towards player
-        [ ] fires at player
+        [X] move towards player
+        [X] fires at player
+    [ ] enemy waves
+        [ ] spawn enemies every X
 
 [ ] SUKI
     [ ] player

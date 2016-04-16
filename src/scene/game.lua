@@ -84,8 +84,18 @@ function Game:input(dt)
 end
 
 function Game:updateEntities(dt)
+    self:cache()
+
     for i,ent in pairs(self._entities) do
         ent:update(dt)
+    end
+end
+
+function Game:cache()
+    if player then
+        self.playerX, self.playerY = player:getRect()
+        self.playerX = self.playerX + PLAYER_W / 2
+        self.playerY = self.playerY + PLAYER_H / 2
     end
 end
 
@@ -120,6 +130,10 @@ function Game:removeEntity(ent)
     self._entities[ent.id] = nil
 
     self.camera:removeFromLayer(ent.layer, ent)
+end
+
+function Game:getPlayerPos()
+    return self.playerX, self.playerY
 end
 
 return Game

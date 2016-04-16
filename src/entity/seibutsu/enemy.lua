@@ -1,10 +1,12 @@
 local Enemy = class('Enemy', Seibutsu)
 
 function Enemy:initialize(t)
-    self.hp = 5
+    self.hp = 7
+    self.speed = ENEMY_NORMAL_SPEED
 
     t.components = t.components or {}
     Util.tableConcat(t.components, {
+        AiEnemy,
         Unfriendly,
     })
 

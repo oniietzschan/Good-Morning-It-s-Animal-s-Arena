@@ -37,11 +37,13 @@ Image = require 'entity.image'
 Base = require 'entity.base'
 
 Component  = require 'entity.component.component'
+AiEnemy    = require 'entity.component.ai_enemy'
 Living     = require 'entity.component.living'
 Motion     = require 'entity.component.motion'
-Unfriendly = require 'entity.component.Unfriendly'
+Unfriendly = require 'entity.component.unfriendly'
 
 Bullet = require 'entity.bullet.bullet'
+UsagiBullet = require 'entity.bullet.usagi_bullet'
 
 BaseFrill = require 'entity.frill.base_frill'
 Frill     = require 'entity.frill.frill'

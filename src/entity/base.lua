@@ -49,6 +49,10 @@ function Base:remove()
 
     self.world:remove(self.obj)
     self.game:removeEntity(self)
+
+    -- Fix issues with Motion component.
+    self.speedX = 0
+    self.speedY = 0
 end
 
 function Base:removeFrill()
@@ -92,6 +96,17 @@ end
 
 function Base:getRect()
     return self.world:getRect(self.obj)
+end
+
+function Base:getCenter()
+    local x, y, w, h = self:getRect()
+
+    return x + w / 2, y + h / 2
+end
+
+function Base:setSpeed(dx, dy)
+    self.speedX = dx
+    self.speedY = dy
 end
 
 function Base:setPosAbs(x, y)

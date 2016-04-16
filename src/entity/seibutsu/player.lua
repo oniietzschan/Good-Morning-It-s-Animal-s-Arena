@@ -2,14 +2,30 @@ local Player = class('Player', Seibutsu)
 
 function Player:initialize(t)
     self.hp = 9
-    self.maxSpeed = PLAYER_MAX_SPEED
-    self.acceleration = PLAYER_ACCELERATION
 
     t.img = img.square
 
     Seibutsu.initialize(self, t)
 
     self:toUsagi()
+end
+
+function Player:toUsagi()
+    self.form = USAGI
+
+    self.maxSpeed = MAX_SPEED_USAGI
+    self.acceleration = ACCELERATION_USAGI
+
+    self.imgColorFilter = {127, 127, 255, 255}
+end
+
+function Player:toKuma()
+    self.form = KUMA
+
+    self.maxSpeed = MAX_SPEED_KUMA
+    self.acceleration = ACCELERATION_KUMA
+
+    self.imgColorFilter = {255, 127, 127, 255}
 end
 
 -- function Player:initializeSpriteSheet()
@@ -46,6 +62,8 @@ function Player:update(dt)
     self:handleWalking(dt)
 
     Seibutsu.update(self, dt)
+
+    self:handleOutOfBounds()
 end
 
 function Player:handleChangeForm()
@@ -55,18 +73,6 @@ function Player:handleChangeForm()
     if input:down('triangle') then
         self:toKuma()
     end
-end
-
-function Player:toUsagi()
-    self.form = USAGI
-
-    self.imgColorFilter = {127, 127, 255, 255}
-end
-
-function Player:toKuma()
-    self.form = KUMA
-
-    self.imgColorFilter = {255, 127, 127, 255}
 end
 
 function Player:handleWalking(dt)
@@ -108,9 +114,9 @@ function Player:walk(x, y, dt)
     -- -- If switching directions, then damping can help us reverse
     -- self:dampenSpeed(dt)
 
-    self.speedX = Util.clamp(self.speedX, PLAYER_MAX_SPEED * -1, PLAYER_MAX_SPEED)
-    self.speedY = Util.clamp(self.speedY, PLAYER_MAX_SPEED * -1, PLAYER_MAX_SPEED)
-    if math.abs(self.speedX) > PLAYER_MAX_SPEED then
+    self.speedX = Util.clamp(self.speedX, self.maxSpeed * -1, self.maxSpeed)
+    self.speedY = Util.clamp(self.speedY, self.maxSpeed * -1, self.maxSpeed)
+    if math.abs(self.speedX) > self.maxSpeed then
         local sign = Util.choose(self.speedX > 0, 1, -1)
         self.speedX = self.maxSpeed * sign
     end
@@ -130,6 +136,15 @@ function Player:dampenYSpeed(dt)
     if math.abs(self.speedY) < 1 then
         self.speedY = 0
     end
+end
+
+function Player:handleOutOfBounds()
+    local x, y = self:getRect()
+
+    self:setPosAbs(
+        Util.clamp(x, GAME_MIN_X, GAME_MAX_X),
+        Util.clamp(y, GAME_MIN_Y, GAME_MAX_Y)
+    )
 end
 
 return Player

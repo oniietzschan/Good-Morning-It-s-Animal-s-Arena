@@ -6,6 +6,20 @@ CAMERA_MIN_Y = 0
 CAMERA_MAX_X = 0
 CAMERA_MAX_Y = 0
 
+-- Game
+GAME_MIN_X = 0
+GAME_MIN_Y = 0
+GAME_MAX_X = 640
+GAME_MAX_Y = 360
+
+-- Forms
+KUMA = 'kuma'
+USAGI = 'usagi'
+MAX_SPEED_USAGI = 128
+MAX_SPEED_KUMA = 64
+ACCELERATION_USAGI = MAX_SPEED_USAGI * 8
+ACCELERATION_KUMA = MAX_SPEED_KUMA * 8
+
 -- To Calculate: Walk Dampen Factor
 -- 1 = 96 * x ** 0.3
 -- 1/96 = x ** 0.3
@@ -16,17 +30,10 @@ CAMERA_MAX_Y = 0
 -- log10(1/96) / 0.3 = log10(x)
 -- 10 ** (log10(1/96) / 0.3) = x
 -- 0.000000246847 = x
-local player_max_speed = 96
 local time_to_stop = 0.225
 local dampen_cutoff_speed = 1
 
-PLAYER_MAX_SPEED = player_max_speed
-PLAYER_ACCELERATION = PLAYER_MAX_SPEED * 8
-WALK_DAMPEN_FACTOR = math.pow(10, (math.log10(dampen_cutoff_speed / player_max_speed) / time_to_stop))
-
--- Forms
-USAGI = 'usagi'
-KUMA = 'kuma'
+WALK_DAMPEN_FACTOR = math.pow(10, (math.log10(dampen_cutoff_speed / MAX_SPEED_USAGI) / time_to_stop))
 
 -- Colors
 COLOR_BLACK = {0, 0, 0}
@@ -38,6 +45,7 @@ COLOR_DARK_RED = {128, 0, 0}
 COLOR_GREEN = {0, 255, 0}
 COLOR_RED = {255, 0, 0}
 COLOR_WHITE = {255, 255, 255}
+COLOR_QT = {255, 255, 255, 255}
 
 -- Events
 EVENT_TAKE_DAMAGE = 'takeDamage'

@@ -94,6 +94,10 @@ function Base:getRect()
     return self.world:getRect(self.obj)
 end
 
+function Base:setPosAbs(x, y)
+    self.world:update(self.obj, x, y)
+end
+
 function Base:setPosRel(relX, relY)
     local x, y = self:getRect()
     self.world:update(self.obj, relX + x, relY + y)

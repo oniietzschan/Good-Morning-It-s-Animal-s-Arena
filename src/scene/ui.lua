@@ -124,6 +124,7 @@ function Ui:draw()
     -- self:drawDialogDebug()
     self:drawFps()
     self:drawPlayerStatus()
+    self:drawCrosshair()
 end
 
 function Ui:drawDialog()
@@ -167,7 +168,7 @@ end
 
 function Ui:drawDialogDebug()
     lg.setFont(font["tiny"])
-    lg.setColor(255, 255, 255, 255)
+    lg.setColor(COLOR_QT)
     local real_width, lines = self.dialog_font:getWrap(msg, w)
     local suf = ''
     if (self:isDialogFullyAdvanced()) then suf = ' READY' end
@@ -200,6 +201,14 @@ end
 function Ui:drawText(text, x, y, color)
     lg.setColor(color)
     lg.print(text, x, y)
+end
+
+function Ui:drawCrosshair()
+    lg.setColor(COLOR_QT)
+    local x, y = lm:getPosition()
+    x = x / _scale
+    y = y / _scale
+    lg.draw(img.crosshair.image, x - 6, y - 6)
 end
 
 -- UNUSED SO FAR

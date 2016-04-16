@@ -2,6 +2,10 @@
     [ ] player
         [X] move up and down.
         [ ] forms
-            [X] change color
+            [X] change speed
+        [ ] shoot
+            [X] crosshair
+            [ ] fire bullets
+            [ ] towards cursor
 
 [ ] SUKI

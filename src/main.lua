@@ -13,6 +13,7 @@ tiles = nil
 world = nil
 
 lg = love.graphics
+lm = love.mouse
 
 local loveRng = love.math.newRandomGenerator(os.time())
 rng = function(min, max) return loveRng:random(min, max) end
@@ -58,6 +59,7 @@ Game  = require 'scene.game'
 Ui    = require 'scene.ui'
 
 local images = {
+    crosshair = {'assets/crosshair.png', 14, 14},
     pixel = {'assets/pixel.png', 1, 1},
     square = {'assets/square.png', 16, 16},
 }

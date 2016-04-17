@@ -66,6 +66,8 @@ end
 function Game:initWorld()
     self._entities = {}
 
+    self.score = 0
+
     world = bump.newWorld(16)
 
     local factory = MapFactory({world = world})
@@ -148,6 +150,10 @@ end
 
 function Game:isPlayerAlive()
     return player ~= nil
+end
+
+function Game:addScore(i)
+    self.score = self.score + i
 end
 
 return Game

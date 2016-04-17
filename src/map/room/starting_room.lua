@@ -1,6 +1,6 @@
 local StartingRoom = class('StartingRoom', Room)
 
-DIST = 80
+DIST = 120
 SPAWN_POSITIONS = {
     {x = GAME_MAX_X + DIST, y = GAME_MAX_Y * 0.25}, -- 2:30
     {x = GAME_MAX_X + DIST, y = GAME_MAX_Y * 0.50}, -- 3:00
@@ -19,7 +19,7 @@ SPAWN_POSITIONS = {
     {x = GAME_MAX_X * 0.67, y = 0          - DIST}, --  1:00
     {x = GAME_MAX_X * 0.83, y = 0          - DIST}, --  2:00
 }
-PACK_DIST = 48
+PACK_DIST = 72
 
 function StartingRoom:generate()
     player = self:createEntity({

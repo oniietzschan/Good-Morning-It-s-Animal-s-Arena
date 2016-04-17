@@ -72,6 +72,7 @@ local images = {
     bulletSmall = {'assets/bullet_small.png', 4, 4},
     bulletPlayer = {'assets/bullet_player.png', 5, 5},
     crosshair = {'assets/crosshair.png', 14, 14},
+    enemy = {'assets/enemy.png', 38, 28},
     grass = {'assets/grass.png', 32, 32},
     kumaAttack = {'assets/kuma_attack.png', 27, 15},
     pixel = {'assets/pixel.png', 1, 1},

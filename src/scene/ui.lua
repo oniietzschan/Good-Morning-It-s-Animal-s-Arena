@@ -134,6 +134,7 @@ function Ui:draw()
     -- self:drawDialogDebug()
     self:drawFps()
     self:drawPlayerStatus()
+    self:drawScore()
     self:drawCrosshair()
 end
 
@@ -187,7 +188,6 @@ end
 
 function Ui:drawFps()
     local fps_msg = "FPS: " .. tostring(love.timer.getFPS())
-    lg.setFont(font['font'])
     lg.setColor(COLOR_UI_SHADOW)
     lg.print(fps_msg, 3, 3)
     lg.setColor(COLOR_WHITE)
@@ -195,8 +195,6 @@ function Ui:drawFps()
 end
 
 function Ui:drawPlayerStatus()
-    lg.setFont(font['font'])
-    lg.setLineWidth(1)
 
     -- lg.draw(img.heart.image, img.heart.quads[1], self.ui_x, self.ui_y)
 
@@ -209,6 +207,14 @@ function Ui:drawPlayerStatus()
     end
     self:drawText(hp, self.ui_x + 1, self.ui_y + 1, COLOR_UI_SHADOW)
     self:drawText(hp, self.ui_x, self.ui_y, COLOR_WHITE)
+end
+
+function Ui:drawScore()
+    local fps_msg =string.format("%06d", game.score)
+    lg.setColor(COLOR_UI_SHADOW)
+    lg.print(fps_msg, 553, 3)
+    lg.setColor(COLOR_WHITE)
+    lg.print(fps_msg, 552, 2)
 end
 
 function Ui:drawText(text, x, y, color)

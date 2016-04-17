@@ -17,8 +17,8 @@ function Unfriendly:handleBulletCollision()
         end
 
         self.parent:takeDamage(item.entity.damage)
-        self.parent.imgColorFilter = {128, 128, 128, 255}
-        Timer.after(ONE_FRAME_30FPS, function() self.parent.imgColorFilter = {64, 64, 64, 255} end)
+        self.parent.imgColorFilter = COLOR_ONHIT
+        Timer.after(ONE_FRAME_30FPS, function() self.parent.imgColorFilter = COLOR_QT end)
 
         item.entity:hitTarget()
     end

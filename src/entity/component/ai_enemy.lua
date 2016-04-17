@@ -19,9 +19,13 @@ function AiEnemy:update(dt)
 
     local behavioursMethod = Util.rngSelect(behaviours)
     self[behavioursMethod](self)
+
+    self:facePlayer()
 end
 
 function AiEnemy:towardsPlayer()
+    self.parent:setAnimation('walk')
+
     local x, y = self.parent:getCenter()
     local player = game:getPlayerPos()
     self.parent:setSpeed(Util.vectorBetween(x, y, player.x, player.y, self.parent.speed))
@@ -30,23 +34,27 @@ function AiEnemy:towardsPlayer()
 end
 
 function AiEnemy:shootAtPlayer()
+    self.parent:setAnimation('walk')
+
     local x, y = self.parent:getCenter()
+    local player = game:getPlayerPos()
 
     Bullet({
         x = x,
         y = y,
         speed = ENEMY_NORMAL_BULLET_SPEED,
-        target = game:getPlayerPos(),
+        target = player,
     })
 
-    -- slow down!!
-    self.parent.speedX = self.parent.speedX * (0.25 + rng() * 0.5)
-    self.parent.speedY = self.parent.speedY * (0.25 + rng() * 0.5)
+    -- towards player at half sdeed
+    self.parent:setSpeed(Util.vectorBetween(x, y, player.x, player.y, self.parent.speed * 0.5))
 
     self:nextActionIn(1.15 + rng() * 0.2)
 end
 
 function AiEnemy:shootVolleyAtPlayer()
+    self.parent:setAnimation('stand')
+
     local x, y = self.parent:getCenter()
 
     -- stop first
@@ -71,6 +79,12 @@ function AiEnemy:shootVolleyAtPlayer()
     end)
 
     self:nextActionIn(1.15 + rng() * 0.2)
+end
+
+function AiEnemy:facePlayer()
+    local player = game:getPlayerPos()
+    local x, y = self.parent:getCenter()
+    self.parent.img_mirror = (player.x < x)
 end
 
 function AiEnemy:nextActionIn(time)

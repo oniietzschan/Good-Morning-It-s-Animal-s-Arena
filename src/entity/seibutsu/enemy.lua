@@ -10,10 +10,21 @@ function Enemy:initialize(t)
         Unfriendly,
     })
 
-    t.img = img.square
-    t.imgColorFilter = {64, 64, 64, 255}
+    t.w = 16
+    t.h = 28
+
+    t.img = img.enemy
+    t.img_offset_x = -6
+    t.img_offset_y = 0
+
 
     Seibutsu.initialize(self, t)
+
+    self:addFrill(Shadow, {
+        layer = 'shadow',
+        offsetX = 2,
+        offsetY = 22,
+    })
 
     self.canAttack = true
 end
@@ -27,7 +38,22 @@ function Enemy:initializeSpriteSheet()
         stand = {
             quads[1],
         },
+        walk = {
+            frequency = 1,
+            quads[2],
+            quads[3],
+            quads[4],
+            quads[5],
+            quads[6],
+            quads[7],
+        }
     }
+end
+
+function Enemy:remove()
+    self.game:addScore(100)
+
+    Seibutsu.remove(self)
 end
 
 return Enemy

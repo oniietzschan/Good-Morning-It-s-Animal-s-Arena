@@ -18,20 +18,22 @@
     [X] usagi
         [X] attack
         [X] sprite
-    [ ] enemy
+    [X] enemy
         [X] can die
         [X] move towards player
         [X] fires at player
         [X] don't fire until onscreen -- FOR FREE :D
-        [ ] sprite
+        [X] sprite
     [ ] enemy waves
         [X] spawn enemies every X
     [ ] system
-        [ ] score
+        [X] score
         [ ] restart game
+        [ ] high score
 
 [ ] SUKI
     [ ] player
+        [ ] change expression to >_< while shooting
         [ ] cooldown on transform
         [ ] focus
             [ ] slow movement
@@ -42,6 +44,9 @@
         [ ] moves to position
         [ ] fires in direction
         [ ] sprite
+    [ ] graphics
+        [ ] mirror shadow properly
+        [ ] draw in order of y position, to prevent weird overlaps
     [ ] powerups?
     [ ] UI
     [ ] music

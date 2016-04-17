@@ -114,6 +114,10 @@ local sounds = {
         path = 'assets/sound/player_shot.wav',
         volume = 0.7,
     },
+    playerTransform = {
+        path = 'assets/sound/player_transform.wav',
+        volume = 0.7,
+    },
     rocketExplosion = {
         path = 'assets/sound/rocket_explosion.wav',
         volume = 0.75,

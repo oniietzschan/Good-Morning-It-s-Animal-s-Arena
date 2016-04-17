@@ -143,12 +143,15 @@ end
 
 function Player:handleChangeForm()
     if input:down(KUMA) then
+        Util.sound('playerTransform', 0.2)
         self:toKuma()
     end
     if input:down(NEKO) then
+        Util.sound('playerTransform', 0.2)
         self:toNeko()
     end
     if input:down(USAGI) then
+        Util.sound('playerTransform', 0.2)
         self:toUsagi()
     end
 end

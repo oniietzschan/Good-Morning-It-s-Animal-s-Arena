@@ -15,9 +15,9 @@ GAME_MAX_X = 640 - PLAYER_W
 GAME_MAX_Y = 360 - PLAYER_H
 
 -- Forms
-KUMA  = 'kuma'
-NEKO  = 'neko'
-USAGI = 'usagi'
+KUMA  = 'kuma-san'
+NEKO  = 'neko-dono'
+USAGI = 'usagi-kun'
 
 WIDTH_KUMA  = 12
 WIDTH_NEKO  = 12

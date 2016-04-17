@@ -27,6 +27,8 @@
         [ ] gamepad support
     [ ] system
         [ ] title screen
+    [ ] tweaks / balance
+        [ ] more visible bullets... flash like metal slug?
 
 [X] ICHIBAN DAISUKI
     [X] FIX DISPLAY BUG AFTER SWITCHING FORM

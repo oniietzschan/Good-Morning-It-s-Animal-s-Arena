@@ -9,14 +9,10 @@ function Player:initialize(t)
 
     t.w = WIDTH_USAGI
     t.h = HEIGHT_USAGI
-    t.img_offset_x = IMG_OFFSET_X_USAGI
-    t.img_offset_y = IMG_OFFSET_Y_USAGI
 
     t.img = img.usagi
 
     Seibutsu.initialize(self, t)
-
-    self.canAttack = true
 
     self.myShadow = self:addFrill(Shadow, {
         layer = 'shadow',
@@ -26,7 +22,7 @@ function Player:initialize(t)
 
     -- self:toKuma()
     -- self:toNeko()
-    self:toUsagi()
+    self:toUsagi(true)
 end
 
 function Player:toKuma()
@@ -40,7 +36,11 @@ function Player:toKuma()
     self.animations = self.animationsKuma
     self:animationBugAfterTransformHack()
 
+    self.img_offset_x = IMG_OFFSET_X_KUMA
+    self.img_offset_y = IMG_OFFSET_Y_KUMA
     self.myShadow.offsetY = 14
+
+    self:helpTransform()
 end
 
 function Player:toNeko()
@@ -54,10 +54,16 @@ function Player:toNeko()
     self.animations = self.animationsNeko
     self:animationBugAfterTransformHack()
 
+    self.img_offset_x = IMG_OFFSET_X_NEKO
+    self.img_offset_y = IMG_OFFSET_Y_NEKO
+    self.offsetFireX = 28
+    self.offsetFireY = 1.5
     self.myShadow.offsetY = 11
+
+    self:helpTransform()
 end
 
-function Player:toUsagi()
+function Player:toUsagi(silent)
     self.form = USAGI
     self.hp = 1
 
@@ -66,9 +72,24 @@ function Player:toUsagi()
 
     self.img = img.usagi
     self.animations = self.animationsUsagi
-    self:animationBugAfterTransformHack()
 
+    self.img_offset_x = IMG_OFFSET_X_USAGI
+    self.img_offset_y = IMG_OFFSET_Y_USAGI
+    self.offsetFireX = 22
+    self.offsetFireY = 1
     self.myShadow.offsetY = 14
+
+    self:helpTransform(silent)
+end
+
+function Player:helpTransform(silent)
+    if not silent then
+        Util.sound('playerTransform', 0.2)
+    end
+
+    self.canAttack = true
+
+    self:animationBugAfterTransformHack()
 end
 
 function Player:animationBugAfterTransformHack()
@@ -142,16 +163,13 @@ function Player:update(dt)
 end
 
 function Player:handleChangeForm()
-    if input:down(KUMA) then
-        Util.sound('playerTransform', 0.2)
+    if input:pressed(KUMA) and self.form ~= KUMA then
         self:toKuma()
     end
-    if input:down(NEKO) then
-        Util.sound('playerTransform', 0.2)
+    if input:pressed(NEKO) and self.form ~= NEKO then
         self:toNeko()
     end
-    if input:down(USAGI) then
-        Util.sound('playerTransform', 0.2)
+    if input:pressed(USAGI) and self.form ~= USAGI then
         self:toUsagi()
     end
 end
@@ -230,23 +248,26 @@ function Player:handleAttack()
     end
 
     local x, y = self:getCenter()
-    local mx, my = Util:mousePos()
-    local t = {
-        x = x,
-        y = y,
-        target = {x = mx, y = my},
-        friendly = true,
-        imgColorFilter = {255, 255, 255, 255},
-    }
 
     if self.form == KUMA then
         Util.sound('playerShot')
+
+        local t = {
+            x = x,
+            y = y,
+            friendly = true,
+            pierce = true,
+            damage = BULLET_DAMAGE_KUMA,
+            speed = BULLET_SPEED_KUMA,
+            duration = KUMA_ATTACK_DURATION,
+        }
 
         for i=1,2 do
             local t = Util.deepcopy(t)
 
             -- worst code every jfc
             local offsetx, offsety = 0, 0
+            local mx, my = Util:mousePos()
             local targetOffsetX, targetOffsetY = Util.vectorBetween(x, y, mx, my, KUMA_ATTACK_RANGE)
 
             do
@@ -262,12 +283,7 @@ function Player:handleAttack()
 
             t.x = t.x + offsetx
             t.y = t.y + offsety
-            t.pierce = true
-            t.damage = BULLET_DAMAGE_KUMA
             t.target = {x = x + targetOffsetX, y = y + targetOffsetY}
-            -- t.angle = i - 0.5
-            t.speed = BULLET_SPEED_KUMA
-            t.duration = KUMA_ATTACK_DURATION
             t.img = img.kumaAttack
 
             Bullet(t)
@@ -276,29 +292,47 @@ function Player:handleAttack()
 
     elseif self.form == NEKO then
         Util.sound('rocketFire', 0.2)
-
-        t.onHit = self:getNekoOnHitCallback()
-        t.damage = BULLET_DAMAGE_NEKO
-        t.speed = BULLET_SPEED_NEKO
-        t.img = img.bulletNeko
-        Bullet(t)
+        self:fireBullet({
+            onHit = self:getNekoOnHitCallback(),
+            damage = BULLET_DAMAGE_NEKO,
+            speed = BULLET_SPEED_NEKO,
+            img = img.bulletNeko,
+        })
         self:setAttackCooldown(ATTACK_COOLDOWN_NEKO)
-        self:nekoKnockback()
+        -- self:nekoKnockback()
 
     elseif self.form == USAGI then
         Util.sound('playerShot')
-
-        t.damage = BULLET_DAMAGE_USAGI
-        t.speed = BULLET_SPEED_USAGI
-        t.img = img.bulletPlayer
-        Bullet(t)
+        self:fireBullet({
+            damage = BULLET_DAMAGE_USAGI,
+            speed = BULLET_SPEED_USAGI,
+            img = img.bulletPlayer,
+        })
         self:setAttackCooldown(ATTACK_COOLDOWN_USAGI)
     end
 end
 
+function Player:fireBullet(t)
+    local x, y = self:getCenter()
+    local mx, my = Util:mousePos()
+
+    t.x = x + (self.img_mirror and (self.offsetFireX * -1) or self.offsetFireX)
+    t.y = y + self.offsetFireY
+
+    t.target = {x = mx, y = my}
+    t.friendly = true
+
+    Bullet(t)
+end
+
 function Player:setAttackCooldown(cd)
     self.canAttack = false
-    Timer.after(cd, function() self.canAttack = true end)
+
+    if self.attackCooldownTimer then
+        Timer.cancel(self.attackCooldownTimer)
+    end
+
+    self.attackCooldownTimer = Timer.after(cd, function() self.canAttack = true end)
 end
 
 function Player:getNekoOnHitCallback()

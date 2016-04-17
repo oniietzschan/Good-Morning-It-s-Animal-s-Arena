@@ -1,6 +1,7 @@
 [ ] DAISUKI
     [ ] player
-        [ ] fire from end of gun, not center of mass
+        [X] fire from end of gun, not center of mass
+        [X] hitbox offset changes on transform?
         [ ] cooldown on transform
     [ ] neko
         [ ] tail

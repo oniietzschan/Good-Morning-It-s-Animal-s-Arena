@@ -36,21 +36,14 @@ end
 function AiEnemy:shootAtPlayer()
     self.parent:setAnimation('walk')
 
-    local x, y = self.parent:getCenter()
-    local player = game:getPlayerPos()
-
     if self:isOnscreen() then
         Util.sound('enemyShootShort')
-
-        Bullet({
-            x = x,
-            y = y,
-            speed = ENEMY_NORMAL_BULLET_SPEED,
-            target = player,
-        })
+        self:fireBullet({})
     end
 
     -- towards player at half sdeed
+    local x, y = self.parent:getCenter()
+    local player = game:getPlayerPos()
     self.parent:setSpeed(Util.vectorBetween(x, y, player.x, player.y, self.parent.speed * 0.5))
 
     self:nextActionIn(1.15 + rng() * 0.2)
@@ -58,12 +51,6 @@ end
 
 function AiEnemy:shootVolleyAtPlayer()
     self.parent:setAnimation('stand')
-
-    local x, y = self.parent:getCenter()
-
-    -- stop first
-    self.parent.speedX = 0
-    self.parent.speedY = 0
 
     -- fire after a bit
     if self:isOnscreen() then
@@ -75,11 +62,7 @@ function AiEnemy:shootVolleyAtPlayer()
             Util.sound('enemyShootMedium')
 
             for i = -2, 2 do
-                Bullet({
-                    x = x,
-                    y = y,
-                    speed = ENEMY_NORMAL_BULLET_SPEED,
-                    target = game:getPlayerPos(),
+                self:fireBullet({
                     angle = i * 0.13 - 0.01 + rng() * 0.02,
                 })
             end
@@ -87,6 +70,17 @@ function AiEnemy:shootVolleyAtPlayer()
     end
 
     self:nextActionIn(1.15 + rng() * 0.2)
+end
+
+function AiEnemy:fireBullet(t)
+    local x, y = self.parent:getCenter()
+
+    t.x = x + (self.parent.img_mirror and (self.parent.offsetFireX * -1) or self.parent.offsetFireX)
+    t.y = y + self.parent.offsetFireY
+    t.target = game:getPlayerPos()
+    t.speed = ENEMY_NORMAL_BULLET_SPEED
+
+    Bullet(t)
 end
 
 function AiEnemy:isOnscreen()

@@ -17,16 +17,16 @@ function Enemy:initialize(t)
     t.img_offset_x = -6
     t.img_offset_y = 0
 
-
     Seibutsu.initialize(self, t)
+
+    self.offsetFireX = 28
+    self.offsetFireY = 3
 
     self:addFrill(Shadow, {
         layer = 'shadow',
         offsetX = 2,
         offsetY = 22,
     })
-
-    self.canAttack = true
 end
 
 function Enemy:initializeSpriteSheet()

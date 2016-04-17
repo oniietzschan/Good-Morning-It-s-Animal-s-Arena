@@ -7,10 +7,12 @@ function Player:initialize(t)
         Friendly,
     }
 
-    t.w = PLAYER_W
-    t.h = PLAYER_H
+    t.w = WIDTH_USAGI
+    t.h = HEIGHT_USAGI
+    t.img_offset_x = IMG_OFFSET_X_USAGI
+    t.img_offset_y = IMG_OFFSET_Y_USAGI
 
-    t.img = img.square
+    t.img = img.usagi
 
     Seibutsu.initialize(self, t)
 
@@ -19,6 +21,12 @@ function Player:initialize(t)
     -- self:toKuma()
     -- self:toNeko()
     self:toUsagi()
+
+    self:addFrill(Shadow, {
+        layer = 'shadow',
+        offsetX = -2,
+        offsetY = 14,
+    })
 end
 
 function Player:toKuma()
@@ -49,32 +57,30 @@ function Player:toUsagi()
     self.maxSpeed = MAX_SPEED_USAGI
     self.acceleration = ACCELERATION_USAGI
 
-    self.imgColorFilter = {127, 127, 255, 255}
+    self.imgColorFilter = COLOR_QT
 end
 
--- function Player:initializeSpriteSheet()
---     self.airborne = false
---     self.anim_cycle = 0
+function Player:initializeSpriteSheet()
+    self.airborne = false
+    self.anim_cycle = 0
 
---     local quads = self.img.quads
+    local quads = self.img.quads
 
---     self.animations = {
---         air = {
---             quads[15], -- quads[6],
---         },
---         stand = {
---             quads[7],
---         },
---         walk = {
---             frequency = 1.9, -- 1.65,
---             quads[1],
---             quads[2],
---             quads[3],
---             quads[4],
---             quads[5],
---         }
---     }
--- end
+    self.animations = {
+        stand = {
+            quads[1],
+        },
+        walk = {
+            frequency = 2,
+            quads[2],
+            quads[3],
+            quads[4],
+            quads[5],
+            quads[6],
+            quads[7],
+        }
+    }
+end
 
 function Player:remove()
     Seibutsu.remove(self)
@@ -120,6 +126,12 @@ function Player:handleWalking(dt)
         y = y + 1
     end
 
+    if x ~= 0 or y ~= 0 then
+        self:setAnimation('walk')
+    else
+        self:setAnimation('stand')
+    end
+
     local x, y = Vector.normalize(x, y)
 
     self:walk(x, y, dt)
@@ -150,7 +162,6 @@ function Player:walk(x, y, dt)
 end
 
 function Player:dampenSpeedX(dt)
-
     self.speedX = self.speedX * math.pow(WALK_DAMPEN_FACTOR, dt)
 
     if math.abs(self.speedX) < 1 then
@@ -267,6 +278,14 @@ function Player:handleOutOfBounds()
         Util.clamp(x, GAME_MIN_X, GAME_MAX_X),
         Util.clamp(y, GAME_MIN_Y, GAME_MAX_Y)
     )
+end
+
+function Player:draw()
+    local x = self:getCenter()
+    local mx = Util:mousePos()
+    self.img_mirror = (mx < x)
+
+    Seibutsu.draw(self)
 end
 
 return Player

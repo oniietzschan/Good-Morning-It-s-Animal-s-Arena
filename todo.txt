@@ -15,9 +15,9 @@
             [X] rocket
             [X] explosion
         [ ] sprite
-    [ ] usagi
+    [X] usagi
         [X] attack
-        [ ] sprite
+        [X] sprite
     [ ] enemy
         [X] can die
         [X] move towards player

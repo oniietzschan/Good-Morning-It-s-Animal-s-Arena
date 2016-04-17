@@ -48,6 +48,7 @@ Bullet = require 'entity.bullet.bullet'
 BaseFrill = require 'entity.frill.base_frill'
 Frill     = require 'entity.frill.frill'
 Particles = require 'entity.frill.particles'
+Shadow    = require 'entity.frill.shadow'
 
 Seibutsu = require 'entity.seibutsu.seibutsu'
 Enemy    = require 'entity.seibutsu.enemy'
@@ -66,13 +67,17 @@ Game  = require 'scene.game'
 Ui    = require 'scene.ui'
 
 local images = {
+    bulletEnemy = {'assets/bullet_enemy.png', 5, 5},
     bulletNeko = {'assets/bullet_neko.png', 8, 8},
     bulletSmall = {'assets/bullet_small.png', 4, 4},
     bulletPlayer = {'assets/bullet_player.png', 5, 5},
     crosshair = {'assets/crosshair.png', 14, 14},
+    grass = {'assets/grass.png', 32, 32},
     kumaAttack = {'assets/kuma_attack.png', 27, 15},
     pixel = {'assets/pixel.png', 1, 1},
+    shadow = {'assets/shadow.png', 16, 9},
     square = {'assets/square.png', 16, 16},
+    usagi = {'assets/usagi.png', 29, 31}
 }
 
 local scenes = {}

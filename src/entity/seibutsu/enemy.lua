@@ -18,4 +18,16 @@ function Enemy:initialize(t)
     self.canAttack = true
 end
 
+function Enemy:initializeSpriteSheet()
+    self.anim_cycle = 0
+
+    local quads = self.img.quads
+
+    self.animations = {
+        stand = {
+            quads[1],
+        },
+    }
+end
+
 return Enemy

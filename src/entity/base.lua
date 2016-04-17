@@ -19,7 +19,7 @@ function Base:initialize(t)
     self.img_quad_w = t.img_quad_w or 16
     self.img_quad_h = t.img_quad_h or 16
     self.img_mirror = false
-    self.imgColorFilter = t.imgColorFilter or {255, 255, 255, 255}
+    self.imgColorFilter = t.imgColorFilter or COLOR_QT
 
     self.frills = {}
 
@@ -59,6 +59,8 @@ function Base:removeFrill()
     for _, frill in pairs(self.frills) do
         frill:remove()
     end
+
+    self.frills = {}
 end
 
 function Base:initializeComponents(components)
@@ -175,14 +177,20 @@ function Base:updateFrill(dt)
     end
 end
 
--- function Base:advanceAnimation(dt)
---     local frequency = self.anim_current.frequency or 1
---     self.anim_cycle = (self.anim_cycle + (frequency * dt)) % 1
---     local frame = math.floor(self.anim_cycle * #self.anim_current) + 1
---     self.anim_curr_quad = self.anim_current[frame]
--- end
+function Base:animate(dt)
+    local frequency = self.anim_current.frequency or 1
+    self.anim_cycle = (self.anim_cycle + (frequency * dt)) % 1
+    local frame = math.floor(self.anim_cycle * #self.anim_current) + 1
+    self.anim_curr_quad = self.anim_current[frame]
+end
 
 function Base:isVisible(cam_x, cam_y, cam_w, cam_h)
+    if self.anim_curr_quad == nil then
+        print('NO QUAD FOUND FOR: ' .. self.class.name)
+
+        return false
+    end
+
     local self_x, self_y = self:getRect()
     local _, _, self_w, self_h = self.anim_curr_quad:getViewport()
 

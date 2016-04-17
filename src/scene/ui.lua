@@ -28,23 +28,33 @@ end
 
 function Ui:initFonts()
     font = {}
-    font["mono16"] = lg.newImageFont(
-        'assets/fonts/jasoco_mono16.png',
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 :-!.,\"?>_"
-    )
-    font["mono16"]:setLineHeight(1)
 
-    font["dialog"] = lg.newImageFont(
-        'assets/fonts/jasoco_dialog.png',
-        " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`_*#=[]'{}"
+    font['font'] = lg.newImageFont(
+        'assets/font.png',
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 :-!.,"?'
     )
-    font["dialog"]:setLineHeight(.6)
+    font['font']:setLineHeight(1)
 
-    font["tiny"] = lg.newImageFont(
-        'assets/fonts/jasoco_tiny.png',
-        " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-,!:()[]{}<>"
-    )
-    font["tiny"]:setLineHeight(.8)
+    lg.setFont(font['font'])
+    lg.setLineWidth(1)
+
+    -- font["mono16"] = lg.newImageFont(
+    --     'assets/fonts/jasoco_mono16.png',
+    --     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 :-!.,\"?>_"
+    -- )
+    -- font["mono16"]:setLineHeight(1)
+
+    -- font["dialog"] = lg.newImageFont(
+    --     'assets/fonts/jasoco_dialog.png',
+    --     " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`_*#=[]'{}"
+    -- )
+    -- font["dialog"]:setLineHeight(.6)
+
+    -- font["tiny"] = lg.newImageFont(
+    --     'assets/fonts/jasoco_tiny.png',
+    --     " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-,!:()[]{}<>"
+    -- )
+    -- font["tiny"]:setLineHeight(.8)
 end
 
 
@@ -167,7 +177,7 @@ function Ui:getLineCount(msg)
 end
 
 function Ui:drawDialogDebug()
-    lg.setFont(font["tiny"])
+    lg.setFont(font['font'])
     lg.setColor(COLOR_QT)
     local real_width, lines = self.dialog_font:getWrap(msg, w)
     local suf = ''
@@ -177,15 +187,15 @@ end
 
 function Ui:drawFps()
     local fps_msg = "FPS: " .. tostring(love.timer.getFPS())
-    lg.setFont(font["tiny"])
-    lg.setColor(COLOR_BLACK)
+    lg.setFont(font['font'])
+    lg.setColor(COLOR_UI_SHADOW)
     lg.print(fps_msg, 3, 3)
     lg.setColor(COLOR_WHITE)
     lg.print(fps_msg, 2, 2)
 end
 
 function Ui:drawPlayerStatus()
-    lg.setFont(font["mono16"])
+    lg.setFont(font['font'])
     lg.setLineWidth(1)
 
     -- lg.draw(img.heart.image, img.heart.quads[1], self.ui_x, self.ui_y)
@@ -197,7 +207,7 @@ function Ui:drawPlayerStatus()
     if hp <= 1 then
         return
     end
-    self:drawText(hp, self.ui_x + 1, self.ui_y + 1, COLOR_DARK_GREY)
+    self:drawText(hp, self.ui_x + 1, self.ui_y + 1, COLOR_UI_SHADOW)
     self:drawText(hp, self.ui_x, self.ui_y, COLOR_WHITE)
 end
 

@@ -10,6 +10,7 @@ function BaseFrill:initialize(t)
 
     self.offsetX = t.offsetX or 0
     self.offsetY = t.offsetY or 0
+    self.imgColorFilter = t.imgColorFilter or COLOR_QT
 end
 
 return BaseFrill

@@ -1,9 +1,8 @@
 local Bullet = class('Bullet', Base)
 
 function Bullet:initialize(t)
-    t.img = t.img or img.bulletPlayer
+    t.img = t.img or img.bulletEnemy
     t.layer = self.friendly and 'bulletPlayer' or 'bulletEnemy'
-    t.imgColorFilter = t.imgColorFilter or {255, 192, 128, 255}
 
     t.w = t.w or t.img:getWidth()
     t.h = t.h or t.img:getHeight()

@@ -17,12 +17,12 @@ function Frill:remove()
     self.game.camera:removeFromLayer(self.layer, self)
 end
 
--- Todo: optimize
 function Frill:isVisible()
     return true
 end
 
 function Frill:draw()
+    lg.setColor(unpack(self.imgColorFilter))
     lg.draw(
         self.img.image,
         self.quad,

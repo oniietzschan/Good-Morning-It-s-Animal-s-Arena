@@ -21,6 +21,7 @@ function Game:initCamera()
     self.camera = Camera(self)
 
     self.camera:newLayer('background')
+    self.camera:newLayer('shadow')
     self.camera:newLayer('entity')
     self.camera:newLayer('player')
     self.camera:newLayer('bulletPlayer')
@@ -104,13 +105,18 @@ function Game:cache()
 end
 
 function Game:draw()
-    lg.setColor(150, 181 , 218)
-    lg.rectangle('fill', 0, 0, CAMERA_WIDTH, CAMERA_HEIGHT)
+    self:drawBackground()
 
     self.camera:draw()
 end
 
-function Game:fillBackgroundColor()
+function Game:drawBackground()
+    lg.setColor(COLOR_QT)
+    for y = 0, math.floor(GAME_MAX_Y / 32) + 1 do
+        for x = 0, math.floor(GAME_MAX_X / 32) + 1 do
+            lg.draw(img.grass.image, x * 32, y * 32)
+        end
+    end
 end
 
 function Game:addEntity(ent)

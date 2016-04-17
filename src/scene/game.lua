@@ -11,10 +11,11 @@ function Game:initialize(t)
 
     Scene.initialize(self, t)
 
-    self.nextId = 1
+    self.highScore = 0
+    self.isGameOver = false
 
     self:initCamera()
-    self:initWorld()
+    self:startGame()
 end
 
 function Game:initCamera()
@@ -63,10 +64,10 @@ function Game:drawDebug(camX, camY)
     lg.setColor(255, 255, 255, 255)
 end
 
-function Game:initWorld()
+function Game:startGame()
     self._entities = {}
-
     self.score = 0
+    self.nextId = 1
 
     world = bump.newWorld(16)
 
@@ -153,7 +154,17 @@ function Game:isPlayerAlive()
 end
 
 function Game:addScore(i)
-    self.score = self.score + i
+    if not self.isGameOver then
+        self.score = self.score + i
+    end
+end
+
+function Game:gameOver()
+    self.isGameOver = true
+
+    if self.score > self.highScore then
+        self.highScore = self.score
+    end
 end
 
 return Game

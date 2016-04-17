@@ -58,6 +58,84 @@ function Ui:initFonts()
     -- font["tiny"]:setLineHeight(.8)
 end
 
+function Ui:displayGameOver()
+end
+
+function Ui:draw()
+    self:drawFps()
+
+    if not game.isGameOver then
+        self:drawPlayerStatus()
+        self:drawScore()
+        self:drawCrosshair()
+    else
+        self:drawGameOver()
+    end
+
+    -- self:drawDialog()
+    -- self:drawDialogDebug()
+end
+
+function Ui:drawFps()
+    self:drawTextWithShadow("FPS: " .. tostring(love.timer.getFPS()), 200, -1)
+end
+
+function Ui:drawPlayerStatus()
+    if player == nil then
+        return
+    end
+
+    self:drawPlayerFormName()
+    self:drawPlayerHp()
+end
+
+function Ui:drawPlayerFormName()
+    self:drawTextWithShadow(player.form, -1, -1)
+end
+
+function Ui:drawPlayerHp()
+    if player.hp <= 1 then
+        return
+    end
+    self:drawTextWithShadow(player.hp, -1, 10)
+end
+
+function Ui:drawScore()
+    self:drawTextWithShadow(string.format("%06d", game.score), 583, -1)
+end
+
+function Ui:drawCrosshair()
+    lg.setColor(COLOR_QT)
+    local x, y = Util:mousePos()
+    lg.draw(img.crosshair.image, x - 6, y - 6)
+end
+
+function Ui:drawGameOver()
+    local texts = {
+        {'GAME OVER'},
+        {''},
+        {"YOUR SCORE: " .. string.format("%06d", game.score)},
+        {"HIGH SCORE: " .. string.format("%06d", game.highScore), 3},
+        {''},
+        {'PRESS "R" TO RESTART'},
+    }
+    for i, t in ipairs(texts) do
+        local text, offsetX = unpack(t)
+        offsetX = offsetX or 0
+        self:drawTextWithShadow(text, 200 + offsetX, (12 * i) + 50)
+    end
+end
+
+function Ui:drawTextWithShadow(text, x, y)
+    self:drawText(text, self.ui_x + x + 1, y + self.ui_y + 1, COLOR_UI_SHADOW)
+    self:drawText(text, self.ui_x + x,     y + self.ui_y,     COLOR_WHITE)
+end
+
+function Ui:drawText(text, x, y, color)
+    lg.setColor(color)
+    lg.print(text, x, y)
+end
+
 -- function Ui:pushMessage(t)
 --     self.dialog_message_full = t.msg or ''
 --     self.dialog_message = self.dialog_message_full
@@ -129,15 +207,6 @@ end
 --     self.last_word_end_pos = #self.dialog_message
 -- end
 
-function Ui:draw()
-    -- self:drawDialog()
-    -- self:drawDialogDebug()
-    self:drawFps()
-    self:drawPlayerStatus()
-    self:drawScore()
-    self:drawCrosshair()
-end
-
 -- function Ui:drawDialog()
 --     if not self.dialog_opened then
 --         return
@@ -185,50 +254,6 @@ end
 --     if (self:isDialogFullyAdvanced()) then suf = ' READY' end
 --     lg.print("WRAP: " .. lines .. suf, 2, 18)
 -- end
-
-function Ui:drawFps()
-    self:drawTextWithShadow("FPS: " .. tostring(love.timer.getFPS()), 200, -1)
-end
-
-function Ui:drawPlayerStatus()
-    if player == nil then
-        return
-    end
-
-    self:drawPlayerFormName()
-    self:drawPlayerHp()
-end
-
-function Ui:drawPlayerFormName()
-    self:drawTextWithShadow(player.form, -1, -1)
-end
-
-function Ui:drawPlayerHp()
-    if player.hp <= 1 then
-        return
-    end
-    self:drawTextWithShadow(player.hp, -1, 10)
-end
-
-function Ui:drawScore()
-    self:drawTextWithShadow(string.format("%06d", game.score), 583, -1)
-end
-
-function Ui:drawTextWithShadow(text, x, y)
-    self:drawText(text, self.ui_x + x + 1, y + self.ui_y + 1, COLOR_UI_SHADOW)
-    self:drawText(text, self.ui_x + x,     y + self.ui_y,     COLOR_WHITE)
-end
-
-function Ui:drawText(text, x, y, color)
-    lg.setColor(color)
-    lg.print(text, x, y)
-end
-
-function Ui:drawCrosshair()
-    lg.setColor(COLOR_QT)
-    local x, y = Util:mousePos()
-    lg.draw(img.crosshair.image, x - 6, y - 6)
-end
 
 -- -- UNUSED SO FAR
 -- function Ui:drawBar(text, cur, max, x, y, inner_color)

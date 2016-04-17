@@ -111,11 +111,6 @@ function Player:initializeSpriteSheet()
     self.animations = self.animationsUsagi
 end
 
-function Player:remove()
-    Seibutsu.remove(self)
-    player = nil
-end
-
 function Player:update(dt)
     self:handleOutOfBounds()
 
@@ -323,6 +318,14 @@ function Player:draw()
     self.img_mirror = (mx < x)
 
     Seibutsu.draw(self)
+end
+
+function Player:remove()
+    self.game:gameOver()
+
+    Seibutsu.remove(self)
+
+    player = nil
 end
 
 return Player

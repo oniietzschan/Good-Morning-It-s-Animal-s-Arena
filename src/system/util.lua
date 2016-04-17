@@ -130,6 +130,15 @@ Util.sameSign = function(a, b)
     return (a >= 0 and b >= 0) or (a <= 0 and b <= 0)
 end
 
+Util.sound = function(soundName, pitchAmount)
+    pitchAmount = pitchAmount or 0.125
+
+    local snd = sound[soundName]:clone()
+
+    snd:setPitch(1 - pitchAmount * 0.5 + rng() * pitchAmount)
+    la.play(snd)
+end
+
 Util.tableConcat = function(t1,t2)
     for i=1,#t2 do
         t1[#t1+1] = t2[i]

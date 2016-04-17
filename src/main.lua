@@ -9,9 +9,11 @@ img = nil
 input = nil
 new = nil -- boipushy's fault, not mine!!
 player = nil
+sound = nil
 tiles = nil
 world = nil
 
+la = love.audio
 lg = love.graphics
 lm = love.mouse
 
@@ -81,11 +83,51 @@ local images = {
     usagi = {'assets/usagi.png', 29, 31}
 }
 
+local sounds = {
+    enemyDeath = {
+        path = 'assets/sound/enemy_death.wav',
+        volume = 0.6,
+    },
+    enemyHurt = {
+        path = 'assets/sound/enemy_hurt.wav',
+        volume = 0.45,
+    },
+    enemyShootShort = {
+        path = 'assets/sound/enemy_shoot_short.wav',
+        volume = 0.35,
+    },
+    enemyShootMedium = {
+        path = 'assets/sound/enemy_shoot_medium.wav',
+        volume = 0.4,
+    },
+    enemyShootLong = {
+        path = 'assets/sound/enemy_shoot_long.wav',
+        volume = 0.5,
+    },
+    playerHurt = {
+        path = 'assets/sound/player_hurt.wav',
+        volume = 1,
+    },
+    playerShot = {
+        path = 'assets/sound/player_shot.wav',
+        volume = 0.7,
+    },
+    rocketExplosion = {
+        path = 'assets/sound/rocket_explosion.wav',
+        volume = 0.75,
+    },
+    rocketFire = {
+        path = 'assets/sound/rocket_fire.wav',
+        volume = 0.75,
+    },
+}
+
 local scenes = {}
 
 function love.load(arg)
     initInput()
     initGraphics()
+    initSound()
     initScenes()
 end
 
@@ -144,6 +186,17 @@ function initGraphics()
         img[name] = Image(path, quad_w, quad_h)
     end
     tiles = require 'system/tiles'
+end
+
+function initSound()
+    sound = {}
+    for name, t in pairs(sounds) do
+        local snd = la.newSource(t.path, "static")
+
+        snd:setVolume(t.volume or 1)
+
+        sound[name] = snd
+    end
 end
 
 function initScenes()

@@ -39,12 +39,16 @@ function AiEnemy:shootAtPlayer()
     local x, y = self.parent:getCenter()
     local player = game:getPlayerPos()
 
-    Bullet({
-        x = x,
-        y = y,
-        speed = ENEMY_NORMAL_BULLET_SPEED,
-        target = player,
-    })
+    if self:isOnscreen() then
+        Util.sound('enemyShootShort')
+
+        Bullet({
+            x = x,
+            y = y,
+            speed = ENEMY_NORMAL_BULLET_SPEED,
+            target = player,
+        })
+    end
 
     -- towards player at half sdeed
     self.parent:setSpeed(Util.vectorBetween(x, y, player.x, player.y, self.parent.speed * 0.5))
@@ -62,23 +66,37 @@ function AiEnemy:shootVolleyAtPlayer()
     self.parent.speedY = 0
 
     -- fire after a bit
-    Timer.after(0.5, function()
-        if self.parent.hp <= 0 then
-            return
-        end
+    if self:isOnscreen() then
+        Timer.after(0.5, function()
+            if self.parent.hp <= 0 then
+                return
+            end
 
-        for i = -1, 1 do
-            Bullet({
-                x = x,
-                y = y,
-                speed = ENEMY_NORMAL_BULLET_SPEED,
-                target = game:getPlayerPos(),
-                angle = i * 0.1 - 0.01 + rng() * 0.02,
-            })
-        end
-    end)
+            Util.sound('enemyShootMedium')
+
+            for i = -1, 1 do
+                Bullet({
+                    x = x,
+                    y = y,
+                    speed = ENEMY_NORMAL_BULLET_SPEED,
+                    target = game:getPlayerPos(),
+                    angle = i * 0.1 - 0.01 + rng() * 0.02,
+                })
+            end
+        end)
+    end
 
     self:nextActionIn(1.15 + rng() * 0.2)
+end
+
+function AiEnemy:isOnscreen()
+    return not self:isOffscreen()
+end
+
+function AiEnemy:isOffscreen()
+    local x, y = self.parent:getCenter()
+
+    return x < GAME_MIN_X or y < GAME_MIN_Y or x > GAME_MAX_X or y > GAME_MAX_Y
 end
 
 function AiEnemy:facePlayer()

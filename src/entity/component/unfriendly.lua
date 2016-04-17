@@ -16,6 +16,13 @@ function Unfriendly:handleBulletCollision()
             return
         end
 
+        if self.parent.hp >= 2 then
+            Util.sound('enemyHurt')
+        else
+            Util.sound('enemyDeath')
+        end
+
+
         self.parent:takeDamage(item.entity.damage)
         self.parent.imgColorFilter = COLOR_ONHIT
         Timer.after(ONE_FRAME_30FPS, function() self.parent.imgColorFilter = COLOR_QT end)

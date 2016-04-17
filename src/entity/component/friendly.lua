@@ -5,7 +5,6 @@ function Friendly:update(dt)
 end
 
 function Friendly:handleBulletCollision()
-
     local items, len = self.parent:queryCollision(function(other)
         if other.entity == player then
             return false
@@ -15,6 +14,8 @@ function Friendly:handleBulletCollision()
     end)
 
     for i,item in ipairs(items) do
+        Util.sound('playerHurt')
+
         self.parent:takeDamage(item.entity.damage)
 
         item.entity:hitTarget()

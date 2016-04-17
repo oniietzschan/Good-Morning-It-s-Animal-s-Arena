@@ -193,6 +193,8 @@ function Player:handleAttack()
     }
 
     if self.form == KUMA then
+        Util.sound('playerShot')
+
         for i=1,2 do
             local t = Util.deepcopy(t)
 
@@ -226,6 +228,8 @@ function Player:handleAttack()
         self:setAttackCooldown(ATTACK_COOLDOWN_KUMA)
 
     elseif self.form == NEKO then
+        Util.sound('rocketFire', 0.2)
+
         t.onHit = self:getNekoOnHitCallback()
         t.damage = BULLET_DAMAGE_NEKO
         t.speed = BULLET_SPEED_NEKO
@@ -235,6 +239,8 @@ function Player:handleAttack()
         self:nekoKnockback()
 
     elseif self.form == USAGI then
+        Util.sound('playerShot')
+
         t.damage = BULLET_DAMAGE_USAGI
         t.speed = BULLET_SPEED_USAGI
         t.img = img.bulletPlayer
@@ -250,6 +256,8 @@ end
 
 function Player:getNekoOnHitCallback()
     return function(x, y)
+        Util.sound('rocketExplosion', 0.3)
+
         for i=1,26 do
             Bullet({
                 x = x,

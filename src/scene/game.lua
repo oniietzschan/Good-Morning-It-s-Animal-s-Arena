@@ -12,7 +12,6 @@ function Game:initialize(t)
     Scene.initialize(self, t)
 
     self.highScore = 0
-    self.isGameOver = false
 
     self:initCamera()
     self:startGame()
@@ -66,8 +65,10 @@ end
 
 function Game:startGame()
     self._entities = {}
-    self.score = 0
     self.nextId = 1
+
+    self.score = 0
+    self.isGameOver = false
 
     world = bump.newWorld(16)
 
@@ -87,6 +88,19 @@ function Game:input(dt)
     if input:pressed('f1') then
         self.drawDebug = not self.drawDebug
     end
+    if self.isGameOver and input:released(RESTART) then
+        self:restartGame()
+    end
+end
+
+function Game:restartGame()
+    for i,ent in pairs(self._entities) do
+        ent:remove()
+    end
+    collectgarbage()
+    Timer.clear()
+
+    self:startGame()
 end
 
 function Game:updateEntities(dt)

@@ -36,10 +36,9 @@ function Player:toKuma()
     self.maxSpeed = MAX_SPEED_KUMA
     self.acceleration = ACCELERATION_KUMA
 
-    self.img = img.usagi
-    self.animations = self.animationsUsagi
+    self.img = img.kuma
+    self.animations = self.animationsKuma
     self:animationBugAfterTransformHack()
-    self.imgColorFilter = {255, 127, 127, 255}
 
     self.myShadow.offsetY = 14
 end
@@ -54,7 +53,6 @@ function Player:toNeko()
     self.img = img.neko
     self.animations = self.animationsNeko
     self:animationBugAfterTransformHack()
-    self.imgColorFilter = COLOR_QT
 
     self.myShadow.offsetY = 11
 end
@@ -69,7 +67,6 @@ function Player:toUsagi()
     self.img = img.usagi
     self.animations = self.animationsUsagi
     self:animationBugAfterTransformHack()
-    self.imgColorFilter = COLOR_QT
 
     self.myShadow.offsetY = 14
 end
@@ -83,7 +80,23 @@ function Player:initializeSpriteSheet()
     self.airborne = false
     self.anim_cycle = 0
 
-    local quads = img.usagi.quads
+    local quads = img.kuma.quads
+    self.animationsKuma = {
+        stand = {
+            quads[1],
+        },
+        walk = {
+            frequency = 2,
+            quads[2],
+            quads[3],
+            quads[4],
+            quads[5],
+            quads[6],
+            quads[7],
+        }
+    }
+
+    quads = img.usagi.quads
     self.animationsUsagi = {
         stand = {
             quads[1],

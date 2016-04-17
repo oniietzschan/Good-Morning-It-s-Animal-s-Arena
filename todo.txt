@@ -1,5 +1,35 @@
 [ ] DAISUKI
-    [ ] FIX DISPLAY BUG AFTER SWITCHING FORM
+    [ ] player
+        [ ] fire from end of gun, not center of mass
+        [ ] cooldown on transform
+    [ ] neko
+        [ ] tail
+    [ ] boss enemy
+        [ ] only dies to kuma
+        [ ] moves to position
+        [ ] fires in direction
+        [ ] sprite
+
+[ ] SUKI
+    [ ] player
+        [ ] change expression to >_< while shooting
+        [ ] focus
+            [ ] slow movement
+            [ ] show
+        [ ] fix diagonal movements
+    [ ] graphics
+        [ ] mirror shadow properly
+        [ ] draw in order of y position, to prevent weird overlaps
+    [ ] powerups?
+    [ ] music
+        [ ] S.E.C.R.E.T. OST (hint: *meow*)
+    [ ] input
+        [ ] gamepad support
+    [ ] system
+        [ ] title screen
+
+[X] ICHIBAN DAISUKI
+    [X] FIX DISPLAY BUG AFTER SWITCHING FORM
     [X] player
         [X] move up and down.
         [X] shoot
@@ -7,13 +37,16 @@
             [X] fire bullets
             [X] towards cursor
         [X] can die
-    [ ] neko
+    [X] kuma
+        [X] attack
+        [X] armor
+        [X] sprite
+    [X] neko
         [X] attack
             [X] rocket
             [X] explosion
-        [ ] sprite
+        [X] sprite
             [X] body
-            [ ] tail
     [X] usagi
         [X] attack
         [X] sprite
@@ -23,44 +56,13 @@
         [X] fires at player
         [X] don't fire until onscreen -- FOR FREE :D
         [X] sprite
-    [ ] enemy waves
+    [X] enemy waves
         [X] spawn enemies every X
-    [ ] system
+    [X] system
         [X] score
-        [ ] restart game
-        [ ] high score
+        [X] restart game
+        [X] high score
     [X] sound
-
-[ ] SUKI
-    [ ] player
-        [ ] fire from end of gun, not center of mass
-        [ ] change expression to >_< while shooting
-        [ ] cooldown on transform
-        [ ] focus
-            [ ] slow movement
-            [ ] show
-        [ ] fix diagonal movements
-    [ ] kuma
-        [X] attack
-        [X] armor
-        [ ] sprite
-    [ ] boss enemy
-        [ ] only dies to kuma
-        [ ] moves to position
-        [ ] fires in direction
-        [ ] sprite
-    [ ] graphics
-        [ ] mirror shadow properly
-        [ ] draw in order of y position, to prevent weird overlaps
-    [ ] powerups?
-    [ ] UI
-    [ ] music
-        [ ] S.E.C.R.E.T. OST (hint: *meow*)
-    [ ] input
-        [ ] gamepad support
-    [ ] system
-        [ ] title screen
-        [ ] save high score
 
 
 

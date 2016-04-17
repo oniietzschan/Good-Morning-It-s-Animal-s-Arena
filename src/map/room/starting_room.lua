@@ -36,7 +36,7 @@ function StartingRoom:startSpawns()
     self:spawnSomething()
     self:spawnSomething()
 
-    self.spawnPeriod = 6
+    self.spawnPeriod = 5.5
     self:spawnCycle()
 end
 
@@ -45,7 +45,7 @@ function StartingRoom:spawnCycle()
         self:spawnSomething()
 
         -- reduce time between spawns
-        if self.spawnPeriod > 3 then
+        if self.spawnPeriod > 3.8 then
             self.spawnPeriod = self.spawnPeriod - 0.2
             print(self.spawnPeriod)
         end

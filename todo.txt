@@ -6,10 +6,6 @@
             [X] fire bullets
             [X] towards cursor
         [X] can die
-    [ ] kuma
-        [X] attack
-        [X] armor
-        [ ] sprite
     [ ] neko
         [X] attack
             [X] rocket
@@ -30,6 +26,7 @@
         [X] score
         [ ] restart game
         [ ] high score
+    [X] sound
 
 [ ] SUKI
     [ ] player
@@ -39,6 +36,10 @@
             [ ] slow movement
             [ ] show
         [ ] fix diagonal movements
+    [ ] kuma
+        [X] attack
+        [X] armor
+        [ ] sprite
     [ ] boss enemy
         [ ] only dies to kuma
         [ ] moves to position

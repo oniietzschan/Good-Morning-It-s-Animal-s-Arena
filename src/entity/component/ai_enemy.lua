@@ -74,13 +74,13 @@ function AiEnemy:shootVolleyAtPlayer()
 
             Util.sound('enemyShootMedium')
 
-            for i = -1, 1 do
+            for i = -2, 2 do
                 Bullet({
                     x = x,
                     y = y,
                     speed = ENEMY_NORMAL_BULLET_SPEED,
                     target = game:getPlayerPos(),
-                    angle = i * 0.1 - 0.01 + rng() * 0.02,
+                    angle = i * 0.13 - 0.01 + rng() * 0.02,
                 })
             end
         end)

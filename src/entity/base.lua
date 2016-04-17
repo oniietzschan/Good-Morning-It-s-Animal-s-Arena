@@ -90,6 +90,8 @@ function Base:addFrill(class, t)
     table.insert(self.frills, frill)
 
     self.game.camera:addToLayer(frill.layer, frill)
+
+    return frill
 end
 
 function Base:initializeSpriteSheet(t)
@@ -221,7 +223,6 @@ function Base:draw()
         scale_x,
         1
     )
-    lg.setColor(255,255,255,255)
 end
 
 function Base:hasComponent(cmpt_class)

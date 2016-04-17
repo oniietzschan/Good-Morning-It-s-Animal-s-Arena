@@ -18,15 +18,15 @@ function Player:initialize(t)
 
     self.canAttack = true
 
-    -- self:toKuma()
-    -- self:toNeko()
-    self:toUsagi()
-
-    self:addFrill(Shadow, {
+    self.myShadow = self:addFrill(Shadow, {
         layer = 'shadow',
         offsetX = -2,
         offsetY = 14,
     })
+
+    -- self:toKuma()
+    -- self:toNeko()
+    self:toUsagi()
 end
 
 function Player:toKuma()
@@ -38,9 +38,10 @@ function Player:toKuma()
 
     self.img = img.usagi
     self.animations = self.animationsUsagi
-    self:setAnimation('stand')
-    self:animate(0.5)
+    self:animationBugAfterTransformHack()
     self.imgColorFilter = {255, 127, 127, 255}
+
+    self.myShadow.offsetY = 14
 end
 
 function Player:toNeko()
@@ -52,11 +53,11 @@ function Player:toNeko()
 
     self.img = img.neko
     self.animations = self.animationsNeko
-    self:setAnimation('stand')
-    self:animate(0.5)
+    self:animationBugAfterTransformHack()
     self.imgColorFilter = COLOR_QT
-end
 
+    self.myShadow.offsetY = 11
+end
 
 function Player:toUsagi()
     self.form = USAGI
@@ -67,9 +68,15 @@ function Player:toUsagi()
 
     self.img = img.usagi
     self.animations = self.animationsUsagi
-    self:setAnimation('stand')
-    self:animate(0.5)
+    self:animationBugAfterTransformHack()
     self.imgColorFilter = COLOR_QT
+
+    self.myShadow.offsetY = 14
+end
+
+function Player:animationBugAfterTransformHack()
+    self:setAnimation('walk')
+    self:setAnimation('stand')
 end
 
 function Player:initializeSpriteSheet()

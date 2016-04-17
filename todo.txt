@@ -1,5 +1,5 @@
 [ ] DAISUKI
-    [ ] player
+    [X] player
         [X] move up and down.
         [X] shoot
             [X] crosshair
@@ -11,6 +11,8 @@
             [X] rocket
             [X] explosion
         [ ] sprite
+            [X] body
+            [ ] tail
     [X] usagi
         [X] attack
         [X] sprite
@@ -30,6 +32,7 @@
 
 [ ] SUKI
     [ ] player
+        [ ] fire from end of gun, not center of mass
         [ ] change expression to >_< while shooting
         [ ] cooldown on transform
         [ ] focus
@@ -54,6 +57,8 @@
         [ ] S.E.C.R.E.T. OST (hint: *meow*)
     [ ] input
         [ ] gamepad support
+    [ ] system
+        [ ] title screen
 
 
 

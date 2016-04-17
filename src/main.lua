@@ -77,6 +77,7 @@ local images = {
     enemy = {'assets/enemy.png', 38, 28},
     grass = {'assets/grass.png', 32, 32},
     kumaAttack = {'assets/kuma_attack.png', 27, 15},
+    neko = {'assets/neko.png', 33, 28},
     pixel = {'assets/pixel.png', 1, 1},
     shadow = {'assets/shadow.png', 16, 9},
     square = {'assets/square.png', 16, 16},

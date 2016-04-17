@@ -36,6 +36,10 @@ function Player:toKuma()
     self.maxSpeed = MAX_SPEED_KUMA
     self.acceleration = ACCELERATION_KUMA
 
+    self.img = img.usagi
+    self.animations = self.animationsUsagi
+    self:setAnimation('stand')
+    self:animate(0.5)
     self.imgColorFilter = {255, 127, 127, 255}
 end
 
@@ -46,7 +50,11 @@ function Player:toNeko()
     self.maxSpeed = MAX_SPEED_NEKO
     self.acceleration = ACCELERATION_NEKO
 
-    self.imgColorFilter = {127, 255, 127, 255}
+    self.img = img.neko
+    self.animations = self.animationsNeko
+    self:setAnimation('stand')
+    self:animate(0.5)
+    self.imgColorFilter = COLOR_QT
 end
 
 
@@ -57,6 +65,10 @@ function Player:toUsagi()
     self.maxSpeed = MAX_SPEED_USAGI
     self.acceleration = ACCELERATION_USAGI
 
+    self.img = img.usagi
+    self.animations = self.animationsUsagi
+    self:setAnimation('stand')
+    self:animate(0.5)
     self.imgColorFilter = COLOR_QT
 end
 
@@ -64,9 +76,8 @@ function Player:initializeSpriteSheet()
     self.airborne = false
     self.anim_cycle = 0
 
-    local quads = self.img.quads
-
-    self.animations = {
+    local quads = img.usagi.quads
+    self.animationsUsagi = {
         stand = {
             quads[1],
         },
@@ -80,6 +91,24 @@ function Player:initializeSpriteSheet()
             quads[7],
         }
     }
+
+    quads = img.neko.quads
+    self.animationsNeko = {
+        stand = {
+            quads[1],
+        },
+        walk = {
+            frequency = 2,
+            quads[2],
+            quads[3],
+            quads[4],
+            quads[5],
+            quads[6],
+            quads[7],
+        }
+    }
+
+    self.animations = self.animationsUsagi
 end
 
 function Player:remove()

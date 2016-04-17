@@ -11,8 +11,8 @@ function Ui:initialize(t)
     self.dialog_speed = t.speed or 50
 
     -- Status Display
-    self.ui_x = 10
-    self.ui_y = 10
+    self.ui_x = 5
+    self.ui_y = 5
 
     -- Dialog Window
     self.dialog_font = font["dialog"]
@@ -31,7 +31,8 @@ function Ui:initFonts()
 
     font['font'] = lg.newImageFont(
         'assets/font.png',
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 :-!.,"?'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 :-!.,"?',
+        1
     )
     font['font']:setLineHeight(1)
 
@@ -57,77 +58,76 @@ function Ui:initFonts()
     -- font["tiny"]:setLineHeight(.8)
 end
 
+-- function Ui:pushMessage(t)
+--     self.dialog_message_full = t.msg or ''
+--     self.dialog_message = self.dialog_message_full
 
-function Ui:pushMessage(t)
-    self.dialog_message_full = t.msg or ''
-    self.dialog_message = self.dialog_message_full
+--     self.dialog_opened = true
+--     self.dialog_length = 0
+--     self:determineLastWordEndPosition()
+-- end
 
-    self.dialog_opened = true
-    self.dialog_length = 0
-    self:determineLastWordEndPosition()
-end
+-- function Ui:update(dt)
+--     self:updateDialog(dt)
+-- end
 
-function Ui:update(dt)
-    self:updateDialog(dt)
-end
+-- function Ui:updateDialog(dt)
+--     if not self.dialog_opened then
+--         return
+--     end
 
-function Ui:updateDialog(dt)
-    if not self.dialog_opened then
-        return
-    end
+--     self:handleDialogInput()
+--     self:advanceDialog(dt)
+-- end
 
-    self:handleDialogInput()
-    self:advanceDialog(dt)
-end
+-- function Ui:handleDialogInput()
+--     if input:pressed('confirm') and self.dialog_length > 0 then
+--         if (self:isDialogFullyAdvanced()) then -- Already Finished Advancing: Proceed to next message
+--             self.dialog_message = self.dialog_message:sub(self.dialog_length + 1)
+--             self.dialog_length = 0
 
-function Ui:handleDialogInput()
-    if input:pressed('confirm') and self.dialog_length > 0 then
-        if (self:isDialogFullyAdvanced()) then -- Already Finished Advancing: Proceed to next message
-            self.dialog_message = self.dialog_message:sub(self.dialog_length + 1)
-            self.dialog_length = 0
+--             if #self.dialog_message > 0 then -- More text to be displayed.
+--                 self:determineLastWordEndPosition()
+--             else -- Dialog finished
+--                 self.dialog_opened = false
+--             end
+--         else -- Still Advancing: Advance current message to the end.
+--             self.dialog_length = self.last_word_end_pos
+--         end
+--     end
+-- end
 
-            if #self.dialog_message > 0 then -- More text to be displayed.
-                self:determineLastWordEndPosition()
-            else -- Dialog finished
-                self.dialog_opened = false
-            end
-        else -- Still Advancing: Advance current message to the end.
-            self.dialog_length = self.last_word_end_pos
-        end
-    end
-end
+-- function Ui:isDialogFullyAdvanced()
+--     return (self.dialog_length >= self.last_word_end_pos)
+-- end
 
-function Ui:isDialogFullyAdvanced()
-    return (self.dialog_length >= self.last_word_end_pos)
-end
+-- function Ui:advanceDialog(dt)
+--     self.dialog_length = self.dialog_length + self.dialog_speed * dt
 
-function Ui:advanceDialog(dt)
-    self.dialog_length = self.dialog_length + self.dialog_speed * dt
+--     if self.dialog_length > self.last_word_end_pos then
+--         self.dialog_length = self.last_word_end_pos
+--     end
+-- end
 
-    if self.dialog_length > self.last_word_end_pos then
-        self.dialog_length = self.last_word_end_pos
-    end
-end
+-- function Ui:determineLastWordEndPosition()
+--     local pos = 0
 
-function Ui:determineLastWordEndPosition()
-    local pos = 0
+--     for i=1, #self.dialog_message do
+--         local character = self.dialog_message:sub(i,i)
+--         local msg = self.dialog_message:sub(1, math.floor(i))
 
-    for i=1, #self.dialog_message do
-        local character = self.dialog_message:sub(i,i)
-        local msg = self.dialog_message:sub(1, math.floor(i))
+--         if character == ' ' then
+--             pos = i - 1 -- last character was the end of a word
+--         end
 
-        if character == ' ' then
-            pos = i - 1 -- last character was the end of a word
-        end
+--         if self:getLineCount(msg) > self.dialog_lines then
+--             self.last_word_end_pos = pos
+--             return
+--         end
+--     end
 
-        if self:getLineCount(msg) > self.dialog_lines then
-            self.last_word_end_pos = pos
-            return
-        end
-    end
-
-    self.last_word_end_pos = #self.dialog_message
-end
+--     self.last_word_end_pos = #self.dialog_message
+-- end
 
 function Ui:draw()
     -- self:drawDialog()
@@ -138,83 +138,85 @@ function Ui:draw()
     self:drawCrosshair()
 end
 
-function Ui:drawDialog()
-    if not self.dialog_opened then
-        return
-    end
+-- function Ui:drawDialog()
+--     if not self.dialog_opened then
+--         return
+--     end
 
-    lg.setColor(255, 255, 255, self.dialog_alpha_bg)
-    lg.rectangle('fill', self.dialog_x, self.dialog_y, self.dialog_w, self.dialog_h)
+--     lg.setColor(255, 255, 255, self.dialog_alpha_bg)
+--     lg.rectangle('fill', self.dialog_x, self.dialog_y, self.dialog_w, self.dialog_h)
 
-    lg.setFont(self.dialog_font)
-    lg.setColor(0, 0, 0, self.dialog_alpha_text)
-    lg.printf(
-        self:getDialogDisplayString(), self.dialog_x + self.dialog_pad, self.dialog_y + self.dialog_pad, self.dialog_w - self.dialog_pad*2
-    )
-end
+--     lg.setFont(self.dialog_font)
+--     lg.setColor(0, 0, 0, self.dialog_alpha_text)
+--     lg.printf(
+--         self:getDialogDisplayString(), self.dialog_x + self.dialog_pad, self.dialog_y + self.dialog_pad, self.dialog_w - self.dialog_pad*2
+--     )
+-- end
 
--- Optimize: this is being called several times per character
-function Ui:getDialogDisplayString()
-    local pos          = math.floor(self.dialog_length)
-    local pos_word_end = self.dialog_message:find(' ', pos)
-    local msg          = self.dialog_message:sub(1, pos)
-    local msg_word_end = self.dialog_message:sub(1, pos_word_end)
-    local lines          = self:getLineCount(msg)
-    local lines_word_end = self:getLineCount(msg_word_end)
+-- -- Optimize: this is being called several times per character
+-- function Ui:getDialogDisplayString()
+--     local pos          = math.floor(self.dialog_length)
+--     local pos_word_end = self.dialog_message:find(' ', pos)
+--     local msg          = self.dialog_message:sub(1, pos)
+--     local msg_word_end = self.dialog_message:sub(1, pos_word_end)
+--     local lines          = self:getLineCount(msg)
+--     local lines_word_end = self:getLineCount(msg_word_end)
 
-    -- If current word will be on the next line when it is fully displayed, add it's newline now.
-    if (lines ~= 0 and lines ~= lines_word_end) then
-        local word_start = string.find(msg, "%s[^%s]*$")
-        msg = msg:sub(0, word_start) .. "\n" .. msg:sub(word_start)
-    end
+--     -- If current word will be on the next line when it is fully displayed, add it's newline now.
+--     if (lines ~= 0 and lines ~= lines_word_end) then
+--         local word_start = string.find(msg, "%s[^%s]*$")
+--         msg = msg:sub(0, word_start) .. "\n" .. msg:sub(word_start)
+--     end
 
-    return msg
-end
+--     return msg
+-- end
 
-function Ui:getLineCount(msg)
-    local real_width, lines = self.dialog_font:getWrap(msg, self.dialog_w - self.dialog_pad * 2)
+-- function Ui:getLineCount(msg)
+--     local real_width, lines = self.dialog_font:getWrap(msg, self.dialog_w - self.dialog_pad * 2)
 
-    return lines
-end
+--     return lines
+-- end
 
-function Ui:drawDialogDebug()
-    lg.setFont(font['font'])
-    lg.setColor(COLOR_QT)
-    local real_width, lines = self.dialog_font:getWrap(msg, w)
-    local suf = ''
-    if (self:isDialogFullyAdvanced()) then suf = ' READY' end
-    lg.print("WRAP: " .. lines .. suf, 2, 18)
-end
+-- function Ui:drawDialogDebug()
+--     lg.setFont(font['font'])
+--     lg.setColor(COLOR_QT)
+--     local real_width, lines = self.dialog_font:getWrap(msg, w)
+--     local suf = ''
+--     if (self:isDialogFullyAdvanced()) then suf = ' READY' end
+--     lg.print("WRAP: " .. lines .. suf, 2, 18)
+-- end
 
 function Ui:drawFps()
-    local fps_msg = "FPS: " .. tostring(love.timer.getFPS())
-    lg.setColor(COLOR_UI_SHADOW)
-    lg.print(fps_msg, 3, 3)
-    lg.setColor(COLOR_WHITE)
-    lg.print(fps_msg, 2, 2)
+    self:drawTextWithShadow("FPS: " .. tostring(love.timer.getFPS()), 200, -1)
 end
 
 function Ui:drawPlayerStatus()
-
-    -- lg.draw(img.heart.image, img.heart.quads[1], self.ui_x, self.ui_y)
-
-    local hp = 0
-    if player ~= nil then
-        hp = player.hp
-    end
-    if hp <= 1 then
+    if player == nil then
         return
     end
-    self:drawText(hp, self.ui_x + 1, self.ui_y + 1, COLOR_UI_SHADOW)
-    self:drawText(hp, self.ui_x, self.ui_y, COLOR_WHITE)
+
+    self:drawPlayerFormName()
+    self:drawPlayerHp()
+end
+
+function Ui:drawPlayerFormName()
+    self:drawTextWithShadow(player.form, -1, -1)
+end
+
+function Ui:drawPlayerHp()
+    if player.hp <= 1 then
+        return
+    end
+    self:drawTextWithShadow(player.hp, -1, 10)
 end
 
 function Ui:drawScore()
-    local fps_msg =string.format("%06d", game.score)
-    lg.setColor(COLOR_UI_SHADOW)
-    lg.print(fps_msg, 553, 3)
-    lg.setColor(COLOR_WHITE)
-    lg.print(fps_msg, 552, 2)
+    self:drawTextWithShadow(string.format("%06d", game.score), 583, -1)
+end
+
+function Ui:drawTextWithShadow(text, x, y)
+    self:drawText(text, self.ui_x + x + 1, y + self.ui_y + 1, COLOR_UI_SHADOW)
+    self:drawText(text, self.ui_x + x,     y + self.ui_y,     COLOR_WHITE)
 end
 
 function Ui:drawText(text, x, y, color)
@@ -228,22 +230,22 @@ function Ui:drawCrosshair()
     lg.draw(img.crosshair.image, x - 6, y - 6)
 end
 
--- UNUSED SO FAR
-function Ui:drawBar(text, cur, max, x, y, inner_color)
-    -- Bar
-    lg.setColor(COLOR_BLACK) -- Black Background
-    lg.rectangle('fill', x, y, self._ui_bar_w, self._ui_bar_h)
-    lg.setColor(inner_color) -- Red Filled Area
-    lg.rectangle('fill', x, y, math.floor(self._ui_bar_w * (cur / max)), self._ui_bar_h)
-    lg.setColor(COLOR_WHITE) -- White Outline
-    lg.rectangle('line', x + 0.5, y + 0.5, self._ui_bar_w, self._ui_bar_h - 1)
+-- -- UNUSED SO FAR
+-- function Ui:drawBar(text, cur, max, x, y, inner_color)
+--     -- Bar
+--     lg.setColor(COLOR_BLACK) -- Black Background
+--     lg.rectangle('fill', x, y, self._ui_bar_w, self._ui_bar_h)
+--     lg.setColor(inner_color) -- Red Filled Area
+--     lg.rectangle('fill', x, y, math.floor(self._ui_bar_w * (cur / max)), self._ui_bar_h)
+--     lg.setColor(COLOR_WHITE) -- White Outline
+--     lg.rectangle('line', x + 0.5, y + 0.5, self._ui_bar_w, self._ui_bar_h - 1)
 
-    -- Text
-    lg.setColor(COLOR_BLACK)
-    lg.print(text .. cur, x + 3, y + 3)
-    lg.setColor(COLOR_WHITE)
-    lg.print(text .. cur, x + 2, y + 2)
-end
+--     -- Text
+--     lg.setColor(COLOR_BLACK)
+--     lg.print(text .. cur, x + 3, y + 3)
+--     lg.setColor(COLOR_WHITE)
+--     lg.print(text .. cur, x + 2, y + 2)
+-- end
 
 return Ui
 

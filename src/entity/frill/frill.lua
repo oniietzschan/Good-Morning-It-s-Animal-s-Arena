@@ -22,11 +22,16 @@ function Frill:isVisible()
 end
 
 function Frill:draw()
+    local extraOffset = 0
+    if self.parent and self.parent:isInstanceOf(Enemy) and self.parent.img_mirror then
+        extraOffset = -4
+    end
+
     lg.setColor(unpack(self.imgColorFilter))
     lg.draw(
         self.img.image,
         self.quad,
-        self.x + self.offsetX,
+        self.x + self.offsetX + extraOffset,
         self.y + self.offsetY
     )
 end

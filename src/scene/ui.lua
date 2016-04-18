@@ -86,10 +86,11 @@ end
 function Ui:drawPlayerHp()
     if player.form == KUMA then
         local x, y = player:getRect()
+        x = math.floor(x + 0.5)
+        y = math.floor(y + 0.5)
         lg.draw(img.heart.image, img.heart.quads[1], x - 2, y - 17)
         local quadNum =
         lg.draw(img.heart.image, img.heart.quads[(player.hp == 2 and 1 or 2)], x + 7, y - 17)
-
     end
 end
 

@@ -33,6 +33,7 @@ function Player:toKuma()
     self.form = KUMA
     self.hp = 2
 
+    self.focusSpeed = FOCUS_SPEED_KUMA
     self.maxSpeed = MAX_SPEED_KUMA
     self.acceleration = ACCELERATION_KUMA
 
@@ -51,6 +52,7 @@ function Player:toNeko()
     self.form = NEKO
     self.hp = 1
 
+    self.focusSpeed = FOCUS_SPEED_NEKO
     self.maxSpeed = MAX_SPEED_NEKO
     self.acceleration = ACCELERATION_NEKO
 
@@ -71,6 +73,7 @@ function Player:toUsagi(first)
     self.form = USAGI
     self.hp = 1
 
+    self.focusSpeed = FOCUS_SPEED_USAGI
     self.maxSpeed = MAX_SPEED_USAGI
     self.acceleration = ACCELERATION_USAGI
 
@@ -180,11 +183,9 @@ function Player:handleChangeForm()
 
     if input:pressed(KUMA) and self.form ~= KUMA then
         self:toKuma()
-    end
-    if input:pressed(NEKO) and self.form ~= NEKO then
+    elseif input:pressed(NEKO) and self.form ~= NEKO then
         self:toNeko()
-    end
-    if input:pressed(USAGI) and self.form ~= USAGI then
+    elseif input:pressed(USAGI) and self.form ~= USAGI then
         self:toUsagi()
     end
 end
@@ -220,19 +221,20 @@ end
 function Player:walk(x, y, dt)
     local deltaSpeedX = x * dt * self.acceleration
     local deltaSpeedY = y * dt * self.acceleration
+    local topSpeed = input:down(FOCUS) and self.focusSpeed or self.maxSpeed
 
     -- Todo: it's possible to move sliiiightly faster than maxSpeed with this method.
-    if (deltaSpeedX > 0 and self.speedX > self.maxSpeed) or (deltaSpeedX < 0 and self.speedX < self.maxSpeed * -1) then
+    if (deltaSpeedX > 0 and self.speedX > topSpeed) or (deltaSpeedX < 0 and self.speedX < topSpeed * -1) then
         deltaSpeedX = 0
     end
-    if (deltaSpeedY > 0 and self.speedY > self.maxSpeed) or (deltaSpeedY < 0 and self.speedY < self.maxSpeed * -1) then
+    if (deltaSpeedY > 0 and self.speedY > topSpeed) or (deltaSpeedY < 0 and self.speedY < topSpeed * -1) then
         deltaSpeedY = 0
     end
 
-    if (deltaSpeedX > 0 and self.speedX < 0) or (deltaSpeedX < 0 and self.speedX > 0) or (x == 0) or (math.abs(self.speedX) > self.maxSpeed) then
+    if (deltaSpeedX > 0 and self.speedX < 0) or (deltaSpeedX < 0 and self.speedX > 0) or (x == 0) or (math.abs(self.speedX) > topSpeed) then
         self:dampenSpeedX(dt)
     end
-    if (deltaSpeedY >= 0 and self.speedY < 0) or (deltaSpeedY < 0 and self.speedY > 0) or (y == 0) or (math.abs(self.speedY) > self.maxSpeed) then
+    if (deltaSpeedY >= 0 and self.speedY < 0) or (deltaSpeedY < 0 and self.speedY > 0) or (y == 0) or (math.abs(self.speedY) > topSpeed) then
         self:dampenSpeedY(dt)
     end
 
@@ -309,9 +311,9 @@ function Player:handleAttack()
         self:nekoFire()
 
     elseif self.form == USAGI then
-        self:usagiFire(0)
-        Timer.after(USAGI_BURST_TIME, function() self:usagiFire(1) end)
-        Timer.after(USAGI_BURST_TIME * 2, function() self:usagiFire(2) end)
+        self:usagiFire(0.25)
+        Timer.after(USAGI_BURST_TIME, function() self:usagiFire(1.25) end)
+        Timer.after(USAGI_BURST_TIME * 2, function() self:usagiFire(2.25) end)
         self:setAttackCooldown(ATTACK_COOLDOWN_USAGI)
     end
 end
@@ -374,12 +376,17 @@ function Player:usagiFire(spread_factor)
         return
     end
 
+    local angle = USAGI_SPREAD * rng() * spread_factor - USAGI_SPREAD * 0.5 * spread_factor
+    if input:down(FOCUS) then
+        angle = angle / USAGI_AIM_FACTOR
+    end
+
     Util.sound('playerShot')
     self:fireBullet({
         damage = BULLET_DAMAGE_USAGI,
         speed = BULLET_SPEED_USAGI,
         img = img.bulletPlayer,
-        angle = USAGI_SPREAD * rng() * spread_factor - USAGI_SPREAD * 0.5 * spread_factor
+        angle = angle,
     })
 end
 

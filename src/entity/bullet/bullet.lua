@@ -86,7 +86,7 @@ function Bullet:update(dt)
     self:removeIfOffscreen()
 end
 
-local DIST = 10
+local DIST = 30
 
 function Bullet:removeIfOffscreen()
     local x, y = self:getRect()

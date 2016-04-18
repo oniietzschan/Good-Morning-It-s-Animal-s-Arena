@@ -9,23 +9,24 @@
         -- start off slower
     -- usagi
         -- weapon tweak - spread & fire rate
+        -- focus improves accuracy
     -- neko
         -- weapon tweak - one at a time & more knockback?
         - tail
-    - visual
+    -- visual
+        -- display points on kill
         -- display kuma HP
         -- death animation
-        - bullet sprite
-            - more visible bullets... flash like metal slug?
-            - directionality
+        -- bullet sprite
+            -- more visible bullets... flash like metal slug?
     -- music
         -- S.E.C.R.E.T. OST (hint: *meow*)
     - focus
-        - slow movement
+        -- slow movement
         - show hitbox
-    - tweaks / balance
-        - ???
     - more boss danmaku types
+    - start at center!!!
+    - fullscreen
 
 [ ] SUKI
     [ ] player
@@ -67,7 +68,7 @@
         [X] can die
         [X] move towards player
         [X] fires at player
-        [X] don't fire until onscreen -- FOR FREE :D
+        [X] do not fire until onscreen: FOR FREE :D
         [X] sprite
     [X] enemy waves
         [X] spawn enemies every X

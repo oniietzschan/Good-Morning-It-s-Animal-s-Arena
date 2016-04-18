@@ -31,8 +31,8 @@ PACK_DIST = 72
 
 function StartingRoom:generate()
     player = self:createEntity({
-        x = 160,
-        y = 160,
+        x = 314,
+        y = 175,
         class = Player,
     })
 
@@ -52,9 +52,6 @@ end
 function StartingRoom:createSpawnDeck()
     self.spawnDeckIndex = 1
     self.spawnDeck = {
-        {
-            {class = Boss,  size = 1},
-        },
         {
             {class = Enemy, size = 3},
             {class = Enemy, size = 3},
@@ -107,33 +104,35 @@ function StartingRoom:createSpawnDeck()
             {class = Boss,  size = 1},
         },
         {
+            {class = Enemy, size = 3},
             {class = Enemy, size = 8},
-            {class = Enemy, size = 8},
+            {class = Enemy, size = 10},
+        },
+        {
+            {class = Enemy, size = 4},
+            {class = Enemy, size = 4},
+            {class = Enemy, size = 5},
+            {class = Enemy, size = 5},
+            {class = Boss,  size = 1},
+        },
+        {
+            {class = Enemy, size = 2},
+            {class = Enemy, size = 5},
+            {class = Enemy, size = 5},
+            {class = Enemy, size = 5},
+            {class = Enemy, size = 6},
+            {class = Enemy, size = 6},
+            {class = Enemy, size = 6},
+            {class = Enemy, size = 7},
+            {class = Enemy, size = 7},
+            {class = Enemy, size = 12},
+            {class = Boss,  size = 1},
+            {class = Boss,  size = 1},
         },
         {
             {class = Enemy, size = 3},
-            {class = Enemy, size = 3},
-            {class = Enemy, size = 4},
-            {class = Enemy, size = 4},
-            {class = Enemy, size = 5},
             {class = Enemy, size = 5},
         },
-        {
-            {class = Enemy, size = 3},
-            {class = Enemy, size = 3},
-            {class = Enemy, size = 4},
-            {class = Enemy, size = 4},
-            {class = Enemy, size = 4},
-            {class = Enemy, size = 4},
-            {class = Enemy, size = 5},
-            {class = Enemy, size = 5},
-            {class = Enemy, size = 5},
-            {class = Enemy, size = 5},
-        },
-        -- {
-        --     {class = Enemy, size = 3},
-        --     {class = Enemy, size = 5},
-        -- },
     }
 end
 
@@ -142,9 +141,8 @@ function StartingRoom:spawnCycle()
         self:spawnSomething()
 
         -- reduce time between spawns
-        if self.spawnPeriod > 3.8 then
+        if self.spawnPeriod > 3.7  then
             self.spawnPeriod = self.spawnPeriod - 0.05
-            print(self.spawnPeriod)
         end
 
         if game:isPlayerAlive() then
@@ -167,7 +165,8 @@ function StartingRoom:spawnSomething()
     if currentDeck == nil then
         print('DECK EXHAUSTED')
         currentDeck = Util.rngSelect({
-            {o = 7, v = {{class = Enemy, size = 6}}},
+            {o = 4, v = {{class = Enemy, size = 6}}},
+            {o = 1, v = {{class = Enemy, size = 12}}},
             {o = 1, v = {{class = Boss, size = 1}}},
         })
         self.spawnDeck[self.spawnDeckIndex] = currentDeck

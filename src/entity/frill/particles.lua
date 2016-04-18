@@ -29,11 +29,7 @@ end
 function Particles:remove()
     self.parent = nil
 
-    print(self.layer)
-
     game:addEntity(self)
-
-    -- self.ps:pause()
 
     -- Remove after all particles have disappeared
     local _, maxParticleLife = self.ps:getParticleLifetime()

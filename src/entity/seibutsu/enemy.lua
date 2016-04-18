@@ -76,6 +76,23 @@ function Enemy:remove()
         speed = {25, 100},
         spread = math.pi * 2,
     })
+
+    Particles({
+        layer = 'points',
+        image = img.oneHundred,
+        colors = {
+            255, 255, 255, 255,
+            255, 255, 255, 255,
+            255, 255, 255, 255,
+            255, 255, 255, 0
+        },
+        x = x,
+        y = y,
+        emitCount = 1,
+        particleLifetime = {1, 1},
+        speed = {50, 50},
+        direction = math.pi * 1.5
+    })
 end
 
 return Enemy

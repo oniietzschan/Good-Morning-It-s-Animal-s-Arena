@@ -80,6 +80,23 @@ function Boss:remove()
         speed = {10, 175},
         spread = math.pi * 2,
     })
+
+    Particles({
+        layer = 'points',
+        image = img.oneThousand,
+        colors = {
+            255, 255, 255, 255,
+            255, 255, 255, 255,
+            255, 255, 255, 255,
+            255, 255, 255, 0
+        },
+        x = x,
+        y = y,
+        emitCount = 1,
+        particleLifetime = {1.25, 1.25},
+        speed = {50, 50},
+        direction = math.pi * 1.5
+    })
 end
 
 return Boss

@@ -27,6 +27,7 @@ function Game:initCamera()
     self.camera:newLayer('particles')
     self.camera:newLayer('bulletPlayer')
     self.camera:newLayer('bulletEnemy')
+    self.camera:newLayer('points')
     -- self.camera:newLayer('debug', 1, 1, function(camX, camY) self:drawDebug(camX, camY) end)
 
     self.drawDebug = false
@@ -86,9 +87,9 @@ function Game:update(dt)
 end
 
 function Game:input(dt)
-    if input:pressed('f1') then
-        self.drawDebug = not self.drawDebug
-    end
+    -- if input:pressed('f1') then
+    --     self.drawDebug = not self.drawDebug
+    -- end
     if self.isGameOver and input:released(RESTART) then
         self:restartGame()
     end
@@ -97,6 +98,9 @@ end
 function Game:restartGame()
     for i,ent in pairs(self._entities) do
         ent:remove()
+        if ent:isInstanceOf(Particles) then
+            ent.ps:reset()
+        end
     end
     collectgarbage()
     Timer.clear()

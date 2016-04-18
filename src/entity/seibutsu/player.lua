@@ -41,6 +41,7 @@ function Player:toKuma()
 
     self.img_offset_x = IMG_OFFSET_X_KUMA
     self.img_offset_y = IMG_OFFSET_Y_KUMA
+    self.myShadow.offsetX = -2
     self.myShadow.offsetY = 14
 
     self:helpTransform()
@@ -62,7 +63,8 @@ function Player:toNeko()
     self.img_offset_y = IMG_OFFSET_Y_NEKO
     self.offsetFireX = 28
     self.offsetFireY = 1.5
-    self.myShadow.offsetY = 11
+    self.myShadow.offsetX = -6
+    self.myShadow.offsetY = 15
 
     self:helpTransform()
 end
@@ -82,6 +84,7 @@ function Player:toUsagi(first)
     self.img_offset_y = IMG_OFFSET_Y_USAGI
     self.offsetFireX = 22
     self.offsetFireY = 1
+    self.myShadow.offsetX = -2
     self.myShadow.offsetY = 14
 
     self:helpTransform(first)

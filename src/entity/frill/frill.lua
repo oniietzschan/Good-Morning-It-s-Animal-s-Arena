@@ -26,6 +26,8 @@ function Frill:draw()
     local extraOffset = 0
     if self.parent and self.parent:isInstanceOf(Enemy) and self.parent.img_mirror then
         extraOffset = -4
+    elseif self.parent and self.parent:isInstanceOf(Player) and self.parent.form == NEKO and self.parent.img_mirror then
+        extraOffset = 8
     end
 
     lg.setColor(unpack(self.imgColorFilter))

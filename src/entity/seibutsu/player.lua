@@ -440,6 +440,39 @@ end
 function Player:remove()
     self.game:gameOver()
 
+    local x, y = self:getCenter()
+    local colors = nil
+    if self.form == KUMA then
+        colors = {
+            191, 143, 120, 255,
+            191, 143, 120, 255,
+            191, 143, 120, 0
+        }
+    elseif self.form == NEKO then
+        colors = {
+            176, 176, 196, 255,
+            176, 176, 196, 255,
+            176, 176, 196, 0
+        }
+    elseif self.form == USAGI then
+        colors = {
+            206, 230, 240, 255,
+            206, 230, 240, 255,
+            206, 230, 240, 0
+        }
+    end
+    Particles({
+        layer = 'particles',
+        image = img.square,
+        colors = colors,
+        x = x,
+        y = y,
+        emitCount = 500,
+        particleLifetime = {0.25, 0.6},
+        speed = {10, 250},
+        spread = math.pi * 2,
+    })
+
     Seibutsu.remove(self)
 
     player = nil

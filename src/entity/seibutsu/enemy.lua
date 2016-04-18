@@ -53,7 +53,29 @@ end
 function Enemy:remove()
     self.game:addScore(100)
 
+    local x, y = self:getCenter()
+
     Seibutsu.remove(self)
+
+    if player == nil then
+        return
+    end
+
+    Particles({
+        layer = 'particles',
+        image = img.square,
+        colors = {
+            72,  148, 111, 255,
+            72,  148, 111, 255,
+            72,  148, 111, 0
+        },
+        x = x,
+        y = y,
+        emitCount = 200,
+        particleLifetime = {0.25, 0.5},
+        speed = {25, 100},
+        spread = math.pi * 2,
+    })
 end
 
 return Enemy

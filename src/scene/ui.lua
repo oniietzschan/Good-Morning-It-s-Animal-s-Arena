@@ -68,7 +68,7 @@ function Ui:drawPlayerStatus()
 
     self:drawPlayerFormName()
     self:drawTransformStatus()
-    -- self:drawPlayerHp()
+    self:drawPlayerHp()
 end
 
 function Ui:drawPlayerFormName()
@@ -84,10 +84,13 @@ function Ui:drawTransformStatus()
 end
 
 function Ui:drawPlayerHp()
-    if player.hp <= 1 then
-        return
+    if player.form == KUMA then
+        local x, y = player:getRect()
+        lg.draw(img.heart.image, img.heart.quads[1], x - 2, y - 17)
+        local quadNum =
+        lg.draw(img.heart.image, img.heart.quads[(player.hp == 2 and 1 or 2)], x + 7, y - 17)
+
     end
-    self:drawTextWithShadow(player.hp, -1, 10)
 end
 
 function Ui:drawScore()

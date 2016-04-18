@@ -53,9 +53,33 @@ function Boss:initializeSpriteSheet()
 end
 
 function Boss:remove()
-    self.game:addScore(100)
+    self.game:addScore(1000)
+
+    local x, y = self:getCenter()
 
     Seibutsu.remove(self)
+
+    if player == nil then
+        return
+    end
+
+    Util.sound('bossDeath')
+
+    Particles({
+        layer = 'particles',
+        image = img.square,
+        colors = {
+            26, 61, 50, 255,
+            26, 61, 50, 255,
+            26, 61, 50, 0
+        },
+        x = x,
+        y = y,
+        emitCount = 500,
+        particleLifetime = {0.35, 0.75},
+        speed = {10, 175},
+        spread = math.pi * 2,
+    })
 end
 
 return Boss

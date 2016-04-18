@@ -72,13 +72,14 @@ Game  = require 'scene.game'
 Ui    = require 'scene.ui'
 
 local images = {
-    bulletEnemy = {'assets/bullet_enemy.png', 5, 5},
+    bulletEnemy = {'assets/bullet_enemy.png', 7, 7},
     bulletNeko = {'assets/bullet_neko.png', 8, 8},
     bulletSmall = {'assets/bullet_small.png', 4, 4},
     bulletPlayer = {'assets/bullet_player.png', 5, 5},
     crosshair = {'assets/crosshair.png', 14, 14},
     enemy = {'assets/enemy.png', 38, 28},
     grass = {'assets/grass.png', 32, 32},
+    heart = {'assets/heart.png', 7, 7},
     kuma = {'assets/kuma.png', 29, 31},
     kumaAttack = {'assets/kuma_attack.png', 27, 15},
     neko = {'assets/neko.png', 33, 28},
@@ -92,6 +93,10 @@ local images = {
 }
 
 local sounds = {
+    bossDeath = {
+        path = 'assets/sound/boss_death.wav',
+        volume = 0.8,
+    },
     enemyArmor = {
         path = 'assets/sound/enemy_armor.wav',
         volume = 0.35,
@@ -122,7 +127,7 @@ local sounds = {
     },
     music = {
         path = 'assets/sound/music.mp3',
-        volume = 0.7,
+        volume = 0.8,
         stream = true,
     },
     playerHurt = {
@@ -232,6 +237,10 @@ function initSound()
 
         sound[name] = snd
     end
+
+    -- play music
+    sound.music:setLooping(true)
+    la.play(sound.music)
 end
 
 function initScenes()
@@ -261,6 +270,13 @@ function love.update(dt)
 end
 
 function globalInput(dt)
+    if input:pressed(MUTE) then
+        if sound.music:getVolume() == 0 then
+            sound.music:setVolume(1)
+        else
+            sound.music:setVolume(0)
+        end
+    end
     if input:pressed('quit') then
         love.event.push('quit')
     end

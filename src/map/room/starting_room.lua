@@ -203,16 +203,16 @@ function StartingRoom:test()
         y = 201,
         class = Boss,
     })
-    -- self:createEntity({
-    --     x = 320,
-    --     y = 200,
-    --     class = Enemy,
-    -- })
-    -- self:createEntity({
-    --     x = 321,
-    --     y = 201,
-    --     class = Enemy,
-    -- })
+    self:createEntity({
+        x = 320,
+        y = 200,
+        class = Enemy,
+    })
+    self:createEntity({
+        x = 321,
+        y = 201,
+        class = Enemy,
+    })
 end
 
 return StartingRoom

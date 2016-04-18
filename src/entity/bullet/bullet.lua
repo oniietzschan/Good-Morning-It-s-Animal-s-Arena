@@ -4,10 +4,19 @@ function Bullet:initialize(t)
     t.img = t.img or img.bulletEnemy
     t.layer = self.friendly and 'bulletPlayer' or 'bulletEnemy'
 
+
     t.w = t.w or t.img:getWidth()
     t.h = t.h or t.img:getHeight()
     t.x = t.x - t.w / 2
     t.y = t.y - t.h / 2
+
+    -- TODO: LMAO
+    if t.img == img.bulletEnemy then
+        t.w = 5
+        t.h = 5
+        t.img_offset_x = -1
+        t.img_offset_y = -1
+    end
 
     t.components = t.components or {}
     Util.tableConcat(t.components, {
@@ -37,6 +46,20 @@ function Bullet:initialize(t)
             self:remove()
         end)
     end
+
+    -- animate enemy bullet
+    if self.img == img.bulletEnemy then
+        self.anim_current = {
+            frequency = 5,
+            self.img.quads[1],
+            self.img.quads[2],
+        }
+    else
+        self.anim_current = {
+            self.img.quads[1],
+        }
+    end
+    self.anim_cycle = 0
 end
 
 function Bullet:shootTowardsTarget(t)
@@ -57,6 +80,8 @@ end
 
 function Bullet:update(dt)
     Base.update(self, dt)
+
+    self:animate(dt)
 
     self:removeIfOffscreen()
 end

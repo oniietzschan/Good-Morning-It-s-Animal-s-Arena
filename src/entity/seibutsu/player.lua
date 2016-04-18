@@ -314,17 +314,24 @@ function Player:handleAttack()
             img = img.bulletNeko,
         })
         self:setAttackCooldown(ATTACK_COOLDOWN_NEKO)
-        -- self:nekoKnockback()
+        self:nekoKnockback()
 
     elseif self.form == USAGI then
-        Util.sound('playerShot')
-        self:fireBullet({
-            damage = BULLET_DAMAGE_USAGI,
-            speed = BULLET_SPEED_USAGI,
-            img = img.bulletPlayer,
-        })
+        self:usagiFire(0)
+        Timer.after(USAGI_BURST_TIME, function() self:usagiFire(1) end)
+        Timer.after(USAGI_BURST_TIME * 2, function() self:usagiFire(2) end)
         self:setAttackCooldown(ATTACK_COOLDOWN_USAGI)
     end
+end
+
+function Player:usagiFire(spread_factor)
+    Util.sound('playerShot')
+    self:fireBullet({
+        damage = BULLET_DAMAGE_USAGI,
+        speed = BULLET_SPEED_USAGI,
+        img = img.bulletPlayer,
+        angle = USAGI_SPREAD * rng() * spread_factor - USAGI_SPREAD * 0.5 * spread_factor
+    })
 end
 
 function Player:fireBullet(t)

@@ -1,29 +1,39 @@
 [ ] DAISUKI
-    [ ] neko
-        [ ] tail
     [ ] boss enemy
         [X] armor
         [ ] moves to position
         [ ] fires in direction
         [ ] sprite
+    [ ] waves
+        [ ] start off slower
+    [X] usagi
+        [X] weapon tweak - spread & fire rate
+    [ ] neko
+        [ ] weapon tweak - one at a time & more knockback?
+        [ ] tail
+    [ ] tweaks / balance
+        [ ]
+    [ ] visual
+        [ ] death aniamtion
+        [ ] bullet spritewoot
+            [ ] more visible bullets... flash like metal slug?
+            [ ] directionality
+    [ ] music
+        [ ] S.E.C.R.E.T. OST (hint: *meow*)
+    [ ] focus
+        [ ] slow movement
+        [ ] show hitbox
 
 [ ] SUKI
     [ ] player
         [ ] change expression to >_< while shooting
-        [ ] focus
-            [ ] slow movement
-            [ ] show
         [ ] fix diagonal movements
     [ ] graphics
         [ ] mirror shadow properly
         [ ] draw in order of y position, to prevent weird overlaps
     [ ] powerups?
-    [ ] music
-        [ ] S.E.C.R.E.T. OST (hint: *meow*)
     [ ] input
         [ ] gamepad support
-    [ ] tweaks / balance
-        [ ] more visible bullets... flash like metal slug?
 
 [X] ICHIBAN DAISUKI
     [X] FIX DISPLAY BUG AFTER SWITCHING FORM
@@ -64,21 +74,3 @@
         [X] high score
         [X] title screen
     [X] sound
-
-
-
-USAGI-KUN
-    attack  |||
-    range   |||||
-    speed   |||||
-    defense ||
-KUMA-SAN
-    attack  |||||
-    range   |
-    speed   |
-    defense |||||
-NEKO-DONO
-    attack  |||||
-    range   |||
-    speed   |||
-    defense |

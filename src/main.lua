@@ -121,7 +121,7 @@ local sounds = {
     },
     playerShot = {
         path = 'assets/sound/player_shot.wav',
-        volume = 0.7,
+        volume = 0.5,
     },
     playerCanTransform = {
         path = 'assets/sound/player_can_transform.wav',
@@ -149,9 +149,9 @@ function love.load(arg)
     initInput()
     initGraphics()
     initSound()
-    -- initScenes()
 
-    titleScreen = true
+    initScenes()
+    -- titleScreen = true
 end
 
 function initInput()

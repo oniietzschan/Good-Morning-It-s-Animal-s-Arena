@@ -38,32 +38,12 @@ function Ui:initFonts()
 
     lg.setFont(font['font'])
     lg.setLineWidth(1)
-
-    -- font["mono16"] = lg.newImageFont(
-    --     'assets/fonts/jasoco_mono16.png',
-    --     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 :-!.,\"?>_"
-    -- )
-    -- font["mono16"]:setLineHeight(1)
-
-    -- font["dialog"] = lg.newImageFont(
-    --     'assets/fonts/jasoco_dialog.png',
-    --     " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`_*#=[]'{}"
-    -- )
-    -- font["dialog"]:setLineHeight(.6)
-
-    -- font["tiny"] = lg.newImageFont(
-    --     'assets/fonts/jasoco_tiny.png',
-    --     " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.-,!:()[]{}<>"
-    -- )
-    -- font["tiny"]:setLineHeight(.8)
 end
 
 function Ui:displayGameOver()
 end
 
 function Ui:draw()
-    self:drawFps()
-
     if not game.isGameOver then
         self:drawPlayerStatus()
         self:drawScore()
@@ -72,6 +52,7 @@ function Ui:draw()
         self:drawGameOver()
     end
 
+    -- self:drawFps()
     -- self:drawDialog()
     -- self:drawDialogDebug()
 end

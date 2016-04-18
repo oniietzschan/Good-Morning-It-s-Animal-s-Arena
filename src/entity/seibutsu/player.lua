@@ -1,7 +1,7 @@
 local Player = class('Player', Seibutsu)
 
 function Player:initialize(t)
-    self.hp = 1
+    t.solid = true
 
     t.components = {
         Friendly,
@@ -13,6 +13,8 @@ function Player:initialize(t)
     t.img = img.usagi
 
     Seibutsu.initialize(self, t)
+
+    self.hp = 1
 
     self.myShadow = self:addFrill(Shadow, {
         layer = 'shadow',

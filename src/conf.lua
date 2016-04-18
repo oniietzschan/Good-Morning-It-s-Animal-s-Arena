@@ -1,12 +1,12 @@
 io.stdout:setvbuf("no") -- console output to Sublime
 
 function love.conf(t)
-    _scale = 3
+    _scale = 2
     _game_width = 640
     _game_height = 360
 
-    t.window.title = "Good Morning! It's Animal's Arena! v0.2"
-    -- t.window.icon = 'assets/icon.png'
+    t.window.title = "Good Morning! It's Animal's Arena! v0.3"
+    t.window.icon = 'assets/icon.png'
 
     t.window.width = _game_width * _scale
     t.window.height = _game_height * _scale

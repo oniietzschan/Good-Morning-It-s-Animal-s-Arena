@@ -1,27 +1,12 @@
-local AiEnemy = class('AiEnemy', Component)
+local AiEnemy = class('AiEnemy', AiBase)
 
-function AiEnemy:initialize(t)
-    Component.initialize(self, t)
+-- local behaviours
 
-    self.needsAction = true
-end
-
-local behaviours = {
+AiEnemy.behaviours = {
     {o = 1,    v = 'towardsPlayer'},
     {o = 0.25, v = 'shootAtPlayer'},
     {o = 0.075, v = 'shootVolleyAtPlayer'},
 }
-
-function AiEnemy:update(dt)
-    if self.needsAction == false then
-        return
-    end
-
-    local behavioursMethod = Util.rngSelect(behaviours)
-    self[behavioursMethod](self)
-
-    self:facePlayer()
-end
 
 function AiEnemy:towardsPlayer()
     self.parent:setAnimation('walk')
@@ -70,38 +55,6 @@ function AiEnemy:shootVolleyAtPlayer()
     end
 
     self:nextActionIn(1.15 + rng() * 0.2)
-end
-
-function AiEnemy:fireBullet(t)
-    local x, y = self.parent:getCenter()
-
-    t.x = x + (self.parent.img_mirror and (self.parent.offsetFireX * -1) or self.parent.offsetFireX)
-    t.y = y + self.parent.offsetFireY
-    t.target = game:getPlayerPos()
-    t.speed = ENEMY_NORMAL_BULLET_SPEED
-
-    Bullet(t)
-end
-
-function AiEnemy:isOnscreen()
-    return not self:isOffscreen()
-end
-
-function AiEnemy:isOffscreen()
-    local x, y = self.parent:getCenter()
-
-    return x < GAME_MIN_X or y < GAME_MIN_Y or x > GAME_MAX_X or y > GAME_MAX_Y
-end
-
-function AiEnemy:facePlayer()
-    local player = game:getPlayerPos()
-    local x, y = self.parent:getCenter()
-    self.parent.img_mirror = (player.x < x)
-end
-
-function AiEnemy:nextActionIn(time)
-    self.needsAction = false
-    Timer.after(time, function() self.needsAction = true end)
 end
 
 return AiEnemy

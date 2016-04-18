@@ -39,6 +39,8 @@ Image = require 'entity.image'
 Base = require 'entity.base'
 
 Component  = require 'entity.component.component'
+AiBase     = require 'entity.component.ai_base'
+AiBoss     = require 'entity.component.ai_boss'
 AiEnemy    = require 'entity.component.ai_enemy'
 Friendly   = require 'entity.component.friendly'
 Living     = require 'entity.component.living'
@@ -53,6 +55,7 @@ Particles = require 'entity.frill.particles'
 Shadow    = require 'entity.frill.shadow'
 
 Seibutsu = require 'entity.seibutsu.seibutsu'
+Boss    = require 'entity.seibutsu.boss'
 Enemy    = require 'entity.seibutsu.enemy'
 Player   = require 'entity.seibutsu.player'
 
@@ -81,12 +84,17 @@ local images = {
     neko = {'assets/neko.png', 33, 28},
     pixel = {'assets/pixel.png', 1, 1},
     shadow = {'assets/shadow.png', 16, 9},
-    square = {'assets/square.png', 16, 16},
+    square = {'assets/square.png', 64, 64},
+    title = {'assets/title.png', 640, 360},
     transformReady = {'assets/transform_ready.png', 126, 12},
     usagi = {'assets/usagi.png', 29, 31},
 }
 
 local sounds = {
+    enemyArmor = {
+        path = 'assets/sound/enemy_armor.wav',
+        volume = 0.45,
+    },
     enemyDeath = {
         path = 'assets/sound/enemy_death.wav',
         volume = 0.6,
@@ -135,11 +143,15 @@ local sounds = {
 
 local scenes = {}
 
+local titleScreen
+
 function love.load(arg)
     initInput()
     initGraphics()
     initSound()
-    initScenes()
+    -- initScenes()
+
+    titleScreen = true
 end
 
 function initInput()
@@ -171,8 +183,8 @@ function initInput()
         -- f10 = {'0', 'f10'},
         -- f11 = {'f11'},
         -- f12 = {'f12'},
-        plus = {'+', '='},
-        minus = {'-', '_'},
+        plus = {'+', '=', 'kp+'},
+        minus = {'-', '_', 'kp-'},
     }
 
     for action, binds in pairs(default_binds) do
@@ -221,6 +233,15 @@ function love.update(dt)
 
     globalInput(dt)
 
+    if titleScreen then
+        if input:pressed(RESTART) then
+            initScenes()
+            titleScreen = false
+        end
+
+        return
+    end
+
     for _,scene in pairs(scenes) do
         if scene:isRunning() then
             scene:update(dt)
@@ -253,6 +274,10 @@ end
 
 function love.draw()
     lg.setCanvas(canvas)
+
+    if titleScreen then
+        lg.draw(img.title.image, 0, 0)
+    end
 
     for _,scene in pairs(scenes) do
         if scene:isDisplay() then

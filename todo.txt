@@ -2,12 +2,10 @@
     [ ] neko
         [ ] tail
     [ ] boss enemy
-        [ ] only dies to kuma
+        [X] armor
         [ ] moves to position
         [ ] fires in direction
         [ ] sprite
-    [ ] system
-        [ ] title screen
 
 [ ] SUKI
     [ ] player
@@ -64,6 +62,7 @@
         [X] score
         [X] restart game
         [X] high score
+        [X] title screen
     [X] sound
 
 

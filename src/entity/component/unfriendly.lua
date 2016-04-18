@@ -16,6 +16,16 @@ function Unfriendly:handleBulletCollision()
             return
         end
 
+        local damage = item.entity.damage
+        if self.parent.armor then
+            damage = damage - self.parent.armor
+            if damage <= 0 then
+                Util.sound('enemyArmor')
+                item.entity:hitTarget()
+                return
+            end
+        end
+
         if self.parent.hp >= 2 then
             Util.sound('enemyHurt')
         else
@@ -23,7 +33,7 @@ function Unfriendly:handleBulletCollision()
         end
 
 
-        self.parent:takeDamage(item.entity.damage)
+        self.parent:takeDamage(damage)
         self.parent.imgColorFilter = COLOR_ONHIT
         Timer.after(ONE_FRAME_30FPS, function() self.parent.imgColorFilter = COLOR_QT end)
 

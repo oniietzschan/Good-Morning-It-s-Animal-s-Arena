@@ -202,6 +202,11 @@ function StartingRoom:test()
         y = 201,
         class = Boss,
     })
+    self:createEntity({
+        x = 680,
+        y = 201,
+        class = Boss,
+    })
     -- self:createEntity({
     --     x = 320,
     --     y = 200,

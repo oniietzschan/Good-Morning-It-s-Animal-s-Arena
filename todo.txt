@@ -12,7 +12,7 @@
         -- focus improves accuracy
     -- neko
         -- weapon tweak - one at a time & more knockback?
-        - tail
+        -- tail
     -- visual
         -- display points on kill
         -- display kuma HP

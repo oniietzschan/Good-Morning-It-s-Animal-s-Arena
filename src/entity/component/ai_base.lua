@@ -18,6 +18,11 @@ end
 function AiBase:fireBullet(t)
     local x, y = self.parent:getCenter()
 
+    -- hack!!!
+    if self.parent.img_mirror == false and self.parent:isInstanceOf(Boss) then
+        x = x + 9
+    end
+
     t.x = x + (self.parent.img_mirror and (self.parent.offsetFireX * -1) or self.parent.offsetFireX)
     t.y = y + self.parent.offsetFireY
     t.target = t.target or game:getPlayerPos()

@@ -85,11 +85,11 @@ local images = {
     hitbox = {'assets/hitbox.png', 11, 15},
     kuma = {'assets/kuma.png', 29, 31},
     kumaAttack = {'assets/kuma_attack.png', 27, 15},
-    neko = {'assets/neko.png', 33, 28},
+    neko = {'assets/neko.png', 44, 28},
     pixel = {'assets/pixel.png', 1, 1},
     shadow = {'assets/shadow.png', 16, 9},
     square = {'assets/square.png', 64, 64},
-    tank = {'assets/tank.png', 79, 74},
+    tank = {'assets/tank.png', 81, 79},
     title = {'assets/title.png', 640, 360},
     transformReady = {'assets/transform_ready.png', 126, 12},
     usagi = {'assets/usagi.png', 29, 31},
@@ -114,15 +114,15 @@ local sounds = {
     },
     enemyShootShort = {
         path = 'assets/sound/enemy_shoot_short.wav',
-        volume = 0.35,
+        volume = 0.25,
     },
     enemyShootMedium = {
         path = 'assets/sound/enemy_shoot_medium.wav',
-        volume = 0.4,
+        volume = 0.2,
     },
     enemyShootLong = {
         path = 'assets/sound/enemy_shoot_long.wav',
-        volume = 0.5,
+        volume = 0.15,
     },
     kumaAttack = {
         path = 'assets/sound/kuma_attack.wav',
@@ -130,7 +130,7 @@ local sounds = {
     },
     music = {
         path = 'assets/sound/music.mp3',
-        volume = 0.8,
+        volume = 0.9,
         stream = true,
     },
     playerHurt = {

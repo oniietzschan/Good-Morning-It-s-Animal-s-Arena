@@ -149,15 +149,20 @@ function Player:initializeSpriteSheet()
     self.animationsNeko = {
         stand = {
             quads[1],
-        },
-        walk = {
-            frequency = 2,
             quads[2],
             quads[3],
             quads[4],
             quads[5],
             quads[6],
+        },
+        walk = {
+            frequency = 2,
             quads[7],
+            quads[8],
+            quads[9],
+            quads[10],
+            quads[11],
+            quads[12],
         }
     }
 

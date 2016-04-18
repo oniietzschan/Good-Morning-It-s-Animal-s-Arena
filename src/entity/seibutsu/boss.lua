@@ -15,7 +15,7 @@ function Boss:initialize(t)
     t.h = 57
 
     t.img = img.tank
-    t.img_offset_x = -4
+    t.img_offset_x = -6
     t.img_offset_y = -17
 
     Seibutsu.initialize(self, t)
@@ -23,7 +23,7 @@ function Boss:initialize(t)
     self:initComponent(AiBoss)
 
 
-    self.offsetFireX = 36
+    self.offsetFireX = 33
     self.offsetFireY = -14
 end
 

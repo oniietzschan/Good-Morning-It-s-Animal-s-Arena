@@ -4,8 +4,10 @@ function love.conf(t)
     _scale = 2
     _game_width = 640
     _game_height = 360
+    _draw_offset_x = 0
+    _draw_offset_y = 0
 
-    t.window.title = "Good Morning! It's Animal's Arena! v0.3"
+    t.window.title = "Good Morning! It's Animal's Arena! v1.0.0"
     t.window.icon = 'assets/icon.png'
 
     t.window.width = _game_width * _scale

@@ -37,7 +37,7 @@ function StartingRoom:generate()
     })
 
     self:startSpawns()
-    self:test()
+    -- self:test()
 end
 
 function StartingRoom:startSpawns()
@@ -129,10 +129,6 @@ function StartingRoom:createSpawnDeck()
             {class = Boss,  size = 1},
             {class = Boss,  size = 1},
         },
-        {
-            {class = Enemy, size = 3},
-            {class = Enemy, size = 5},
-        },
     }
 end
 
@@ -158,12 +154,10 @@ function StartingRoom:spawnSomething()
     if leftInDeck == 0 then
         self.spawnDeckIndex = self.spawnDeckIndex + 1
         currentDeck = self.spawnDeck[self.spawnDeckIndex]
-        print('moving to spawnDeckIndex' .. self.spawnDeckIndex)
     end
 
     -- This is fucking terrible lmao
     if currentDeck == nil then
-        print('DECK EXHAUSTED')
         currentDeck = Util.rngSelect({
             {o = 4, v = {{class = Enemy, size = 6}}},
             {o = 1, v = {{class = Enemy, size = 12}}},
@@ -175,7 +169,6 @@ function StartingRoom:spawnSomething()
     local card = Util.sampleValidate(currentDeck, function(card) return not card.used end)
     card.used = true
 
-    -- local size = math.floor(rng() * 3) + 3 -- 3-5
     local possiblePositions = (card.class == Boss) and BOSS_SPAWN_POSITIONS or SPAWN_POSITIONS
     local pos = Util.sample(possiblePositions)
 

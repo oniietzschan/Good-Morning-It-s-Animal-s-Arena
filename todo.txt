@@ -27,7 +27,8 @@
     -- more boss danmaku types
     -- start at center!!!
     -- save score
-    - fullscreen
+    -- fullscreen
+    -- credit yourself
 
 [ ] SUKI
     [ ] player

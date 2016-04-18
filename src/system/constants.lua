@@ -83,6 +83,7 @@ WALK_DAMPEN_FACTOR = math.pow(10, (math.log10(dampen_cutoff_speed / MAX_SPEED_US
 -- Input
 ATTACK = 'attack'
 FOCUS = 'focus'
+FULLSCREEN = 'fullscreen'
 MUTE = 'mute'
 RESTART = 'restart'
 

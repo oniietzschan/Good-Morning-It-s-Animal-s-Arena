@@ -449,6 +449,9 @@ function Player:draw()
     if input:down(FOCUS) then
         local x, y = self:getRect()
         -- lies... >:
+        if self.form == NEKO then
+            x  = x + (self.img_mirror and 4 or -4)
+        end
         x = math.floor(x + 0.5) + (self.img_mirror and 0 or 1)
         y = math.floor(y + 0.5) - 1
         lg.setColor(255, 255, 255, 96)

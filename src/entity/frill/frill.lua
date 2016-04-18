@@ -22,6 +22,7 @@ function Frill:isVisible()
 end
 
 function Frill:draw()
+    -- hack
     local extraOffset = 0
     if self.parent and self.parent:isInstanceOf(Enemy) and self.parent.img_mirror then
         extraOffset = -4

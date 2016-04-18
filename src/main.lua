@@ -169,8 +169,8 @@ function love.load(arg)
     initGraphics()
     initSound()
 
-    initScenes()
-    -- titleScreen = true
+    -- initScenes()
+    titleScreen = true
 end
 
 function initInput()
@@ -186,6 +186,7 @@ function initInput()
         [USAGI] = {'e', '2', 'fup'},
         [NEKO]  = {'r', '3', 'fright'},
         [ATTACK] = {'mouse1'},
+        [FULLSCREEN] = {'l'},
         quit = {'escape', 'back', 'start'},
         [MUTE] = {'m'},
         [RESTART] = {'r'},
@@ -267,15 +268,41 @@ function globalInput(dt)
             sound.music:setVolume(0)
         end
     end
-    if input:pressed('quit') then
-        love.event.push('quit')
-    end
     if input:pressed('plus') then
         setScale(_scale + 1)
     end
     if input:pressed('minus') then
         setScale(_scale - 1)
     end
+    if input:pressed(FULLSCREEN) then
+        toFullscreen()
+    end
+    if input:pressed('quit') then
+        love.event.push('quit')
+    end
+end
+
+function toFullscreen()
+    if love.window.getFullscreen() then
+        love.window.setFullscreen(false)
+        setScale(2)
+
+    else
+        local desktop_w, desktop_h = love.window.getDesktopDimensions()
+        local maxScaleX = math.floor(desktop_w / _game_width)
+        local maxScaleY = math.floor(desktop_h / _game_height)
+        local scale = math.min(maxScaleX, maxScaleY)
+        setScale(scale)
+
+        love.window.setFullscreen(true)
+
+        local viewWidth  = _game_width * _scale
+        local viewHeight = _game_height * _scale
+
+        _draw_offset_x = math.floor((desktop_w - viewWidth) / 2)
+        _draw_offset_y = math.floor((desktop_h - viewHeight) / 2)
+    end
+
 end
 
 function setScale(val)
@@ -287,6 +314,9 @@ function setScale(val)
     _scale = val
 
     love.window.setMode(_game_width * _scale, _game_height * _scale)
+
+    _draw_offset_x = 0
+    _draw_offset_y = 0
 end
 
 function love.draw()
@@ -304,5 +334,5 @@ function love.draw()
 
     lg.setCanvas()
     lg.setColor(255, 255, 255)
-    lg.draw(canvas, 0, 0, 0, _scale, _scale);
+    lg.draw(canvas, _draw_offset_x, _draw_offset_y, 0, _scale, _scale);
 end

@@ -101,7 +101,7 @@ end
 function Ui:drawCrosshair()
     lg.setColor(COLOR_QT)
     local x, y = Util:mousePos()
-    lg.draw(img.crosshair.image, x - 6, y - 6)
+    lg.draw(img.crosshair.image, math.floor(x - 5.5), math.floor(y - 5.5))
 end
 
 function Ui:drawGameOver()
@@ -116,7 +116,7 @@ function Ui:drawGameOver()
     for i, t in ipairs(texts) do
         local text, offsetX = unpack(t)
         offsetX = offsetX or 0
-        self:drawTextWithShadow(text, 200 + offsetX, (12 * i) + 50)
+        self:drawTextWithShadow(text, 234 + offsetX, (12 * i) + 50)
     end
 end
 

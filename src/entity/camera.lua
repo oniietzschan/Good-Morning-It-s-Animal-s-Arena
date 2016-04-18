@@ -88,12 +88,31 @@ function Camera:getPos()
 end
 
 function Camera:drawEntities(layer, camX, camY)
+    local ents = layer.entities
+    -- sort first
+    if layer.name == 'entity' then
+        ents = self:getEntitiesSortedByYPos(layer)
+    end
+
     lg.setColor(255, 255, 255, 255)
-    for _, ent in pairs(layer.entities) do
+    for _, ent in pairs(ents) do
         if ent:isVisible(camX, camY, CAMERA_WIDTH, CAMERA_HEIGHT) then
             ent:draw()
         end
     end
+end
+
+function Camera:getEntitiesSortedByYPos(layer)
+    local array = {}
+    for i, e in pairs(layer.entities) do
+        table.insert(array, e)
+    end
+    table.sort(array, function(a, b)
+        local x1, y1 = a:getRect()
+        local x2, y2 = b:getRect()
+        return y1 < y2
+    end)
+    return array
 end
 
 return Camera

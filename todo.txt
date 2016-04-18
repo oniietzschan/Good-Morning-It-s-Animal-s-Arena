@@ -1,21 +1,21 @@
 - DAISUKI
     - boss enemy
         -- armor
-        - moves to position
-        - fires in direction
+        -- - moves to position
+        -- - fires in direction
+        -- - dies in 3 hits from kuma
         - sprite
-    - waves
-        - start off slower
+    -- waves
+        -- start off slower
     -- usagi
         -- weapon tweak - spread & fire rate
     -- neko
         -- weapon tweak - one at a time & more knockback?
         - tail
-    - tweaks / balance
-        -
     - visual
-        - death aniamtion
-        - bullet spritewoot
+        - display kuma HP
+        - death animation
+        - bullet sprite
             - more visible bullets... flash like metal slug?
             - directionality
     - music
@@ -23,8 +23,11 @@
     - focus
         - slow movement
         - show hitbox
+    - tweaks / balance
+        - ???
 
 [ ] SUKI
+    [ ] more boss danmaku types
     [ ] player
         [ ] change expression to >_< while shooting
         [ ] fix diagonal movements

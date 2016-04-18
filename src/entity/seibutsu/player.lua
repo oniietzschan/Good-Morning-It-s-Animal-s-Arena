@@ -265,7 +265,7 @@ function Player:handleAttack()
     local x, y = self:getCenter()
 
     if self.form == KUMA then
-        Util.sound('playerShot')
+        Util.sound('kumaAttack', 0.2)
 
         local t = {
             x = x,

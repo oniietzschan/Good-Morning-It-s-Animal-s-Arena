@@ -1,10 +1,13 @@
 local Boss = class('Boss', Seibutsu)
 
 function Boss:initialize(t)
+    self.hp = 200
+    self.armor = 2
+    self.speed = 160 -- 40
+
     t.solid = true
 
     t.components = {
-        AiBoss,
         Unfriendly,
     }
 
@@ -17,18 +20,11 @@ function Boss:initialize(t)
 
     Seibutsu.initialize(self, t)
 
-    self.hp = 500
-    self.armor = 2
-    self.speed = 40
+    self:initComponent(AiBoss)
 
-    -- self.offsetFireX = 28
-    -- self.offsetFireY = 3
 
-    -- self:addFrill(Shadow, {
-    --     layer = 'shadow',
-    --     offsetX = 2,
-    --     offsetY = 22,
-    -- })
+    self.offsetFireX = 0
+    self.offsetFireY = 0
 end
 
 function Boss:initializeSpriteSheet()

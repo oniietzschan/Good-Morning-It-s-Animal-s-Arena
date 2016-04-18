@@ -5,7 +5,7 @@ local AiEnemy = class('AiEnemy', AiBase)
 AiEnemy.behaviours = {
     {o = 1,    v = 'towardsPlayer'},
     {o = 0.25, v = 'shootAtPlayer'},
-    {o = 0.075, v = 'shootVolleyAtPlayer'},
+    {o = 0.065, v = 'shootVolleyAtPlayer'},
 }
 
 function AiEnemy:towardsPlayer()
@@ -15,7 +15,7 @@ function AiEnemy:towardsPlayer()
     local player = game:getPlayerPos()
     self.parent:setSpeed(Util.vectorBetween(x, y, player.x, player.y, self.parent.speed))
 
-    self:nextActionIn(0.15 + rng() * 0.2)
+    self:nextActionIn(0.35 + rng() * 0.2)
 end
 
 function AiEnemy:shootAtPlayer()
@@ -36,6 +36,7 @@ end
 
 function AiEnemy:shootVolleyAtPlayer()
     self.parent:setAnimation('stand')
+    self.parent:setSpeed(0, 0)
 
     -- fire after a bit
     if self:isOnscreen() then
@@ -46,9 +47,9 @@ function AiEnemy:shootVolleyAtPlayer()
 
             Util.sound('enemyShootMedium')
 
-            for i = -2, 2 do
+            for i = -1, 1 do
                 self:fireBullet({
-                    angle = i * 0.13 - 0.01 + rng() * 0.02,
+                    angle = i * 0.17 - 0.01 + rng() * 0.02,
                 })
             end
         end)

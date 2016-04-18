@@ -137,7 +137,7 @@ function Base:move(rel_x, rel_y)
 end
 
 function Base.bumpFilter(this, other)
-    if other.solid then
+    if other.solid and other.entity ~= player then
         return 'slide'
     else
         return 'cross'

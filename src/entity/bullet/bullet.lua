@@ -21,6 +21,7 @@ function Bullet:initialize(t)
     self.onRemove = t.onRemove or nil
     self.friendly = t.friendly or false
     self.pierce = t.pierce or false
+    self.pierceMemory = {}
 
     if t.target then
         self:shootTowardsTarget(t)
@@ -74,7 +75,17 @@ function Bullet:move(relX, relY)
    return relX, relX, {}, 0
 end
 
-function Bullet:hitTarget()
+function Bullet:hitTarget(target)
+    if self.pierce then
+        if self.pierceMemory[target] == true then
+            -- Already hit this target on earlier frame, do nothing.
+            return false
+        else
+            -- Hitting this target for the first time.
+            self.pierceMemory[target] = true
+        end
+    end
+
     if self.onHit then
         local x, y = self:getCenter()
         self.onHit(x, y)
@@ -83,6 +94,8 @@ function Bullet:hitTarget()
     if not self.pierce then
         self:remove()
     end
+
+    return true
 end
 
 function Bullet:remove()

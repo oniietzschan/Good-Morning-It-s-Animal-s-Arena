@@ -22,8 +22,8 @@ function AiBase:fireBullet(t)
 
     t.x = x + (self.parent.img_mirror and (self.parent.offsetFireX * -1) or self.parent.offsetFireX)
     t.y = y + self.parent.offsetFireY
-    t.target = game:getPlayerPos()
-    t.speed = ENEMY_NORMAL_BULLET_SPEED
+    t.target = t.target or game:getPlayerPos()
+    t.speed = t.speed or ENEMY_NORMAL_BULLET_SPEED
 
     Bullet(t)
 end

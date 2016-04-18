@@ -115,6 +115,10 @@ local sounds = {
         path = 'assets/sound/enemy_shoot_long.wav',
         volume = 0.5,
     },
+    kumaAttack = {
+        path = 'assets/sound/kuma_attack.wav',
+        volume = 0.6,
+    },
     playerHurt = {
         path = 'assets/sound/player_hurt.wav',
         volume = 1,

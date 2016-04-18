@@ -78,6 +78,7 @@ WALK_DAMPEN_FACTOR = math.pow(10, (math.log10(dampen_cutoff_speed / MAX_SPEED_US
 
 -- Input
 ATTACK = 'attack'
+MUTE = 'mute'
 RESTART = 'restart'
 
 -- Colors

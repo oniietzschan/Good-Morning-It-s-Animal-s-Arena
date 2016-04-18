@@ -11,6 +11,11 @@ function Game:initialize(t)
 
     Scene.initialize(self, t)
 
+    -- play music
+    sound.music:setLooping(true)
+    sound.music:setPitch(1)
+    la.play(sound.music)
+
     self.highScore = 0
 
     self:initCamera()
@@ -85,6 +90,13 @@ function Game:update(dt)
 end
 
 function Game:input(dt)
+    if input:pressed(MUTE) then
+        if sound.music:getVolume() == 1 then
+            sound.music:setVolume(0)
+        else
+            sound.music:setVolume(1)
+        end
+    end
     if input:pressed('f1') then
         self.drawDebug = not self.drawDebug
     end

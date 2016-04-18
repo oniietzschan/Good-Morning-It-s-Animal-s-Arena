@@ -94,7 +94,7 @@ local images = {
 local sounds = {
     enemyArmor = {
         path = 'assets/sound/enemy_armor.wav',
-        volume = 0.45,
+        volume = 0.35,
     },
     enemyDeath = {
         path = 'assets/sound/enemy_death.wav',
@@ -120,17 +120,22 @@ local sounds = {
         path = 'assets/sound/kuma_attack.wav',
         volume = 0.6,
     },
+    music = {
+        path = 'assets/sound/music.mp3',
+        volume = 0.7,
+        stream = true,
+    },
     playerHurt = {
         path = 'assets/sound/player_hurt.wav',
         volume = 1,
     },
     playerShot = {
         path = 'assets/sound/player_shot.wav',
-        volume = 0.5,
+        volume = 0.4,
     },
     playerCanTransform = {
         path = 'assets/sound/player_can_transform.wav',
-        volume = 0.85,
+        volume = 1,
     },
     playerTransform = {
         path = 'assets/sound/player_transform.wav',
@@ -138,7 +143,7 @@ local sounds = {
     },
     rocketExplosion = {
         path = 'assets/sound/rocket_explosion.wav',
-        volume = 0.75,
+        volume = 0.55,
     },
     rocketFire = {
         path = 'assets/sound/rocket_fire.wav',
@@ -175,6 +180,7 @@ function initInput()
         [ATTACK] = {'mouse1'},
         -- focus = {'lshift', 'rshift', 'fleft'},
         quit = {'escape', 'back', 'start'},
+        [MUTE] = {'m'},
         [RESTART] = {'r'},
         f1  = {'f1'},
         -- f2  = {'f2'},
@@ -220,7 +226,7 @@ end
 function initSound()
     sound = {}
     for name, t in pairs(sounds) do
-        local snd = la.newSource(t.path, "static")
+        local snd = la.newSource(t.path, t.stream and 'stream' or 'static')
 
         snd:setVolume(t.volume or 1)
 

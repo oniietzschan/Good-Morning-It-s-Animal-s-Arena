@@ -1,7 +1,7 @@
 io.stdout:setvbuf("no") -- console output to Sublime
 
 function love.conf(t)
-    _scale = 3
+    _scale = 2
     _game_width = 640
     _game_height = 360
 
@@ -22,7 +22,7 @@ function love.conf(t)
 
     t.version = "0.10.1"
     t.console = false
-    t.identity = 'save_dir'
+    t.identity = 'animals_arena_save'
     t.accelerometerjoystick = false
     t.gammacorrect = false
 

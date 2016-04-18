@@ -26,7 +26,7 @@
         -- show hitbox
     -- more boss danmaku types
     -- start at center!!!
-    - save score
+    -- save score
     - fullscreen
 
 [ ] SUKI

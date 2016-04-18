@@ -11,7 +11,7 @@ function Game:initialize(t)
 
     Scene.initialize(self, t)
 
-    self.highScore = 0
+    self:loadHighScore()
 
     self:initCamera()
     self:startGame()
@@ -183,6 +183,31 @@ function Game:gameOver()
 
     if self.score > self.highScore then
         self.highScore = self.score
+        self:saveHighScore()
+    end
+end
+
+function Game:loadHighScore()
+    self.highScore = 0
+
+    local file, errors = lf.newFile("highscore.txt")
+    if errors == nil then
+        file:open("r")
+        local data = file:read() -- Parsed as Lua source.
+        file:close()
+
+        if data ~= nil then
+            self.highScore = tonumber(data)
+        end
+    end
+end
+
+function Game:saveHighScore()
+    local file, errors = lf.newFile("highscore.txt")
+    if errors == nil then
+        file:open("w")
+        file:write(tostring(self.highScore))
+        file:close()
     end
 end
 

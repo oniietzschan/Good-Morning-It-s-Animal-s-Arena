@@ -14,6 +14,7 @@ tiles = nil
 world = nil
 
 la = love.audio
+lf = love.filesystem
 lg = love.graphics
 lm = love.mouse
 

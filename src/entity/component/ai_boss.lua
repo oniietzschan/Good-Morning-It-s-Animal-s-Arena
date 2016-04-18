@@ -44,7 +44,6 @@ function AiBoss:update(dt)
 end
 
 function AiBoss:danmaku()
-    print( self.myDanmaku)
     self[self.myDanmaku](self)
 end
 
@@ -78,7 +77,6 @@ end
 function AiBoss:danmakuTwo()
     self.parent:setAnimation('stand')
     self.parent:setSpeed(0, 0)
-
 
     local target = {
         x = CAMERA_WIDTH  / 2 - 100 + rng() * 200,

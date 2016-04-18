@@ -23,6 +23,8 @@ function Player:initialize(t)
     -- self:toKuma()
     -- self:toNeko()
     self:toUsagi(true)
+
+    self.canTransform = true
 end
 
 function Player:toKuma()
@@ -63,7 +65,7 @@ function Player:toNeko()
     self:helpTransform()
 end
 
-function Player:toUsagi(silent)
+function Player:toUsagi(first)
     self.form = USAGI
     self.hp = 1
 
@@ -79,12 +81,19 @@ function Player:toUsagi(silent)
     self.offsetFireY = 1
     self.myShadow.offsetY = 14
 
-    self:helpTransform(silent)
+    self:helpTransform(first)
 end
 
-function Player:helpTransform(silent)
-    if not silent then
+function Player:helpTransform(first)
+    if not first then
         Util.sound('playerTransform', 0.2)
+
+        self.canTransform = false
+        self.transformTimer = 0
+        Timer.tween(3.5, self, {transformTimer = 1}, 'linear', function()
+            Util.sound('playerCanTransform')
+            self.canTransform = true
+        end)
     end
 
     self.canAttack = true
@@ -163,6 +172,10 @@ function Player:update(dt)
 end
 
 function Player:handleChangeForm()
+    if not self.canTransform then
+        return
+    end
+
     if input:pressed(KUMA) and self.form ~= KUMA then
         self:toKuma()
     end

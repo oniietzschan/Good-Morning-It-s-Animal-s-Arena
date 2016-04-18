@@ -1,8 +1,4 @@
 [ ] DAISUKI
-    [ ] player
-        [X] fire from end of gun, not center of mass
-        [X] hitbox offset changes on transform?
-        [ ] cooldown on transform
     [ ] neko
         [ ] tail
     [ ] boss enemy
@@ -10,6 +6,8 @@
         [ ] moves to position
         [ ] fires in direction
         [ ] sprite
+    [ ] system
+        [ ] title screen
 
 [ ] SUKI
     [ ] player
@@ -26,8 +24,6 @@
         [ ] S.E.C.R.E.T. OST (hint: *meow*)
     [ ] input
         [ ] gamepad support
-    [ ] system
-        [ ] title screen
     [ ] tweaks / balance
         [ ] more visible bullets... flash like metal slug?
 
@@ -40,6 +36,9 @@
             [X] fire bullets
             [X] towards cursor
         [X] can die
+        [X] fire from end of gun, not center of mass
+        [X] hitbox offset changes on transform?
+        [X] cooldown on transform
     [X] kuma
         [X] attack
         [X] armor

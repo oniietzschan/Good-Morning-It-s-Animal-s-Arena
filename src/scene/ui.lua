@@ -86,11 +86,20 @@ function Ui:drawPlayerStatus()
     end
 
     self:drawPlayerFormName()
-    self:drawPlayerHp()
+    self:drawTransformStatus()
+    -- self:drawPlayerHp()
 end
 
 function Ui:drawPlayerFormName()
     self:drawTextWithShadow(player.form, -1, -1)
+end
+
+function Ui:drawTransformStatus()
+    if player.canTransform then
+        lg.draw(img.transformReady.image, self.ui_x + 0, self.ui_y + 12)
+    else
+        self:drawBar(player.transformTimer, 1, self.ui_x + 0, self.ui_x + 12)
+    end
 end
 
 function Ui:drawPlayerHp()
@@ -134,6 +143,15 @@ end
 function Ui:drawText(text, x, y, color)
     lg.setColor(color)
     lg.print(text, x, y)
+end
+
+function Ui:drawBar(cur, max, x, y)
+    lg.setColor(COLOR_UI_SHADOW) -- Shadow - TODO: bug overlap is darker oh no
+    lg.rectangle('fill', x + 1,   y + 1,   math.floor(124 * (cur / max)), 11)
+    lg.rectangle('line', x + 1.5, y + 1.5, 124, 11 - 1)
+    lg.setColor(COLOR_WHITE) -- Bar
+    lg.rectangle('fill', x, y, math.floor(124 * (cur / max)), 11)
+    lg.rectangle('line', x + 0.5, y + 0.5, 124, 11 - 1)
 end
 
 -- function Ui:pushMessage(t)
@@ -253,23 +271,6 @@ end
 --     local suf = ''
 --     if (self:isDialogFullyAdvanced()) then suf = ' READY' end
 --     lg.print("WRAP: " .. lines .. suf, 2, 18)
--- end
-
--- -- UNUSED SO FAR
--- function Ui:drawBar(text, cur, max, x, y, inner_color)
---     -- Bar
---     lg.setColor(COLOR_BLACK) -- Black Background
---     lg.rectangle('fill', x, y, self._ui_bar_w, self._ui_bar_h)
---     lg.setColor(inner_color) -- Red Filled Area
---     lg.rectangle('fill', x, y, math.floor(self._ui_bar_w * (cur / max)), self._ui_bar_h)
---     lg.setColor(COLOR_WHITE) -- White Outline
---     lg.rectangle('line', x + 0.5, y + 0.5, self._ui_bar_w, self._ui_bar_h - 1)
-
---     -- Text
---     lg.setColor(COLOR_BLACK)
---     lg.print(text .. cur, x + 3, y + 3)
---     lg.setColor(COLOR_WHITE)
---     lg.print(text .. cur, x + 2, y + 2)
 -- end
 
 return Ui

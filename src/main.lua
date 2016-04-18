@@ -82,7 +82,8 @@ local images = {
     pixel = {'assets/pixel.png', 1, 1},
     shadow = {'assets/shadow.png', 16, 9},
     square = {'assets/square.png', 16, 16},
-    usagi = {'assets/usagi.png', 29, 31}
+    transformReady = {'assets/transform_ready.png', 126, 12},
+    usagi = {'assets/usagi.png', 29, 31},
 }
 
 local sounds = {
@@ -113,6 +114,10 @@ local sounds = {
     playerShot = {
         path = 'assets/sound/player_shot.wav',
         volume = 0.7,
+    },
+    playerCanTransform = {
+        path = 'assets/sound/player_can_transform.wav',
+        volume = 0.85,
     },
     playerTransform = {
         path = 'assets/sound/player_transform.wav',

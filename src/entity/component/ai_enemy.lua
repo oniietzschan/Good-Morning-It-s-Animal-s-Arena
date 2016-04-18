@@ -9,6 +9,7 @@ AiEnemy.behaviours = {
 }
 
 function AiEnemy:towardsPlayer()
+    self:facePlayer()
     self.parent:setAnimation('walk')
 
     local x, y = self.parent:getCenter()
@@ -19,6 +20,7 @@ function AiEnemy:towardsPlayer()
 end
 
 function AiEnemy:shootAtPlayer()
+    self:facePlayer()
     self.parent:setAnimation('walk')
 
     if self:isOnscreen() then
@@ -35,6 +37,7 @@ function AiEnemy:shootAtPlayer()
 end
 
 function AiEnemy:shootVolleyAtPlayer()
+    self:facePlayer()
     self.parent:setAnimation('stand')
     self.parent:setSpeed(0, 0)
 

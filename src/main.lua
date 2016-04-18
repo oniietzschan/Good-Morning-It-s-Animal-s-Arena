@@ -85,6 +85,7 @@ local images = {
     pixel = {'assets/pixel.png', 1, 1},
     shadow = {'assets/shadow.png', 16, 9},
     square = {'assets/square.png', 64, 64},
+    tank = {'assets/tank.png', 79, 74},
     title = {'assets/title.png', 640, 360},
     transformReady = {'assets/transform_ready.png', 126, 12},
     usagi = {'assets/usagi.png', 29, 31},

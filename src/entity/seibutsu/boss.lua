@@ -3,7 +3,7 @@ local Boss = class('Boss', Seibutsu)
 function Boss:initialize(t)
     self.hp = 200
     self.armor = 2
-    self.speed = 160 -- 40
+    self.speed = ENEMY_BOSS_SPEED
 
     t.solid = true
 
@@ -11,20 +11,20 @@ function Boss:initialize(t)
         Unfriendly,
     }
 
-    t.w = 64
-    t.h = 64
+    t.w = 68
+    t.h = 57
 
-    t.img = img.square
-    t.img_offset_x = 0
-    t.img_offset_y = 0
+    t.img = img.tank
+    t.img_offset_x = -4
+    t.img_offset_y = -17
 
     Seibutsu.initialize(self, t)
 
     self:initComponent(AiBoss)
 
 
-    self.offsetFireX = 0
-    self.offsetFireY = 0
+    self.offsetFireX = 36
+    self.offsetFireY = -14
 end
 
 function Boss:initializeSpriteSheet()
@@ -34,17 +34,20 @@ function Boss:initializeSpriteSheet()
 
     self.animations = {
         stand = {
+            frequency = 1,
+            quads[2],
             quads[1],
         },
         walk = {
-            frequency = 1,
-            quads[1],
-            -- quads[2],
-            -- quads[3],
-            -- quads[4],
-            -- quads[5],
-            -- quads[6],
-            -- quads[7],
+            frequency = 1.15,
+            quads[2],
+            quads[3],
+            quads[4],
+            quads[5],
+            quads[6],
+            quads[7],
+            quads[8],
+            quads[9],
         }
     }
 end

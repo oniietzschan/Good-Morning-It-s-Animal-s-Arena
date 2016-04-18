@@ -13,8 +13,6 @@ function AiBase:update(dt)
 
     local behavioursMethod = Util.rngSelect(self.behaviours)
     self[behavioursMethod](self)
-
-    self:facePlayer()
 end
 
 function AiBase:fireBullet(t)

@@ -53,6 +53,9 @@ function StartingRoom:createSpawnDeck()
     self.spawnDeckIndex = 1
     self.spawnDeck = {
         {
+            {class = Boss,  size = 1},
+        },
+        {
             {class = Enemy, size = 3},
             {class = Enemy, size = 3},
             {class = Enemy, size = 4},

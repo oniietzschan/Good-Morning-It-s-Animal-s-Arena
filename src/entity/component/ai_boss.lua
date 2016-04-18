@@ -13,12 +13,14 @@ function AiBoss:initialize(t)
 end
 
 function AiBoss:moveToPosition()
-
     self.atPosition = false
 
     self.parent:setAnimation('walk')
     local x = self.parent:getCenter()
     self.parent:setSpeed((x < 0 and self.parent.speed or (self.parent.speed * -1)), 0)
+
+    -- face correct direction
+    self.parent.img_mirror = (x > 0)
 end
 
 function AiBoss:update(dt)

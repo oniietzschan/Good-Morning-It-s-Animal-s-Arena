@@ -1,28 +1,28 @@
-[ ] DAISUKI
-    [ ] boss enemy
-        [X] armor
-        [ ] moves to position
-        [ ] fires in direction
-        [ ] sprite
-    [ ] waves
-        [ ] start off slower
-    [X] usagi
-        [X] weapon tweak - spread & fire rate
-    [ ] neko
-        [ ] weapon tweak - one at a time & more knockback?
-        [ ] tail
-    [ ] tweaks / balance
-        [ ]
-    [ ] visual
-        [ ] death aniamtion
-        [ ] bullet spritewoot
-            [ ] more visible bullets... flash like metal slug?
-            [ ] directionality
-    [ ] music
-        [ ] S.E.C.R.E.T. OST (hint: *meow*)
-    [ ] focus
-        [ ] slow movement
-        [ ] show hitbox
+- DAISUKI
+    - boss enemy
+        -- armor
+        - moves to position
+        - fires in direction
+        - sprite
+    - waves
+        - start off slower
+    -- usagi
+        -- weapon tweak - spread & fire rate
+    -- neko
+        -- weapon tweak - one at a time & more knockback?
+        - tail
+    - tweaks / balance
+        -
+    - visual
+        - death aniamtion
+        - bullet spritewoot
+            - more visible bullets... flash like metal slug?
+            - directionality
+    - music
+        - S.E.C.R.E.T. OST (hint: *meow*)
+    - focus
+        - slow movement
+        - show hitbox
 
 [ ] SUKI
     [ ] player

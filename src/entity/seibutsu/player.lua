@@ -306,15 +306,7 @@ function Player:handleAttack()
         self:setAttackCooldown(ATTACK_COOLDOWN_KUMA)
 
     elseif self.form == NEKO then
-        Util.sound('rocketFire', 0.2)
-        self:fireBullet({
-            onHit = self:getNekoOnHitCallback(),
-            damage = BULLET_DAMAGE_NEKO,
-            speed = BULLET_SPEED_NEKO,
-            img = img.bulletNeko,
-        })
-        self:setAttackCooldown(ATTACK_COOLDOWN_NEKO)
-        self:nekoKnockback()
+        self:nekoFire()
 
     elseif self.form == USAGI then
         self:usagiFire(0)
@@ -324,7 +316,64 @@ function Player:handleAttack()
     end
 end
 
+function Player:nekoFire()
+    Util.sound('rocketFire', 0.2)
+    self:fireBullet({
+        onHit = self:getNekoOnHitCallback(),
+        onRemove = function()
+            if player and player.form == NEKO then
+                self:resetAttackCooldown()
+            end
+        end,
+        damage = BULLET_DAMAGE_NEKO,
+        speed = BULLET_SPEED_NEKO,
+        img = img.bulletNeko,
+    })
+    self:setAttackCooldown(ATTACK_COOLDOWN_NEKO)
+    self:nekoKnockback()
+end
+
+function Player:getNekoOnHitCallback()
+    return function(x, y)
+        Util.sound('rocketExplosion', 0.3)
+
+        local count = 15
+        for i=1, count do
+            local t = {
+                damage = 2,
+                x = x,
+                y = y,
+                speed = BULLET_SPEED_USAGI + (BULLET_SPEED_USAGI * rng() - 0.5 * BULLET_SPEED_USAGI) * 0.7,
+                direction = (i / count * 2) + (rng() * 1/count),
+                duration = 0.25,
+                friendly = true,
+                img = img.bulletSmall,
+                imgColorFilter = {255, 255, 255, 255},
+            }
+            Bullet(t)
+            local t2 = {
+                damage = 1,
+                x = x,
+                y = y,
+                speed = BULLET_SPEED_USAGI + (BULLET_SPEED_USAGI * rng() - 0.5 * BULLET_SPEED_USAGI) * 0.7,
+                direction = (i / count * 2) + (rng() * 1/count),
+                duration = 0.25,
+                friendly = true,
+                img = img.bulletPlayer,
+                imgColorFilter = {255, 255, 255, 255},
+            }
+            -- t.damage = 1
+            -- t.img = img.bulletPlayer
+            Bullet(t2)
+        end
+    end
+end
+
 function Player:usagiFire(spread_factor)
+    if not player then
+        return
+    end
+
     Util.sound('playerShot')
     self:fireBullet({
         damage = BULLET_DAMAGE_USAGI,
@@ -347,6 +396,14 @@ function Player:fireBullet(t)
     Bullet(t)
 end
 
+function Player:resetAttackCooldown()
+    self.canAttack = true
+
+    if self.attackCooldownTimer then
+        Timer.cancel(self.attackCooldownTimer)
+    end
+end
+
 function Player:setAttackCooldown(cd)
     self.canAttack = false
 
@@ -355,25 +412,6 @@ function Player:setAttackCooldown(cd)
     end
 
     self.attackCooldownTimer = Timer.after(cd, function() self.canAttack = true end)
-end
-
-function Player:getNekoOnHitCallback()
-    return function(x, y)
-        Util.sound('rocketExplosion', 0.3)
-
-        for i=1,26 do
-            Bullet({
-                x = x,
-                y = y,
-                speed = BULLET_SPEED_USAGI,
-                direction = i / 13,
-                duration = 0.5,
-                friendly = true,
-                img = img.bulletSmall,
-                imgColorFilter = {255, 255, 255, 255},
-            })
-        end
-    end
 end
 
 function Player:nekoKnockback()

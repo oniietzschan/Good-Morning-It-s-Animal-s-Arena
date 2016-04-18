@@ -18,6 +18,7 @@ function Bullet:initialize(t)
 
     self.damage = t.damage or 1
     self.onHit = t.onHit or nil
+    self.onRemove = t.onRemove or nil
     self.friendly = t.friendly or false
     self.pierce = t.pierce or false
 
@@ -85,6 +86,11 @@ function Bullet:hitTarget()
 end
 
 function Bullet:remove()
+    if self.onRemove then
+        local x, y = self:getCenter()
+        self.onRemove(x, y)
+    end
+
     if self.durationTimer then
         Timer.cancel(self.durationTimer)
     end

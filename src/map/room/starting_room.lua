@@ -37,7 +37,7 @@ function StartingRoom:generate()
     })
 
     self:startSpawns()
-    -- self:test()
+    self:test()
 end
 
 function StartingRoom:startSpawns()
@@ -198,20 +198,20 @@ end
 
 function StartingRoom:test()
     self:createEntity({
-        x = -100,
+        x = -50,
         y = 201,
         class = Boss,
     })
-    self:createEntity({
-        x = 320,
-        y = 200,
-        class = Enemy,
-    })
-    self:createEntity({
-        x = 321,
-        y = 201,
-        class = Enemy,
-    })
+    -- self:createEntity({
+    --     x = 320,
+    --     y = 200,
+    --     class = Enemy,
+    -- })
+    -- self:createEntity({
+    --     x = 321,
+    --     y = 201,
+    --     class = Enemy,
+    -- })
 end
 
 return StartingRoom

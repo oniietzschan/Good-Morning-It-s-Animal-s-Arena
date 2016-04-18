@@ -21,11 +21,12 @@
             -- more visible bullets... flash like metal slug?
     -- music
         -- S.E.C.R.E.T. OST (hint: *meow*)
-    - focus
+    -- focus
         -- slow movement
-        - show hitbox
-    - more boss danmaku types
-    - start at center!!!
+        -- show hitbox
+    -- more boss danmaku types
+    -- start at center!!!
+    - save score
     - fullscreen
 
 [ ] SUKI

@@ -82,6 +82,7 @@ local images = {
     enemy = {'assets/enemy.png', 38, 28},
     grass = {'assets/grass.png', 32, 32},
     heart = {'assets/heart.png', 7, 7},
+    hitbox = {'assets/hitbox.png', 11, 15},
     kuma = {'assets/kuma.png', 29, 31},
     kumaAttack = {'assets/kuma_attack.png', 27, 15},
     neko = {'assets/neko.png', 33, 28},

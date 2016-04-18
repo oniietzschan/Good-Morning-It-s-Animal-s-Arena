@@ -22,8 +22,6 @@ function Player:initialize(t)
         offsetY = 14,
     })
 
-    -- self:toKuma()
-    -- self:toNeko()
     self:toUsagi(true)
 
     self.canTransform = true
@@ -442,6 +440,15 @@ function Player:draw()
     self.img_mirror = (mx < x)
 
     Seibutsu.draw(self)
+
+    if input:down(FOCUS) then
+        local x, y = self:getRect()
+        -- lies... >:
+        x = math.floor(x + 0.5) + (self.img_mirror and 0 or 1)
+        y = math.floor(y + 0.5) - 1
+        lg.setColor(255, 255, 255, 96)
+        lg.draw(img.hitbox.image, x, y)
+    end
 end
 
 function Player:remove()

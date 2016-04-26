@@ -4,7 +4,6 @@ function Bullet:initialize(t)
     t.img = t.img or img.bulletEnemy
     t.layer = self.friendly and 'bulletPlayer' or 'bulletEnemy'
 
-
     t.w = t.w or t.img:getWidth()
     t.h = t.h or t.img:getHeight()
     t.x = t.x - t.w / 2
@@ -47,19 +46,30 @@ function Bullet:initialize(t)
         end)
     end
 
-    -- animate enemy bullet
+    -- -- animate enemy bullet
+    -- if self.img == img.bulletEnemy then
+    --     self.anim_current = {
+    --         frequency = 5,
+    --         self.img.quads[1],
+    --         self.img.quads[2],
+    --     }
+    -- else
+    --     self.anim_current = {
+    --         self.img.quads[1],
+    --     }
+    -- end
+    -- self.anim_cycle = 0
+
     if self.img == img.bulletEnemy then
-        self.anim_current = {
-            frequency = 5,
-            self.img.quads[1],
-            self.img.quads[2],
-        }
+        self.sprite = sprites.enemyBullet:newInstance()
     else
-        self.anim_current = {
-            self.img.quads[1],
-        }
+        self.sprite = sprites.playerBullet:newInstance()
     end
-    self.anim_cycle = 0
+end
+
+function Bullet:draw()
+    local x, y = self:getRect()
+    self.sprite:draw(x, y)
 end
 
 function Bullet:shootTowardsTarget(t)
@@ -81,7 +91,8 @@ end
 function Bullet:update(dt)
     Base.update(self, dt)
 
-    self:animate(dt)
+    self.sprite:animate(dt)
+    -- self:animate(dt)
 
     self:removeIfOffscreen()
 end

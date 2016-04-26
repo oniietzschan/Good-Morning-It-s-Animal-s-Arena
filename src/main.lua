@@ -6,6 +6,7 @@ canvas_debug = nil
 font = nil
 game = nil
 img = nil
+sprites = nil
 input = nil
 new = nil -- boipushy's fault, not mine!!
 player = nil
@@ -23,6 +24,7 @@ rng = function(min, max) return loveRng:random(min, max) end
 
 local boipushy = require 'lib.boipushy'
 class = require 'lib.middleclass'
+Mokyu = require 'lib.mokyu'
 Serpent = require 'lib.serpent'
 require "socket"
 Timer = require "lib.hump.timer"
@@ -217,6 +219,11 @@ function initGraphics()
         img[name] = Image(path, quad_w, quad_h)
     end
     tiles = require 'system/tiles'
+
+    sprites = {}
+    sprites.playerBullet = Mokyu.newSprite(img.bulletPlayer.image, 5, 5)
+    sprites.enemyBullet  = Mokyu.newSprite(img.bulletEnemy.image,  7, 7, 2)
+        :addAnimation('default', {frequency = 5, 1, 2})
 end
 
 function initSound()

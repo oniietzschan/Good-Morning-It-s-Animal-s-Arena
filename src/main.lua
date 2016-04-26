@@ -24,7 +24,7 @@ rng = function(min, max) return loveRng:random(min, max) end
 
 local boipushy = require 'lib.boipushy'
 class = require 'lib.middleclass'
-Mokyu = require 'lib.mokyu'
+Mokyu = require 'lib.mokyu.mokyu'
 Serpent = require 'lib.serpent'
 require "socket"
 Timer = require "lib.hump.timer"

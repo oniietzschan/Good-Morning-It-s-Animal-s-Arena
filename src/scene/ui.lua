@@ -52,7 +52,7 @@ function Ui:draw()
         self:drawGameOver()
     end
 
-    -- self:drawFps()
+    self:drawFps()
     -- self:drawDialog()
     -- self:drawDialogDebug()
 end

@@ -14,6 +14,10 @@ function Friendly:handleBulletCollision()
     end)
 
     for i,item in ipairs(items) do
+        if self.parent.hp <= 0 then
+            return
+        end
+
         Util.sound('playerHurt')
 
         self.parent:takeDamage(item.entity.damage)
